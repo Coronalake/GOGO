@@ -195,7 +195,7 @@ main {
 .select-group select:focus {
     border-color: #4CAF50;
     outline: none;
-    box-shadow: 0 0 3px rgba(76, 175, 80, 0.5);
+    box-shadow: 0 0 3px rgba(101, 135, 102, 0.5);
 }
 
 /* 图表区域样式 */
