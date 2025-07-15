@@ -603,6 +603,12 @@ main {
     padding: 20px;
 }
 
+#regionBarChart {
+    width: 100%;
+    height: 220px;   /* 或你想要的任何高度 */
+    margin-top: 8px; /* 与标题留一点间距 */
+}
+
 /* 响应式设计 */
 @media (max-width: 1200px) {
     main {
