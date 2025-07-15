@@ -223,7 +223,7 @@ function updateCoveragePieChart() {
       {
         name: '植被覆盖度',
         type: 'pie',
-        radius: ['40%', '80%'], // 环形图
+        radius: ['25%', '60%'], // 环形图
         avoidLabelOverlap: false,
         top:10,
         bottom:40,
