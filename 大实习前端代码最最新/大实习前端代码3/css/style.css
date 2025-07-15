@@ -251,10 +251,8 @@ main {
     height: 160px;
 }
 
-
-
 #coverageLineChart {
-    height: 250px;
+    height: 200px;
 }
 
 /* 模态框样式 */
