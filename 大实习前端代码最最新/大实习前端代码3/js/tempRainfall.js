@@ -137,7 +137,7 @@ function updateTemperatureRainfallChart() {
       console.log('使用现有图表实例');
     }
     
-    // 设置图表选项 - 移除title配置
+    // 设置图表选项
     const option = {
       tooltip: {
         trigger: 'axis',
@@ -151,7 +151,7 @@ function updateTemperatureRainfallChart() {
       grid: {
         left: '3%',
         right: '4%',
-        bottom: '3%',
+        bottom: '10%',
         containLabel: true
       },
       xAxis: {

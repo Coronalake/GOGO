@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 例如: searchRegionData(params);
             
             // 临时提示
-            alert(`搜索条件: 省=${params.province}, 市=${params.city || '全省'}, 县=${params.county || '全市'}`);
+           // alert(`搜索条件: 省=${params.province}, 市=${params.city || '全省'}, 县=${params.county || '全市'}`);
 
             
         });
