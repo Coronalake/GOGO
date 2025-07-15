@@ -194,103 +194,105 @@
             document.querySelector('.time-label').textContent = this.value + '年';
         });
 
-        // 植被覆盖度折线图初始化
-        function initCoverageLineChart() {
-            const chartDom = document.getElementById('coverageLineChart');
-            if (!chartDom) return;
-            
-            const myChart = echarts.init(chartDom);
-            const option = {
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: params => {
-                        return `年份: ${params[0].axisValue}<br/>FVC: ${params[0].data.toFixed(4)}`;
-                    }
-                },
-                xAxis: {
-                    type: 'category',
-                    data: [],
-                    axisLabel: {
-                        rotate: 30,
-                        interval: 0
-                    }
-                },
-                yAxis: {
-                    type: 'value',
-                    min: 0.5,
-                    max: 0.8,
-                    axisLabel: {
-                        formatter: '{value}'
-                    }
-                },
-                series: [{
-                    data: [],
-                    type: 'line',
-                    smooth: true,
-                    symbol: 'circle',
-                    symbolSize: 8,
-                    lineStyle: {
-                        width: 3,
-                        color: '#4CAF50'
-                    },
-                    itemStyle: {
-                        color: '#4CAF50'
-                    },
-                    areaStyle: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                            { offset: 0, color: 'rgba(76, 175, 80, 0.3)' },
-                            { offset: 1, color: 'rgba(76, 175, 80, 0.1)' }
-                        ])
-                    },
-                    markPoint: {
-                        data: [
-                            { type: 'max', name: '最大值' },
-                            { type: 'min', name: '最小值' }
-                        ]
-                    },
-                    markLine: {
-                        data: [{ type: 'average', name: '平均值' }]
-                    }
-                }],
-                grid: {
-                    left: '10%',
-                    right: '5%',
-                    bottom: '20%',
-                    containLabel: true
-                }
-            };
-            myChart.setOption(option);
+      let fvcData = [];
 
-            // 加载CSV数据（同级目录下的文件）
-            Papa.parse('yunnan_fvc_2012_2023.csv', {
-                download: true,
-                header: true,
-                complete: function(results) {
-                    const validData = results.data.filter(item => item.year && item.fvc_mean);
-                    const years = validData.map(item => item.year);
-                    const values = validData.map(item => parseFloat(item.fvc_mean));
-                    
-                    // 更新图表数据
-                    myChart.setOption({
-                        xAxis: {
-                            data: years
-                        },
-                        series: [{
-                            data: values
-                        }]
-                    });
-                },
-                error: function(error) {
-                    console.error('CSV加载错误:', error);
-                    chartDom.innerHTML = '<p class="error-msg">数据加载失败，请检查控制台</p>';
-                }
-            });
+function initCoverageLineChart() {
+    const chartDom = document.getElementById('coverageLineChart');
+    if (!chartDom) return;
 
-            window.addEventListener('resize', function() {
-                myChart.resize();
-            });
+    const myChart = echarts.init(chartDom);
+
+    // 加载CSV
+    Papa.parse('fvc_data.csv', {
+        download: true,
+        header: true,
+        complete: function(results) {
+            fvcData = results.data.filter(d => d.region_id && d.year && d.fvc_mean);
+            // 默认显示云南省
+            updateFVCChart('530000');
+        },
+        error: function(error) {
+            console.error('CSV加载失败:', error);
+            chartDom.innerHTML = '<p class="error-msg">FVC数据加载失败</p>';
+        }
+    });
+
+    // 点击搜索按钮后更新
+    document.getElementById('region-search-btn').addEventListener('click', function () {
+        const cityCode = document.getElementById('city-select').value;
+        const countyCode = document.getElementById('county-select').value;
+        const selectedCode = countyCode || cityCode || '530000';
+        updateFVCChart(selectedCode);
+    });
+
+    function updateFVCChart(regionCode) {
+        const filtered = fvcData.filter(d => d.region_id === regionCode);
+        if (!filtered.length) {
+            myChart.setOption({ series: [{ data: [] }] });
+            return;
         }
 
+        filtered.sort((a, b) => a.year - b.year);
+        const years = filtered.map(d => d.year);
+        const values = filtered.map(d => parseFloat(d.fvc_mean));
+        const regionName = filtered[0]?.region_name || '未知区域';
+
+        myChart.setOption({
+            title: {
+                text: `${regionName} 十年植被覆盖度变化`,
+                left: 'center',
+                textStyle: { fontSize: 14 }
+            },
+            tooltip: {
+                trigger: 'axis',
+                formatter: p => `${p[0].axisValue}年: ${p[0].data.toFixed(4)}`
+            },
+            xAxis: {
+                type: 'category',
+                data: years,
+                axisLabel: { rotate: 45 }
+            },
+            yAxis: {
+                type: 'value',
+                min: 0,
+                max: 1,
+                axisLabel: { formatter: v => v.toFixed(2) }
+            },
+            series: [{
+                data: values,
+                type: 'line',
+                smooth: true,
+                symbol: 'circle',
+                symbolSize: 6,
+                lineStyle: { width: 3, color: '#4CAF50' },
+                itemStyle: { color: '#4CAF50' },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                        { offset: 0, color: 'rgba(76, 175, 80, 0.3)' },
+                        { offset: 1, color: 'rgba(76, 175, 80, 0.1)' }
+                    ])
+                },
+                markPoint: {
+                    data: [
+                        { type: 'max', name: '最大值' },
+                        { type: 'min', name: '最小值' }
+                    ]
+                },
+                markLine: {
+                    data: [{ type: 'average', name: '平均值' }]
+                }
+            }],
+            grid: {
+                left: '10%',
+                right: '5%',
+                bottom: '20%',
+                containLabel: true
+            }
+        });
+    }
+
+    window.addEventListener('resize', () => myChart.resize());
+}
         // 页面加载完成后初始化图表
         document.addEventListener('DOMContentLoaded', function() {
             initCoverageLineChart();
