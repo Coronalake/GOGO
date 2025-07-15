@@ -609,6 +609,11 @@ main {
     margin-top: 8px; /* 与标题留一点间距 */
 }
 
+#tempRainfallChart {
+  min-height: 260px;   /* 给折线图一个最小高度 */
+  height: 260px;       /* 固定高度也行，确保不被 flex/grid 挤扁 */
+}
+
 /* 响应式设计 */
 @media (max-width: 1200px) {
     main {

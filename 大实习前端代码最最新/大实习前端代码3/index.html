@@ -296,5 +296,13 @@ function initCoverageLineChart() {
     </script>
     <script src="js/year-ragion.js"></script>
     <script src="js/fixChartResize.js"></script>
+    <script>
+window.addEventListener('load', () =>
+  ['coveragePieChart', 'tempRainfallChart'].forEach(id => {
+    const chart = echarts.getInstanceByDom(document.getElementById(id));
+    chart && setTimeout(() => chart.resize(), 50);
+  })
+);
+</script>
 </body>
 </html>
