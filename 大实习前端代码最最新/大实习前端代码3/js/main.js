@@ -446,6 +446,5 @@ document.getElementById('region-search-btn').addEventListener('click', function(
     }
   });
   
-  // 继续原有的代码...
 });
 
