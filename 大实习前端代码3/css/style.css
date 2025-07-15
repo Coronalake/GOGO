@@ -1,0 +1,624 @@
+/* css/style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    background-image: url('../pic/background.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+}
+
+/* 头部样式 */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: #333;
+    font-size: 35px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #373737;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+nav ul li a:hover {
+    color: #333;
+}
+
+nav ul li a.active {
+    color: #333;
+    font-weight: bold;
+}
+
+.user-controls {
+    display: flex;
+    align-items: center;
+}
+
+.user-controls a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+/* 主内容区域 */
+main {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 左侧区域 */
+.left-section {
+    width: 24%;
+    margin-right: 20px;
+}
+
+/* 中间区域 */
+.center-section {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 右侧区域 */
+.right-section {
+    width: 24%;
+    margin-left: 20px;
+}
+
+/* 面板样式 */
+.panel {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 筛选面板样式 */
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    appearance: none;
+    background-size: 12px;
+}
+
+.select-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap; /* 在小屏幕上允许换行 */
+}
+
+/* 省级下拉框样式 */
+#province-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    width: 100px; /* 省级下拉框宽度 */
+}
+
+/* 市级下拉框样式 */
+#city-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    width: 180px; /* 市级下拉框宽度 */
+}
+
+/* 县级下拉框样式 */
+#county-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    width: 150px; /* 县级下拉框宽度 */
+}
+
+/* 搜索按钮样式 */
+#region-search-btn {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 80px; /* 搜索按钮宽度 */
+    height: 36px; /* 搜索按钮高度 */
+}
+
+#region-search-btn:hover {
+    background-color: #45a049;
+}
+
+/* 下拉框悬停效果 */
+.select-group select:hover {
+    border-color: #999;
+}
+
+/* 下拉框聚焦效果 */
+.select-group select:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 3px rgba(76, 175, 80, 0.5);
+}
+
+/* 图表区域样式 */
+.chart {
+    margin-bottom: 20px;
+}
+
+.chart:last-child {
+    margin-bottom: 0;
+}
+
+.chart h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* 地图样式 */
+.map {
+    height: 545px;
+    background: #eee;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 时间轴控制 */
+.timeline-control {
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeline-control input[type="range"] {
+    width: 90%;
+    margin-bottom: 5px;
+}
+
+.time-label {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 图表尺寸 */
+#coveragePieChart {
+    height: 160px;
+}
+
+#regionBarChart {
+    height: 160px;
+}
+
+#tempRainfallChart {
+    height: 250px;
+}
+
+#coverageLineChart {
+    height: 250px;
+}
+
+/* 模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 400px;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+
+.modal h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+.en-title {
+    font-size: 14px;
+    color: #999;
+    font-weight: normal;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.user-icon {
+    background-image: url('../pic/person.png');
+}
+
+.email-icon {
+    background-image: url('../pic/email.png');
+}
+
+.lock-icon {
+    background-image: url('../pic/password.png');
+}
+
+.info-icon {
+    background-image: url('../pic/code.png');
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.captcha {
+    display: flex;
+}
+
+.captcha input {
+    flex: 1;
+}
+
+.captcha-img {
+    width: 100px;
+    height: 38px;
+    background-color: #eee;
+    margin-left: 10px;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4a8af4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-btn, .reset-pwd-btn {
+    margin-bottom: 15px;
+}
+
+.register-link {
+    display: block;
+    text-align: center;
+    color: #4a8af4;
+    text-decoration: none;
+}
+
+.forgot-pwd {
+    color: #4a8af4;
+    text-decoration: none;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+}
+
+.remember-me input {
+    margin-right: 5px;
+}
+/* 动态监测页 - 左侧筛选区 */
+.monitor-page .left-section {
+    width: 32%; 
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 筛选面板容器 */
+.monitor-page .left-section > .panel:first-child {
+    padding: 20px; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
+}
+
+
+.monitor-page .filter-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4b5563; 
+    font-size: 14px;
+    font-weight: 500; 
+}
+
+/* 下拉选择框 */
+.monitor-page .filter-group select {
+    width: 100%;
+    padding: 10px 12px; 
+    border: 1px solid #cbd5e1; 
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1e293b; 
+    background: url('data:image/svg+xml;utf8,<svg fill="%2364748b" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 12px center;
+    background-size: 16px;
+    transition: border-color 0.2s; 
+}
+
+.monitor-page .filter-group select:focus {
+    outline: none;
+    border-color: #0096c7; 
+    box-shadow: 0 0 0 2px rgba(0,150,199,0.1); 
+}
+
+.monitor-page .btn-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px; 
+}
+.monitor-page .btn-group button {
+    flex: 1;
+    padding: 11px 0; 
+    font-size: 15px; 
+    border-radius: 6px;
+    transition: all 0.2s ease; 
+}
+.monitor-page .btn-group .confirm-btn {
+    background-color: #0096c7;
+    color: #fff;
+    font-weight: 500; 
+    box-shadow: 0 2px 4px rgba(0,150,199,0.2); 
+}
+.monitor-page .btn-group .confirm-btn:hover {
+    background-color: #0086b3; 
+    transform: translateY(-1px); 
+}
+
+.monitor-page .btn-group .cancel-btn {
+    background-color: #f8fafc;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+}
+.monitor-page .btn-group .cancel-btn:hover {
+    background-color: #f1f5f9; 
+}
+
+
+.monitor-page .left-section > .panel:last-child {
+    padding: 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.monitor-page .chart h3 {
+    font-size: 15px;
+    color: #334155;
+    margin-bottom: 12px;
+    padding-left: 4px;
+}
+
+.monitor-page #coveragePieChart,
+.monitor-page #regionBarChart {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 16px; 
+    border-radius: 6px;
+    background-color: #f8fafc; 
+    border: 1px solid #f1f5f9;
+}
+
+
+.monitor-page .center-section {
+    width: 100%;
+    padding: 16px; 
+    background-color: #fff; 
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.monitor-page .map {
+    width: 100%;
+    height: 600px;
+    border-radius: 8px;
+    background: #fff url('../pic/map-placeholder.png') no-repeat center;
+    background-size: contain;
+    border: 1px solid #e2e8f0;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05); 
+    transition: all 0.3s ease; 
+}
+.monitor-page .map:hover {
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.08);
+}
+
+
+@media (max-width: 1200px) {
+    .monitor-page .left-section {
+        width: 100%; 
+    }
+    .monitor-page .center-section {
+        width: 100%;
+        margin-top: 16px;
+    }
+    .monitor-page .map {
+        height: 400px; 
+    }
+}
+
+/* 报告模态框专属样式 */
+.report-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1001; 
+  align-items: center;
+  justify-content: center;
+}
+.report-content {
+  width: 600px; 
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  position: relative;
+}
+.report-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+.report-chart {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+.report-info {
+  margin-bottom: 20px;
+  line-height: 1.8;
+  color: #555;
+}
+.export-options {
+  margin-top: 10px;
+}
+.export-options input {
+  margin-right: 5px;
+}
+.download-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+.download-btn:hover {
+  background-color: #1d4ed8;
+}
+
+#coverageLineChart {
+    width: 100%;
+    height: 300px;
+    margin-top: 15px;
+}
+.error-msg {
+    color: #f44336;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    main {
+        flex-direction: column;
+    }
+    
+    .left-section, .center-section, .right-section {
+        width: 100%;
+        margin: 0 0 20px 0;
+    }
+    
+    .map {
+        height: 400px;
+    }
+}

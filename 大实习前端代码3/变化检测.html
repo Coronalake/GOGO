@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云南省植被覆盖度监测系统</title>
+    <style>
+        /* 新增的精准布局调整CSS */
+        .monitor-page main {
+            display: flex;
+            height: calc(100vh - 150px); /* 保持原有高度计算 */
+            align-items: flex-start; /* 顶部对齐 */
+        }
+        
+        .monitor-page .left-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 两端对齐 */
+            height: 100%; /* 与右边同高 */
+        }
+        
+        .monitor-page .panel:first-child {
+            margin-bottom: 10px; /* 控制上下间距 */
+        }
+        
+        .monitor-page .panel:last-child {
+            margin-top: 0; /* 移除默认上边距 */
+            position: relative; /* 为微调做准备 */
+            top: -20px; /* 关键调整：向上移动20像素 */
+        }
+        
+        .monitor-page .center-section {
+            height: 100%; /* 与左边同高 */
+        }
+        
+        /* 确保饼图容器保持原有高度 */
+        .monitor-page #coveragePieChart {
+            height: 320px; /* 保持原有高度 */
+        }
+    </style>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="monitor-page">
+    <!-- 保持原有的完整HTML结构不变 -->
+    <div class="container">
+        <header>
+            <h1>云南省植被覆盖度监测系统</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">云南省概况</a></li>
+                    <li><a href="变化检测.html" class="nav-link active">变化监测</a></li>
+                    <li><a href="模型预测.html">模型预测</a></li>
+                    <li><a href="帮助文档.html">帮助与支持文档</a></li>
+                </ul>
+            </nav>
+            <div class="user-controls">
+                <a href="#" id="loginBtn">登录</a>|<a href="#" id="registerBtn">注册</a>
+            </div>
+        </header>
+
+        <main>
+            <div class="left-section">
+                <div class="panel">
+                    <div class="filter-group">
+                        <label>选择监督区域：</label>
+                        <div class="select-wrapper">
+                            <select id="dataType">
+                                <option>昆明市</option>
+                                <option>大理州</option>
+                                <option>丽江市</option>
+                                <option>西双版纳</option>
+                                <option>迪庆州</option>
+                                <option>楚雄州</option>
+                                <option>红河州</option>
+                                <option>昭通市</option>
+                                <option>保山市</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>监测起始时间：</label>
+                        <select id="startTimeSelect">
+                            <option value="2013">2013年</option>
+                            <option value="2014">2014年</option>
+                            <option value="2015">2015年</option>
+                            <option value="2016">2016年</option>
+                            <option value="2017">2017年</option>
+                            <option value="2018">2018年</option>
+                            <option value="2019">2019年</option>
+                            <option value="2020">2020年</option>
+                            <option value="2021">2021年</option>
+                            <option value="2022">2022年</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>监测结束时间：</label>
+                        <select id="endTimeSelect">
+                            <option value="2013">2013年</option>
+                            <option value="2014">2014年</option>
+                            <option value="2015">2015年</option>
+                            <option value="2016">2016年</option>
+                            <option value="2017">2017年</option>
+                            <option value="2018">2018年</option>
+                            <option value="2019">2019年</option>
+                            <option value="2020">2020年</option>
+                            <option value="2021">2021年</option>
+                            <option value="2022" selected>2022年</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn confirm-btn">确认</button>
+                        <button class="btn cancel-btn">取消</button>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="chart">
+                        <h3>云南省十年平均植被覆盖度变化趋势</h3>
+                        <div id="coveragePieChart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center-section">
+                <div id="yunnanMap" class="map"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 保持所有弹窗和脚本完全不变 -->
+    <!-- 登录弹窗 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>云南省植被覆盖度监测系统<br><span class="en-title">Vegetation coverage detection system in Yunnan Province</span></h2>
+            
+            <div class="login-form">
+                <div class="form-group">
+                    <span class="icon user-icon"></span>
+                    <input type="text" id="loginEmail" placeholder="邮箱或电话号码">
+                </div>
+                <div class="form-group">
+                    <span class="icon lock-icon"></span>
+                    <input type="password" id="loginPassword" placeholder="密码">
+                </div>
+                <div class="form-group captcha">
+                    <span class="icon info-icon"></span>
+                    <input type="text" id="loginCaptcha" placeholder="验证码">
+                    <div class="captcha-img"></div>
+                </div>
+                
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">30天内免登录</label>
+                    </div>
+                    <a href="#" class="forgot-pwd">重置密码</a>
+                </div>
+                
+                <button class="btn login-btn">登录</button>
+                <a href="#" class="register-link">注册</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 注册弹窗 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>云南省植被覆盖度监测系统<br><span class="en-title">Vegetation coverage detection system in Yunnan Province</span></h2>
+            
+            <div class="register-form">
+                <div class="form-group">
+                    <span class="icon user-icon"></span>
+                    <input type="text" id="regUsername" placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <span class="icon email-icon"></span>
+                    <input type="email" id="regEmail" placeholder="输入邮箱或电话号码">
+                </div>
+                <div class="form-group">
+                    <span class="icon lock-icon"></span>
+                    <input type="password" id="regPassword" placeholder="输入新密码">
+                </div>
+                <div class="form-group captcha">
+                    <span class="icon info-icon"></span>
+                    <input type="text" id="regCaptcha" placeholder="验证码">
+                    <div class="captcha-img"></div>
+                </div>
+                
+                <button class="btn reset-pwd-btn">重置密码</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 报告模态框 -->
+    <div class="modal report-modal" id="reportModal">
+        <div class="modal-content report-content">
+            <span class="close-btn">&times;</span>
+            <h3>生成报告</h3>
+            <div class="report-section">
+                <p class="report-title">对比监测结果图</p>
+                <div class="report-chart" style="background: url('pic/report-chart.png') no-repeat center; background-size: contain;"></div>
+            </div>
+            <div class="report-info">
+                <p>××省××市/区/县20××年和20××年双年植被覆盖度变化监测报告</p>
+                <p>报告生成时间：<span id="reportTime"></span></p>
+                <p>监测范围：<span id="reportRange"></span></p>
+                <div class="export-options">
+                    <label>导出格式：</label>
+                    <input type="checkbox" id="exportWord" checked> Word
+                    <input type="checkbox" id="exportPdf" checked> PDF
+                </div>
+            </div>
+            <button class="btn download-btn" id="downloadReport">下载结果报告</button>
+        </div>
+    </div>
+
+    <script src="js/echarts.min.js"></script>
+    <script src="js/yunnan.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/charts.js"></script>
+</body>
+</html>

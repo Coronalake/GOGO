@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云南省植被覆盖度监测系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="lib\echarts.min.js"></script>
+    <!-- 在<head>部分添加 -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- 添加PapaParse CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>云南省植被覆盖度监测系统</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">云南省概况</a></li>
+                    <li><a href="变化检测.html">变化监测</a></li>
+                    <li><a href="模型预测.html">模型预测</a></li>
+                    <li><a href="帮助文档.html">帮助与支持文档</a></li>
+                </ul>
+            </nav>
+            <div class="user-controls">
+                <a href="#" id="loginBtn">登录</a>|<a href="#" id="registerBtn">注册</a>
+            </div>
+        </header>
+
+        
+        <main>
+            <div class="left-section">
+                <div class="panel">
+                    <div class="filter-group">
+                        <label>数据类型：</label>
+                        <div class="select-wrapper">
+                            <select id="dataType">
+                                <option value="1">植被覆盖度</option>
+                                <option value="2">地形</option>
+                                <option value="3">植被类型</option>
+                                <option value="4">地貌类型</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>区域范围：</label>
+                        <div class="select-group">
+                            <select id="province-select" name="province">
+                                <option value="530000">云南省</option>
+                            </select>                            
+                            <select id="city-select" name="city">
+                                <option value="">市</option>
+                                <option value="530100">昆明市</option>
+                                <option value="530300">曲靖市</option>
+                                <option value="530400">玉溪市</option>
+                                <option value="530500">保山市</option>
+                                <option value="530600">昭通市</option>
+                                <option value="530700">丽江市</option>
+                                <option value="530800">普洱市</option>
+                                <option value="530900">临沧市</option>
+                                <option value="532300">楚雄彝族自治州</option>
+                                <option value="532500">红河哈尼族彝族自治州</option>
+                                <option value="532600">文山壮族苗族自治州</option>
+                                <option value="532800">西双版纳傣族自治州</option>
+                                <option value="532900">大理白族自治州</option>
+                                <option value="533100">德宏傣族景颇族自治州</option>
+                                <option value="533300">怒江傈僳族自治州</option>
+                                <option value="533400">迪庆藏族自治州</option>
+                            </select>
+                            
+                            <select id="county-select" name="county">
+                                <option value="">县</option>
+                                <!-- 县级选项将通过JavaScript动态填充 -->
+                            </select>
+                            
+                            <button id="region-search-btn" class="search-btn">搜索</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="chart">
+                        <h3>云南省不同等级植被覆盖度面积</h3>
+                        <div id="coveragePieChart"></div>
+                    </div>
+                    <div class="chart">
+                        <h3>云南省平均植被覆盖度</h3>
+                        <div id="regionBarChart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center-section">
+                <div id="yunnanMap" class="map"></div>
+                <div class="timeline-control">
+                    <input type="range" id="timeSlider" min="2013" max="2022" value="2020" step="1">
+                    <div class="time-label">2020年</div>
+                </div>
+            </div>
+
+            <div class="right-section">
+                <div class="panel">
+                    <div class="chart">
+                        <h3>云南省十年温度变化和降水量</h3>
+                        <div id="tempRainfallChart"></div>
+                    </div>
+                    <div class="chart">
+                        <h3>云南省十年平均植被覆盖度</h3>
+                        <div id="coverageLineChart"></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 登录弹窗 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>云南省植被覆盖度监测系统<br><span class="en-title">Vegetation coverage detection system in Yunnan Province</span></h2>
+            
+            <div class="login-form">
+                <div class="form-group">
+                    <span class="icon user-icon"></span>
+                    <input type="text" id="loginEmail" placeholder="邮箱或电话号码">
+                </div>
+                <div class="form-group">
+                    <span class="icon lock-icon"></span>
+                    <input type="password" id="loginPassword" placeholder="密码">
+                </div>
+                <div class="form-group captcha">
+                    <span class="icon info-icon"></span>
+                    <input type="text" id="loginCaptcha" placeholder="验证码">
+                    <div class="captcha-img"></div>
+                </div>
+                
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">30天内免登录</label>
+                    </div>
+                    <a href="#" class="forgot-pwd">重置密码</a>
+                </div>
+                
+                <button class="btn login-btn">登录</button>
+                <a href="#" class="register-link">注册</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 注册弹窗 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>云南省植被覆盖度监测系统<br><span class="en-title">Vegetation coverage detection system in Yunnan Province</span></h2>
+            
+            <div class="register-form">
+                <div class="form-group">
+                    <span class="icon user-icon"></span>
+                    <input type="text" id="regUsername" placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <span class="icon email-icon"></span>
+                    <input type="email" id="regEmail" placeholder="输入邮箱或电话号码">
+                </div>
+                <div class="form-group">
+                    <span class="icon lock-icon"></span>
+                    <input type="password" id="regPassword" placeholder="输入新密码">
+                </div>
+                <div class="form-group captcha">
+                    <span class="icon info-icon"></span>
+                    <input type="text" id="regCaptcha" placeholder="验证码">
+                    <div class="captcha-img"></div>
+                </div>
+                
+                <button class="btn reset-pwd-btn">重置密码</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/echarts.min.js"></script>
+    <script src="js/yunnan.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/map.js"></script>
+
+    <script>
+        // 更新时间显示
+        document.getElementById('timeSlider').addEventListener('input', function() {
+            document.querySelector('.time-label').textContent = this.value + '年';
+        });
+
+        // 植被覆盖度折线图初始化
+        function initCoverageLineChart() {
+            const chartDom = document.getElementById('coverageLineChart');
+            if (!chartDom) return;
+            
+            const myChart = echarts.init(chartDom);
+            const option = {
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: params => {
+                        return `年份: ${params[0].axisValue}<br/>FVC: ${params[0].data.toFixed(4)}`;
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: [],
+                    axisLabel: {
+                        rotate: 30,
+                        interval: 0
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    min: 0.5,
+                    max: 0.8,
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                },
+                series: [{
+                    data: [],
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'circle',
+                    symbolSize: 8,
+                    lineStyle: {
+                        width: 3,
+                        color: '#4CAF50'
+                    },
+                    itemStyle: {
+                        color: '#4CAF50'
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            { offset: 0, color: 'rgba(76, 175, 80, 0.3)' },
+                            { offset: 1, color: 'rgba(76, 175, 80, 0.1)' }
+                        ])
+                    },
+                    markPoint: {
+                        data: [
+                            { type: 'max', name: '最大值' },
+                            { type: 'min', name: '最小值' }
+                        ]
+                    },
+                    markLine: {
+                        data: [{ type: 'average', name: '平均值' }]
+                    }
+                }],
+                grid: {
+                    left: '10%',
+                    right: '5%',
+                    bottom: '20%',
+                    containLabel: true
+                }
+            };
+            myChart.setOption(option);
+
+            // 加载CSV数据（同级目录下的文件）
+            Papa.parse('yunnan_fvc_2012_2023.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    const validData = results.data.filter(item => item.year && item.fvc_mean);
+                    const years = validData.map(item => item.year);
+                    const values = validData.map(item => parseFloat(item.fvc_mean));
+                    
+                    // 更新图表数据
+                    myChart.setOption({
+                        xAxis: {
+                            data: years
+                        },
+                        series: [{
+                            data: values
+                        }]
+                    });
+                },
+                error: function(error) {
+                    console.error('CSV加载错误:', error);
+                    chartDom.innerHTML = '<p class="error-msg">数据加载失败，请检查控制台</p>';
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                myChart.resize();
+            });
+        }
+
+        // 页面加载完成后初始化图表
+        document.addEventListener('DOMContentLoaded', function() {
+            initCoverageLineChart();
+        });
+
+        
+    </script>
+</body>
+</html>
