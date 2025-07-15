@@ -1,4 +1,4 @@
-// tempRainfall.js - 修改版本
+// tempRainfall.js
 
 // 在页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
@@ -25,7 +25,7 @@ function loadTemperatureRainfallData() {
       return response.text();
     })
     .then(csvData => {
-      console.log('CSV数据已获取，长度:', csvData.length);
+      console.log('CSV数据已获取,长度:', csvData.length);
       // 解析CSV数据
       window.temperatureRainfallData = parseCSV(csvData);
       console.log('温度降水数据加载成功，数据条数:', window.temperatureRainfallData.length);
@@ -118,6 +118,8 @@ function updateTemperatureRainfallChart() {
   console.log('温度数据:', temperatures);
   console.log('降水量数据:', rainfall);
   
+  
+
   // 创建图表
   const chartDom = document.getElementById('tempRainfallChart');
   if (!chartDom) {

@@ -206,31 +206,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateMapData(timeSlider.value, dataType, regionType);
     }
 
-    function updateMapData(year, dataType = '1', regionType = 'province') {
-        // 从数据文件加载对应年份和类型的数据，并更新地图和图表
-        fetch(`data/${year}_${dataType}_${regionType}.json`)
-            .then(response => response.json())
-            .then(data => {
-                updateMap(data);
-                updateCharts(data);
-            })
-            .catch(error => {
-                console.error('数据加载错误:', error);
-                // 使用模拟数据
-                useMockData(year, dataType, regionType);
-            });
-    }
-    
-    function updateMap(data) {
-        // 使用ECharts更新地图
-        const mapChart = echarts.init(document.getElementById('yunnanMap'));
-        // 地图配置会在charts.js中实现
-    }
-
-    function updateCharts(data) {
-        // 在charts.js中实现
-    }
-
     // 初始化
     if (timeSlider) {
         updateMapData(timeSlider.value);
