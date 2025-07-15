@@ -204,12 +204,12 @@ main {
 }
 
 .chart:last-child {
-    margin-bottom: 0;
+    margin-bottom: 20px;
 }
 
 .chart h3 {
     font-size: 14px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     color: #555;
 }
 
