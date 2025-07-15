@@ -225,6 +225,8 @@ function updateCoveragePieChart() {
         type: 'pie',
         radius: ['25%', '60%'], // 环形图
         avoidLabelOverlap: false,
+        top:10,
+        bottom:40,
         label: {
           show: true,
           formatter: '{b}: {d}%'

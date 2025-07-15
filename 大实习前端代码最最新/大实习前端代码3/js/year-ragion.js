@@ -83,7 +83,7 @@
         trigger: 'axis',
         formatter: p => `${p[0].name}<br/>${year}年: ${p[0].value.toFixed(4)}`
       },
-      grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+      grid: { left: '3%', right: '4%', bottom: '3%', top:10,containLabel: true },
       xAxis: { type: 'category', data: data.map(d => d.name) },
       yAxis: { type: 'value', min: 0, max: 1 },
       series: [{
