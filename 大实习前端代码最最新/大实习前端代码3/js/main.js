@@ -206,10 +206,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateMapData(timeSlider.value, dataType, regionType);
     }
 
-    // 初始化
-    if (timeSlider) {
-        updateMapData(timeSlider.value);
-    }
 
 // 区域级联下拉框功能
 (function() {
