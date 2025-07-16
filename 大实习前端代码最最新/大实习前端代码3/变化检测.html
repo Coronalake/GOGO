@@ -46,6 +46,10 @@
         }
     </style>
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- PDF -->
+    <script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <script>
     /* ---------- 双年变化 GeoTIFF 地图（监听下拉框） ---------- */
@@ -359,10 +363,8 @@
             <p>监测范围：<span id="reportRange"></span></p>
                 <div class="export-options">
                     <label>导出格式：</label>
-                    <input type="checkbox" id="exportWord" checked> Word
                     <input type="checkbox" id="exportPdf" checked> PDF
                 </div>
-            </div>
             <button class="btn download-btn" id="downloadReport">下载结果报告</button>
         </div>
     </div>
@@ -372,5 +374,96 @@
     <script src="js/main.js"></script>
     <script src="js/charts.js"></script>
     <script src="js/monitor.js"></script>
+
+
+    <script>
+    /* ---------- 工具 ---------- */
+    const $ = sel => document.querySelector(sel);
+
+    /* ---------- 实时取值 ---------- */
+    function collectData () {
+        return {
+            title : $('#reportMainTitle').textContent.trim(),
+            imgUrl: $('#reportChart').style.backgroundImage
+                    .replace(/url\(["']?/, '')
+                    .replace(/["']?\)$/, '')
+        };
+    }
+
+    /* ---------- 高清文本 -> 图片 ---------- */
+    function textToImg(text, fontSize = 20, bold = false) {
+        const dpr = 4;                             // 放大倍数
+        const cvs = document.createElement('canvas');
+        const ctx = cvs.getContext('2d');
+        ctx.font = `${bold ? 'bold ' : ''}${fontSize}px "Microsoft YaHei",SimSun,sans-serif`;
+        const w = ctx.measureText(text).width + 40;
+        const h = fontSize * 2.2;
+
+        // 放大画布
+        cvs.width  = w * dpr;
+        cvs.height = h * dpr;
+        ctx.scale(dpr, dpr);                       // 坐标系同步放大
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = '#000000';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = `${bold ? 'bold ' : ''}${fontSize}px "Microsoft YaHei",SimSun,sans-serif`;
+        ctx.fillText(text, w / 2, h / 2);
+        return { dataURL: cvs.toDataURL('image/png'), w, h };
+    }
+
+    /* ---------- PDF ---------- */
+    async function exportPdf () {
+        const { title, imgUrl } = collectData();
+        const pdf = new jspdf.jsPDF({ orientation: 'p', unit: 'pt', format: 'a4' });
+        const pageW = pdf.internal.pageSize.getWidth();
+        const pageH = pdf.internal.pageSize.getHeight();
+        const margin = 40;
+
+        /* 1. 高清标题 */
+        const { dataURL: titleImg, w: tw, h: th } = textToImg(title, 20, true);
+        const titleW = pageW - 2 * margin;
+        pdf.addImage(titleImg, 'PNG', margin, margin, titleW, th * (titleW / tw));
+
+        /* 2. 高清时间 */
+        const { dataURL: footImg, w: fw, h: fh } = textToImg(
+            `报告生成时间：${new Date().toLocaleString('zh-CN')}`, 10
+        );
+        pdf.addImage(footImg, 'PNG', margin, pageH - 50, fw, fh);
+
+        /* 3. 原图（居中） */
+        if (imgUrl) {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = imgUrl; });
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const maxW = pageW - 2 * margin;
+            const maxH = pageH - 200;
+            let w = img.width, h = img.height;
+            if (w > maxW) { h *= maxW / w; w = maxW; }
+            if (h > maxH) { w *= maxH / h; h = maxH; }
+            canvas.width = w * 4;
+            canvas.height = h * 4;
+            ctx.scale(4, 4);
+            ctx.drawImage(img, 0, 0, w, h);
+            pdf.addImage(canvas.toDataURL('image/png'), 'PNG',
+                        (pageW - w) / 2, margin + 60, w, h);
+        }
+
+        /* 4. 保存 */
+        pdf.save(title.replace(/\s+/g, '_') + '.pdf');
+    }
+
+    /* ---------- 按钮绑定 ---------- */
+    $('#downloadReport').addEventListener('click', () => {
+        const needPdf = $('#exportPdf').checked;
+        if (needPdf) exportPdf();
+    });
+    </script>
+
+
+    
 </body>
 </html>
