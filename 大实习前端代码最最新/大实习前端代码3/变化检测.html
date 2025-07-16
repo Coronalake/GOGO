@@ -315,13 +315,17 @@
             <span class="close-btn">&times;</span>
             <h3>生成报告</h3>
             <div class="report-section">
-                <p class="report-title">对比监测结果图</p>
-                <div class="report-chart" style="background: url('pic/report-chart.png') no-repeat center; background-size: contain;"></div>
-            </div>
-            <div class="report-info">
-                <p>××省××市/区/县20××年和20××年双年植被覆盖度变化监测报告</p>
-                <p>报告生成时间：<span id="reportTime"></span></p>
-                <p>监测范围：<span id="reportRange"></span></p>
+            <!-- 2. 图表标题（动态对比时间） -->
+            <p class="report-title" id="reportChartTitle">对比监测结果图</p>
+            <!-- 3. 图表容器（动态加载对应图片） -->
+            <div class="report-chart" id="reportChart" style="background: url('pic/background.png') no-repeat center; background-size: contain;"></div>
+        </div>
+        
+        <div class="report-info">
+            <!-- 4. 报告主标题（动态替换××） -->
+            <p id="reportMainTitle">××省××市/区/县20××年和20××年双年植被覆盖度变化监测报告</p>
+            <p>报告生成时间：<span id="reportTime"></span></p>
+            <p>监测范围：<span id="reportRange"></span></p>
                 <div class="export-options">
                     <label>导出格式：</label>
                     <input type="checkbox" id="exportWord" checked> Word
@@ -336,5 +340,6 @@
     <script src="js/yunnan.js"></script>
     <script src="js/main.js"></script>
     <script src="js/charts.js"></script>
+    <script src="js/monitor.js"></script>
 </body>
 </html>
