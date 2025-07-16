@@ -91,7 +91,7 @@
         type: 'bar',
         data: data,
         barWidth: '60%',
-        itemStyle: { color: '#61acc1ff' } // 默认绿色
+        itemStyle: { color: '#61acc1ff' } 
       }]
     }, true); // true 强制合并
     myChart.resize();

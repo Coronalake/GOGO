@@ -176,7 +176,7 @@ function updateTempRainChart() {
           position: 'left',
           axisLine: {
             lineStyle: {
-              color: '#FF4500'
+              color: '#f3ad5dff'
             }
           }
         },
@@ -186,7 +186,7 @@ function updateTempRainChart() {
           position: 'right',
           axisLine: {
             lineStyle: {
-              color: '#1E90FF'
+              color: '#61acc1ff'
             }
           }
         }
@@ -202,10 +202,10 @@ function updateTempRainChart() {
           symbolSize: 6,
           lineStyle: {
             width: 3,
-            color: '#FF4500'
+            color: '#f3ad5dff'
           },
           itemStyle: {
-            color: '#FF4500'
+            color: '#f3ad5dff'
           }
         },
         {
@@ -218,14 +218,14 @@ function updateTempRainChart() {
           symbolSize: 6,
           lineStyle: {
             width: 3,
-            color: '#1E90FF'
+            color: '#61acc1ff'
           },
           itemStyle: {
-            color: '#1E90FF'
+            color: '#61acc1ff'
           },
           areaStyle: {
             opacity: 0.2,
-            color: '#1E90FF'
+            color: '#61acc1ff'
           }
         }
       ]

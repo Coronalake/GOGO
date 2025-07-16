@@ -137,9 +137,13 @@ main {
 
 .filter-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: bold;
+    font-size: 14px;
+
+    color: #555;
 }
+
 
 .select-wrapper {
     position: relative;
@@ -147,12 +151,22 @@ main {
 }
 
 .select-wrapper select {
-    width: 100%;
-    padding: 8px 10px;
-    border: 1px solid #ddd;
+    width: 180px;
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    appearance: none;
-    background-size: 12px;
+    background-color: white;
+}
+
+.select-wrapper select:hover {
+    border-color: #999;
+}
+
+.select-wrapper select:focus {
+   border-color: #61acc1ff;
+    outline: none;
+    box-shadow: 0 0 3px rgba(101, 135, 102, 0.5);
+    
 }
 
 .select-group {
@@ -161,6 +175,7 @@ main {
     align-items: center;
     flex-wrap: wrap; /* 在小屏幕上允许换行 */
 }
+
 
 /* 省级下拉框样式 */
 #province-select {
@@ -192,7 +207,7 @@ main {
 /* 搜索按钮样式 */
 #region-search-btn {
     padding: 8px 15px;
-    background-color: #4CAF50;
+    background-color: #61acc1ff;
     color: white;
     border: none;
     border-radius: 4px;
@@ -203,7 +218,7 @@ main {
 }
 
 #region-search-btn:hover {
-    background-color: #45a049;
+    background-color: rgb(59, 109, 123);
 }
 
 /* 下拉框悬停效果 */
@@ -213,7 +228,7 @@ main {
 
 /* 下拉框聚焦效果 */
 .select-group select:focus {
-    border-color: #4CAF50;
+    border-color: #61acc1ff;
     outline: none;
     box-shadow: 0 0 3px rgba(101, 135, 102, 0.5);
 }
@@ -461,6 +476,24 @@ main {
     margin-right: 5px;
 }
 /* 动态监测页 - 左侧筛选区 */
+.monitor-page .panel{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    height: 180px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.monitor-page .panel .chart{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    height: 180px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
 .monitor-page .left-section {
     width: 32%; 
     display: flex;

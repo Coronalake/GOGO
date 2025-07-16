@@ -199,10 +199,10 @@ function updateCoveragePieChart() {
   // 定义颜色映射
   const colorMap = {
     '低': '#E5F5E0',
-    '中低': '#A1D99B',
-    '中': '#74C476',
-    '中高': '#31A354',
-    '高': '#006D2C'
+    '中低': '#8cc3d2ff',
+    '中': '#61acc1ff',
+    '中高': '#47899bff',
+    '高': '#f3ad5dff'
   };
   
   // 提取颜色数组，与pieData顺序一致
