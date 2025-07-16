@@ -253,8 +253,10 @@
       try {
           elements.chartContainer.innerHTML = '<canvas></canvas>';
           const canvas = elements.chartContainer.querySelector('canvas');
-          canvas.style.width = '100%';
-          canvas.style.height = '200px';
+          canvas.style.width = '800px';
+          canvas.style.height = '450px';
+          canvas.style.display = 'block';      // 关键：让 canvas 变为块级元素
+          canvas.style.margin = '0 auto';      // 关键：水平居中
           
           new Chart(canvas.getContext('2d'), {
               type: 'line',
@@ -342,6 +344,7 @@
           // 创建临时容器用于渲染标题
           const titleContainer = document.createElement('div');
           titleContainer.style.width = '600px';
+          titleContainer.style.height = '90px';
           titleContainer.style.padding = '20px';
           titleContainer.style.position = 'absolute';
           titleContainer.style.left = '-9999px';
@@ -404,7 +407,7 @@
               });
               
               // 将图表图像添加到PDF
-              pdf.addImage(chartImg, 'PNG', 15, 45, 180, 120);
+              pdf.addImage(chartImg, 'PNG', 15, 45, 180, 90);
               console.log('使用ECharts导出成功');
             } else {
               throw new Error('无法获取ECharts实例');
@@ -450,13 +453,13 @@
               onclone: function(clonedDoc, clonedElement) {
                 console.log('克隆的图表元素:', clonedElement);
                 clonedElement.style.width = '450px';
-                clonedElement.style.height = '300px';
+                clonedElement.style.height = '200px';
               }
             });
             
             // 将图表图像添加到PDF
             const chartImg = chartCanvas.toDataURL('image/png');
-            pdf.addImage(chartImg, 'PNG', 15, 45, 180, 120);
+            pdf.addImage(chartImg, 'PNG', 15, 45, 180, 100);
             console.log('html2canvas捕获成功');
           } catch (captureError) {
             console.error('html2canvas捕获失败:', captureError);
