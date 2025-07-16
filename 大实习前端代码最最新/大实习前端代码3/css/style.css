@@ -18,6 +18,7 @@ body {
 .container {
     width: 100%;
     padding: 20px;
+    padding-bottom: 0%;
 }
 
 /* 头部样式 */
@@ -98,10 +99,29 @@ main {
 }
 
 /* 面板样式 */
-.panel {
+.panel-left1 {
     background-color: white;
     border-radius: 10px;
     padding: 15px;
+    height: 180px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.panel-left2{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    height: 400px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.panel-right{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    height: 595px;
     margin-bottom: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -148,7 +168,7 @@ main {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 100px; /* 省级下拉框宽度 */
+    width: 80px; /* 省级下拉框宽度 */
 }
 
 /* 市级下拉框样式 */
@@ -157,7 +177,7 @@ main {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 180px; /* 市级下拉框宽度 */
+    width: 70px; /* 市级下拉框宽度 */
 }
 
 /* 县级下拉框样式 */
@@ -166,7 +186,7 @@ main {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 150px; /* 县级下拉框宽度 */
+    width: 70px; /* 县级下拉框宽度 */
 }
 
 /* 搜索按钮样式 */
@@ -178,7 +198,7 @@ main {
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    width: 80px; /* 搜索按钮宽度 */
+    width: 60px; /* 搜索按钮宽度 */
     height: 36px; /* 搜索按钮高度 */
 }
 
@@ -199,18 +219,59 @@ main {
 }
 
 /* 图表区域样式 */
-.chart {
-    margin-bottom: 20px;
+.chartl1{
+    height: 160px;
+    margin-bottom: 15px;
 }
-
-.chart:last-child {
-    margin-bottom: 20px;
+/* 图表尺寸 */
+#coveragePieChart {
+    height: 150px;
+    
 }
-
-.chart h3 {
+.chartl1 h3{
     font-size: 14px;
-    margin-bottom: 20px;
     color: #555;
+    margin-bottom: 5px;
+}
+
+
+.chartl2{
+    margin-top: 5px;
+    height: 150px;
+}
+.chartl2 h3{
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+.chart-right{
+    margin-top: 10px;
+}
+.chart-right h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+#coverageLineChart {
+    width: 100%;
+    height: 250px;
+}
+.error-msg {
+    color: #f44336;
+    text-align: center;
+    padding: 20px;
+}
+
+#regionBarChart {
+    width: 100%;
+    height: 170px;   /* 或你想要的任何高度 */
+    margin-top: 8px; /* 与标题留一点间距 */
+}
+
+#tempRainfallChart {
+  min-height: 240px;   
+  height: 240px;     
+  margin-bottom: 5px;
 }
 
 /* 地图样式 */
@@ -229,31 +290,36 @@ main {
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    color: #ffffff;
+    border: none;
 }
 
 .timeline-control input[type="range"] {
-    width: 90%;
-    margin-bottom: 5px;
+    width: 100%;
+    height: 5px;
+    margin-bottom: 0px;
+    accent-color: rgb(248, 244, 211);
+    border: none;
+    outline: none;
+    background: transparent;
+    
 }
-
+.timeline-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* 移除默认样式 */
+    appearance: none;
+    width: 6px; /* 缩小滑块大小 */
+    height: 12px;
+    border-radius: 50%;
+    background: #3498db; /* 滑块颜色 */
+    cursor: pointer;
+}
 .time-label {
     font-size: 14px;
-    color: #666;
+    color: #404040;
+    
 }
 
-/* 图表尺寸 */
-#coveragePieChart {
-    height: 160px;
-}
-
-#regionBarChart {
-    height: 160px;
-}
-
-#coverageLineChart {
-    height: 200px;
-}
 
 /* 模态框样式 */
 .modal {
@@ -615,27 +681,7 @@ main {
   background-color: #1d4ed8;
 }
 
-#coverageLineChart {
-    width: 100%;
-    height: 300px;
-    margin-top: 15px;
-}
-.error-msg {
-    color: #f44336;
-    text-align: center;
-    padding: 20px;
-}
 
-#regionBarChart {
-    width: 100%;
-    height: 220px;   /* 或你想要的任何高度 */
-    margin-top: 8px; /* 与标题留一点间距 */
-}
-
-#tempRainfallChart {
-  min-height: 260px;   /* 给折线图一个最小高度 */
-  height: 260px;       /* 固定高度也行，确保不被 flex/grid 挤扁 */
-}
 
 /* 响应式设计 */
 @media (max-width: 1200px) {

@@ -62,7 +62,7 @@
       name: d.region_name,
       value: +d.fvc_mean,
       itemStyle: county && d.region_id === county
-        ? { color: '#ff5722' } // 高亮颜色
+        ? { color: '#c78467ff' } // 高亮颜色
         : null
     }));
   }
@@ -71,6 +71,7 @@
   function updateBar() {
     const year = getCurrentYear();
     const region = getCurrentRegion();
+    const { city, county } = region;   // ✅ 解构出 county
     const data = buildSeries(year, region);
 
     if (!data.length) {
@@ -90,9 +91,12 @@
         type: 'bar',
         data: data,
         barWidth: '60%',
-        itemStyle: { color: '#4CAF50' } // 默认绿色
+        itemStyle: { color: '#61acc1ff' } // 默认绿色
       }]
     }, true); // true 强制合并
+    myChart.resize();
+    console.log('选中的 county id:', county);
+    console.log('数据中的 region_id:', data.map(d => d.region_id));
   }
 
   // 7. 事件绑定
@@ -102,4 +106,6 @@
     // 时间轴滑块
     document.getElementById('timeSlider').addEventListener('input', updateBar);
   }
+
+  
 })();
