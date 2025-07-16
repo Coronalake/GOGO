@@ -96,61 +96,85 @@ document.addEventListener('DOMContentLoaded', function() {
         return data;
     }
 
-    // 8. 图表渲染
     function renderChart(data, regionName, scenario) {
-        try {
-            // 清空容器并创建canvas
-            elements.chartContainer.innerHTML = '<canvas id="dynamicChart"></canvas>';
-            const canvas = document.getElementById('dynamicChart');
-            canvas.style.width = '100%';
-            canvas.style.height = '200px';
-
-            // 准备数据
-            const years = data.map(d => d.year);
-            const values = data.map(d => parseFloat(d.mean_pred));
-            
-            // 创建图表
-            new Chart(canvas.getContext('2d'), {
-                type: 'line',
-                data: {
-                    labels: years,
-                    datasets: [{
-                        label: `${regionName} (${scenario})`,
-                        data: values,
-                        borderColor: '#36a2eb',
-                        backgroundColor: 'rgba(54, 162, 235, 0.1)',
-                        borderWidth: 2,
-                        tension: 0.3
-                    }]
+    try {
+        // 清空容器并创建canvas
+        const chartContainer = document.querySelector('.chart-container');
+        chartContainer.innerHTML = '<canvas id="predictionChartCanvas"></canvas>';
+        const canvas = document.getElementById('predictionChartCanvas');
+        
+        // 确保canvas有明确的尺寸
+        canvas.width = chartContainer.offsetWidth;
+        canvas.height = chartContainer.offsetHeight;
+        
+        new Chart(canvas.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: data.map(d => d.year),
+                datasets: [{
+                    label: `${regionName} (${scenario})`,
+                    data: data.map(d => parseFloat(d.mean_pred)),
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#fff',
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '植被覆盖度预测趋势',
+                        font: { size: 18 },
+                        padding: { top: 10, bottom: 20 }
+                    },
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
                 },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: '植被覆盖度预测趋势'
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        title: { 
+                            display: true, 
+                            text: '植被覆盖度值',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
                         }
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            title: { display: true, text: 'mean_pred值' }
-                        },
-                        x: { title: { display: true, text: '年份' } }
+                    x: {
+                        title: { 
+                            display: true, 
+                            text: '年份',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
                     }
                 }
-            });
-            
-            // 更新标题
-            elements.reportTitle.textContent = 
-                `2023-${elements.yearRange.value}年${regionName}植被覆盖度预测(${scenario})`;
-                
-        } catch (error) {
-            console.error('图表渲染失败:', error);
-            elements.chartContainer.innerHTML = 
-                '<div class="error">图表渲染失败: ' + error.message + '</div>';
-        }
+            }
+        });
+        
+    } catch (error) {
+        console.error('图表渲染失败:', error);
+        document.querySelector('.chart-container').innerHTML = 
+            '<div style="color:red; padding:20px; text-align:center">图表渲染失败，请刷新重试</div>';
     }
+}
 
     console.log('预测功能初始化完成');
 });
