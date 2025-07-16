@@ -1,0 +1,16 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@10.8.2
+2 info using node@v20.18.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\闫嘉轩\Desktop\克隆2\GOGO\大实习前端代码最最新\大实习前端代码3\.npmrc
+5 silly config load:file:C:\Users\闫嘉轩\.npmrc
+6 silly config load:file:C:\Users\闫嘉轩\Desktop\克隆2\GOGO\大实习前端代码最最新\大实习前端代码3\您想创建文件的地址\etc\npmrc
+7 verbose title npm exec serve
+8 verbose argv "exec" "--" "serve"
+9 verbose logfile logs-max:10 dir:C:\Users\闫嘉轩\Desktop\克隆2\GOGO\大实习前端代码最最新\大实习前端代码3\您想创建文件的地址\_logs\2025-07-16T06_22_28_697Z-
+10 verbose logfile C:\Users\闫嘉轩\Desktop\克隆2\GOGO\大实习前端代码最最新\大实习前端代码3\您想创建文件的地址\_logs\2025-07-16T06_22_28_697Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+13 http fetch GET 200 https://registry.npmmirror.com/serve 245ms (cache revalidated)
+14 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+15 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
