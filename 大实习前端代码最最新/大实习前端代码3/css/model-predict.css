@@ -10,14 +10,14 @@
 /* 主容器布局 */
 .model-predict-main {
   display: flex;
-  gap: 40px;
-  padding: 40px;
+  gap: 20px;
+  padding: 5px;
   align-items: stretch;
 }
 
 /* 左侧参数面板 */
 .predict-card {
-  width: 320px;
+  width: 350px;
   background: #fff;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
@@ -31,7 +31,8 @@
   font-size: 18px;
   font-weight: 600;
   color: #495057;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  margin-top: 20px;
 }
 
 /* 表单组样式 */
@@ -41,7 +42,7 @@
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: #6c757d;
   font-size: 14px;
 }
@@ -56,6 +57,7 @@
   background: url("data:image/svg+xml;utf8,<svg fill='%236c757d' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")
     no-repeat right 12px center;
   background-size: 12px;
+  margin-bottom: 20px;
 }
 
 /* 时间范围滑块 */
@@ -64,11 +66,19 @@
   cursor: pointer;
 }
 
+.range-value {
+  display: block;
+  margin-top: 4px;
+  margin-bottom: 20px;
+  
+}
+
 .range-label {
   display: block;
   margin-top: 4px;
   color: #6c757d;
   font-size: 14px;
+  
 }
 
 .btn-group {
