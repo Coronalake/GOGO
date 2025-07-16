@@ -6,7 +6,12 @@
   <title>云南省植被覆盖度监测系统</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/model-predict.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
+
 <body class="model-predict-page">
   <div class="container">
     <!-- 头部导航 -->
@@ -31,7 +36,7 @@
         <h3>预测参数设置</h3>
         <div class="form-group">
           <label>预测时间范围：</label>
-          <input type="range" min="2023" max="2053" value="1" step="10" class="year-range" data-unit="年" id="yearRange">
+          <input type="range" min="2023" max="2053" value="1" step="1" class="year-range" data-unit="年" id="yearRange">
           <span class="range-value" id="rangeValue">2023 年</span>
         </div>
         <div class="form-group">
@@ -58,7 +63,7 @@
         </div>
         <div class="form-group">
           <label>气候情景：</label>
-          <select>
+          <select id="climateSelect">
             <option value="4.5">SSP2-4.5</option>
             <option value="8.5">SSP5-8.5</option>
           </select>
@@ -86,9 +91,6 @@
       <p id="reportTitle">x年x年x市x县植被覆盖度预测结果图</p>
       <div class="chart-container">
         <div id="predictionChart" style="width: 100%; height: 200px;"></div>
-      </div>
-      <div class="bar-chart-container">
-        <div id="trendChart" style="width: 100%; height: 150px;"></div>
       </div>
       <button class="download-btn" id="downloadReport">下载结果报告</button>
     </div>
@@ -154,6 +156,353 @@
     </div>
   </div>
 
+  <!-- 只添加这两个脚本（保持其他所有内容不变） -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/prediction-chart.js"></script>
   <script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+      // 内联加载prediction-chart.js内容作为临时解决方案
+      console.log('正在加载预测图表功能...');
+      
+      document.addEventListener('DOMContentLoaded', function() {
+          console.log('DOM已加载，开始初始化预测功能');
+          // 安全获取元素函数
+  function getSafeElement(id) {
+      const el = document.getElementById(id);
+      if (!el) console.warn('未找到元素: #' + id);
+      return el;
+  }
+
+  // 获取所有需要的元素
+  const elements = {
+      yearRange: getSafeElement('yearRange'),
+      rangeValue: getSafeElement('rangeValue'),
+      regionSelect: getSafeElement('regionSelect'),
+      scenarioSelect: document.querySelector('.form-group:nth-of-type(3) select'),
+      predictConfirm: getSafeElement('predictConfirm'),
+      reportModal: getSafeElement('reportModal'),
+      closeReport: getSafeElement('closeReport'),
+      reportTitle: getSafeElement('reportTitle'),
+      chartContainer: getSafeElement('predictionChart')
+  };
+
+  // 检查关键元素
+  if (!elements.predictConfirm) {
+      console.error('确认按钮元素缺失');
+  } else {
+      // 初始化时间轴
+      if (elements.yearRange) {
+          elements.yearRange.addEventListener('input', function() {
+              elements.rangeValue.textContent = this.value + ' 年';
+          });
+          elements.yearRange.value = 2023;
+          elements.rangeValue.textContent = '2023 年';
+      }
+
+      // 确认按钮功能
+      elements.predictConfirm.addEventListener('click', function() {
+          console.log('确认按钮被点击');
+          
+          try {
+              const endYear = parseInt(elements.yearRange.value) || 2023;
+              const region = elements.regionSelect.value;
+              const scenario = elements.scenarioSelect.value === '4.5' ? 'SSP2-4.5' : 'SSP5-8.5';
+              
+              if (!region) {
+                  alert('请选择区域');
+                  return;
+              }
+
+              const regionName = elements.regionSelect.options[elements.regionSelect.selectedIndex].text;
+              const mockData = generateMockData(endYear, regionName, scenario);
+              renderChart(mockData, regionName, scenario);
+              
+              if (elements.reportModal) {
+                  elements.reportModal.style.display = 'block';
+              }
+              
+          } catch (error) {
+              console.error('出错:', error);
+              alert('操作失败: ' + error.message);
+          }
+      });
+
+      // 关闭弹窗
+      if (elements.closeReport) {
+          elements.closeReport.addEventListener('click', function() {
+              if (elements.reportModal) {
+                  elements.reportModal.style.display = 'none';
+              }
+          });
+      }
+  }
+
+  // 模拟数据
+  function generateMockData(endYear, regionName, scenario) {
+      return Array.from({length: endYear-2023+1}, (_,i) => ({
+          year: (2023+i).toString(),
+          region_name: regionName,
+          scenario: scenario,
+          mean_pred: (0.7 + Math.random()*0.2).toFixed(4)
+      }));
+  }
+
+  // 渲染图表
+  function renderChart(data, regionName, scenario) {
+      try {
+          elements.chartContainer.innerHTML = '<canvas></canvas>';
+          const canvas = elements.chartContainer.querySelector('canvas');
+          canvas.style.width = '800px';
+          canvas.style.height = '450px';
+          canvas.style.display = 'block';      // 关键：让 canvas 变为块级元素
+          canvas.style.margin = '0 auto';      // 关键：水平居中
+          
+          new Chart(canvas.getContext('2d'), {
+              type: 'line',
+              data: {
+                  labels: data.map(d => d.year),
+                  datasets: [{
+                      label: `${regionName} (${scenario})`,
+                      data: data.map(d => parseFloat(d.mean_pred)),
+                      borderColor: '#4CAF50',
+                      backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                      borderWidth: 2,
+                      tension: 0.3
+                  }]
+              },
+              options: {
+                  responsive: true,
+                  plugins: {
+                      title: {
+                          display: true,
+                          text: '植被覆盖度预测趋势'
+                      }
+                  },
+                  scales: {
+                      y: { beginAtZero: false }
+                  }
+              }
+          });
+          
+          if (elements.reportTitle) {
+              elements.reportTitle.textContent = 
+                  `2023-${elements.yearRange.value}年${regionName}植被覆盖度预测(${scenario})`;
+          }
+          
+      } catch (error) {
+          console.error('图表渲染失败:', error);
+          elements.chartContainer.innerHTML = 
+              '<div style="color:red">图表渲染失败</div>';
+      }
+  }
+
+  console.log('预测功能初始化完成');
+      });
+  </script>
+
+  <script>
+    // 获取下载按钮元素
+    const downloadBtn = document.getElementById('downloadReport');
+    
+    // 添加点击事件监听器
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        generatePDF();
+      });
+    }
+    
+    // 生成PDF的函数
+    async function generatePDF() {
+      try {
+        // 显示加载提示
+        alert("正在生成PDF，请稍候...");
+        
+        const { jsPDF } = window.jspdf;
+        
+        // 创建A4 PDF
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'mm',
+          format: 'a4'
+        });
+        
+        // 获取报告模态框
+        const reportModal = document.getElementById('reportModal');
+        if (!reportModal) {
+          throw new Error('未找到报告模态框');
+        }
+        
+        // 确保模态框可见
+        const originalDisplay = reportModal.style.display;
+        reportModal.style.display = 'block';
+        
+        // 获取报告标题
+        const reportTitle = document.getElementById('reportTitle');
+        if (reportTitle) {
+          // 创建临时容器用于渲染标题
+          const titleContainer = document.createElement('div');
+          titleContainer.style.width = '600px';
+          titleContainer.style.height = '90px';
+          titleContainer.style.padding = '20px';
+          titleContainer.style.position = 'absolute';
+          titleContainer.style.left = '-9999px';
+          titleContainer.style.background = 'white';
+          
+          titleContainer.innerHTML = `
+            <h2 style="
+              font-family: 'Microsoft YaHei', SimHei, Arial, sans-serif;
+              font-size: 24px;
+              text-align: center;
+              margin: 0;
+              padding: 10px;
+              font-weight: bold;
+              white-space: normal;
+            ">${reportTitle.textContent}</h2>
+          `;
+          
+          document.body.appendChild(titleContainer);
+          
+          const titleCanvas = await html2canvas(titleContainer, {
+            scale: 2,
+            logging: false,
+            useCORS: true,
+            backgroundColor: '#ffffff'
+          });
+          
+          document.body.removeChild(titleContainer);
+          
+          const titleImg = titleCanvas.toDataURL('image/png');
+          pdf.addImage(titleImg, 'PNG', 15, 10, 180, 25);
+        }
+        
+        // ===== 图表渲染部分 - 关键修改 =====
+        
+        // 获取预测图表容器
+        const predictionChart = document.getElementById('predictionChart');
+        if (!predictionChart) {
+          throw new Error('未找到预测图表容器');
+        }
+        
+        // 确保图表已经完全渲染
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // 方法1：直接使用ECharts导出功能（如果可用）
+        if (window.echarts) {
+          try {
+            console.log('尝试使用ECharts导出功能');
+            const chartInstance = echarts.getInstanceByDom(predictionChart);
+            
+            if (chartInstance) {
+              // 确保图表已渲染完成
+              chartInstance.resize();
+              await new Promise(resolve => setTimeout(resolve, 500));
+              
+              // 使用ECharts的导出功能获取高质量图片
+              const chartImg = chartInstance.getDataURL({
+                type: 'png',
+                pixelRatio: 3,
+                backgroundColor: '#fff'
+              });
+              
+              // 将图表图像添加到PDF
+              pdf.addImage(chartImg, 'PNG', 15, 45, 180, 90);
+              console.log('使用ECharts导出成功');
+            } else {
+              throw new Error('无法获取ECharts实例');
+            }
+          } catch (chartError) {
+            console.error('ECharts导出失败，尝试使用html2canvas:', chartError);
+            await captureChartWithHtml2Canvas();
+          }
+        } else {
+          // 如果没有ECharts，直接使用html2canvas
+          await captureChartWithHtml2Canvas();
+        }
+        
+        
+        // 使用html2canvas捕获图表的函数
+        async function captureChartWithHtml2Canvas() {
+          console.log('使用html2canvas捕获图表');
+          
+          // 确保图表可见且有尺寸
+          const originalStyles = {
+            width: predictionChart.style.width,
+            height: predictionChart.style.height,
+            visibility: predictionChart.style.visibility,
+            display: predictionChart.style.display
+          };
+          
+          predictionChart.style.width = '800px';
+          predictionChart.style.height = '500px';
+          predictionChart.style.visibility = 'visible';
+          predictionChart.style.display = 'block';
+          
+          // 直接在当前位置捕获图表
+          console.log('图表尺寸:', predictionChart.offsetWidth, 'x', predictionChart.offsetHeight);
+          
+          try {
+            // 捕获图表为图像
+            const chartCanvas = await html2canvas(predictionChart, {
+              scale: 2,
+              logging: true,
+              useCORS: true,
+              allowTaint: true,
+              backgroundColor: '#ffffff',
+              onclone: function(clonedDoc, clonedElement) {
+                console.log('克隆的图表元素:', clonedElement);
+                clonedElement.style.width = '450px';
+                clonedElement.style.height = '200px';
+              }
+            });
+            
+            // 将图表图像添加到PDF
+            const chartImg = chartCanvas.toDataURL('image/png');
+            pdf.addImage(chartImg, 'PNG', 15, 45, 180, 100);
+            console.log('html2canvas捕获成功');
+          } catch (captureError) {
+            console.error('html2canvas捕获失败:', captureError);
+            throw captureError;
+          } finally {
+            // 恢复原始样式
+            predictionChart.style.width = originalStyles.width;
+            predictionChart.style.height = originalStyles.height;
+            predictionChart.style.visibility = originalStyles.visibility;
+            predictionChart.style.display = originalStyles.display;
+          }
+        }
+        
+        // ===== 图表渲染部分结束 =====
+        
+        // 添加页脚信息
+        const now = new Date();
+        const dateStr = now.toISOString().split('T')[0].replace(/-/g, '/');
+        const timeStr = now.toTimeString().split(' ')[0];
+        
+        pdf.setFontSize(10);
+        pdf.setTextColor(100, 100, 100);
+        pdf.text(`Generated: ${dateStr} ${timeStr}`, 15, 280);
+        
+        // 恢复模态框原始显示状态
+        reportModal.style.display = originalDisplay;
+        
+        // 生成并下载PDF
+        pdf.save('prediction_report.pdf');
+        console.log('PDF生成完成');
+        
+      } catch (error) {
+        console.error('生成PDF时发生错误:', error);
+        alert('生成PDF失败: ' + error.message);
+      }
+    }
+
+
+
+
+
+  </script>
+
+
 </body>
 </html>
