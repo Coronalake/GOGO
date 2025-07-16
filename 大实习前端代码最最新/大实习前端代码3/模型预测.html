@@ -6,6 +6,7 @@
   <title>云南省植被覆盖度监测系统</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/model-predict.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="model-predict-page">
   <div class="container">
@@ -31,7 +32,7 @@
         <h3>预测参数设置</h3>
         <div class="form-group">
           <label>预测时间范围：</label>
-          <input type="range" min="2023" max="2053" value="1" step="10" class="year-range" data-unit="年" id="yearRange">
+          <input type="range" min="2023" max="2053" value="2023" step="10" class="year-range" data-unit="年" id="yearRange">
           <span class="range-value" id="rangeValue">2023 年</span>
         </div>
         <div class="form-group">
@@ -58,9 +59,9 @@
         </div>
         <div class="form-group">
           <label>气候情景：</label>
-          <select>
-            <option value="4.5">SSP2-4.5</option>
-            <option value="8.5">SSP5-8.5</option>
+          <select id="scenarioSelect">
+            <option value="SSP2-4.5">SSP2-4.5</option>
+            <option value="SSP5-8.5">SSP5-8.5</option>
           </select>
         </div>
         <div class="btn-group">
@@ -79,16 +80,16 @@
   </div>
 
   <!-- 报告模态框 -->
-  <div class="report-modal" id="reportModal">
+  <div class="report-modal" id="reportModal" style="display: none;">
     <div class="report-content">
       <span class="close-btn" id="closeReport">&times;</span>
       <h3>生成报告</h3>
       <p id="reportTitle">x年x年x市x县植被覆盖度预测结果图</p>
       <div class="chart-container">
-        <div id="predictionChart" style="width: 100%; height: 200px;"></div>
+        <canvas id="predictionChart" style="width: 100%; height: 300px;"></canvas>
       </div>
       <div class="bar-chart-container">
-        <div id="trendChart" style="width: 100%; height: 150px;"></div>
+        <canvas id="trendChart" style="width: 100%; height: 200px;"></canvas>
       </div>
       <button class="download-btn" id="downloadReport">下载结果报告</button>
     </div>
@@ -155,5 +156,223 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script>
+    // 时间轴功能
+    const yearRange = document.getElementById('yearRange');
+    const rangeValue = document.getElementById('rangeValue');
+    
+    yearRange.addEventListener('input', function() {
+      rangeValue.textContent = this.value + ' 年';
+    });
+
+    // 确认按钮事件
+    document.getElementById('predictConfirm').addEventListener('click', async function() {
+      const selectedYear = parseInt(yearRange.value);
+      const selectedRegion = document.getElementById('regionSelect').value;
+      const selectedScenario = document.getElementById('scenarioSelect').value;
+      
+      if (!selectedRegion) {
+        alert('请选择城市');
+        return;
+      }
+
+      try {
+        // 读取CSV数据
+        const response = await fetch('prediction.csv');
+        const csvText = await response.text();
+        
+        // 解析CSV数据
+        const lines = csvText.split('\n');
+        const headers = lines[0].split(',');
+        
+        const yearIndex = headers.indexOf('year');
+        const regionIndex = headers.indexOf('region_name');
+        const scenarioIndex = headers.indexOf('scenario');
+        const predIndex = headers.indexOf('mean_pred');
+        
+        const filteredData = [];
+        
+        for (let i = 1; i < lines.length; i++) {
+          const values = lines[i].split(',');
+          if (values.length >= headers.length) {
+            const year = parseInt(values[yearIndex]);
+            const region = values[regionIndex].trim();
+            const scenario = values[scenarioIndex].trim();
+            
+            if (year >= 2023 && year <= selectedYear && 
+                region === getRegionName(selectedRegion) && 
+                scenario === selectedScenario) {
+              filteredData.push({
+                year: year,
+                value: parseFloat(values[predIndex])
+              });
+            }
+          }
+        }
+        
+        // 按年份排序
+        filteredData.sort((a, b) => a.year - b.year);
+        
+        // 生成报告
+        generateReport(filteredData, selectedYear, selectedRegion, selectedScenario);
+        
+      } catch (error) {
+        console.error('读取数据时出错:', error);
+        alert('数据加载失败，请检查prediction.csv文件是否存在');
+      }
+    });
+
+    // 获取城市名称
+    function getRegionName(regionCode) {
+      const regionMap = {
+        '530100': '昆明市',
+        '530300': '曲靖市',
+        '530400': '玉溪市',
+        '530500': '保山市',
+        '530600': '昭通市',
+        '530700': '丽江市',
+        '530800': '普洱市',
+        '530900': '临沧市',
+        '532300': '楚雄彝族自治州',
+        '532500': '红河哈尼族彝族自治州',
+        '532600': '文山壮族苗族自治州',
+        '532800': '西双版纳傣族自治州',
+        '532900': '大理白族自治州',
+        '533100': '德宏傣族景颇族自治州',
+        '533300': '怒江傈僳族自治州',
+        '533400': '迪庆藏族自治州'
+      };
+      return regionMap[regionCode] || '未知区域';
+    }
+
+    // 生成报告和图表
+    function generateReport(data, endYear, regionCode, scenario) {
+      const regionName = getRegionName(regionCode);
+      const reportTitle = document.getElementById('reportTitle');
+      reportTitle.textContent = `2023年至${endYear}年${regionName}植被覆盖度预测结果（${scenario}情景）`;
+      
+      // 显示模态框
+      document.getElementById('reportModal').style.display = 'block';
+      
+      // 准备图表数据
+      const years = data.map(d => d.year);
+      const values = data.map(d => d.value);
+      
+      // 创建折线图
+      const ctx1 = document.getElementById('predictionChart').getContext('2d');
+      if (window.predictionChart) {
+        window.predictionChart.destroy();
+      }
+      
+      window.predictionChart = new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            label: '植被覆盖度预测值',
+            data: values,
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: '植被覆盖度 (%)'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: '年份'
+              }
+            }
+          }
+        }
+      });
+      
+      // 创建趋势图（简化版）
+      const ctx2 = document.getElementById('trendChart').getContext('2d');
+      if (window.trendChart) {
+        window.trendChart.destroy();
+      }
+      
+      // 计算趋势（简单线性回归）
+      const n = years.length;
+      const sumX = years.reduce((a, b) => a + b, 0);
+      const sumY = values.reduce((a, b) => a + b, 0);
+      const sumXY = years.reduce((sum, year, i) => sum + year * values[i], 0);
+      const sumX2 = years.reduce((sum, year) => sum + year * year, 0);
+      
+      const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+      const intercept = (sumY - slope * sumX) / n;
+      
+      const trendData = years.map(year => slope * year + intercept);
+      
+      window.trendChart = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            label: '趋势',
+            data: trendData,
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderDash: [5, 5],
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: '趋势值'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: '年份'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // 关闭报告模态框
+    document.getElementById('closeReport').addEventListener('click', function() {
+      document.getElementById('reportModal').style.display = 'none';
+    });
+
+    // 点击模态框外部关闭
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('reportModal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // 下载报告功能（示例）
+    document.getElementById('downloadReport').addEventListener('click', function() {
+      const canvas = document.getElementById('predictionChart');
+      const image = canvas.toDataURL('image/png');
+      
+      const link = document.createElement('a');
+      link.download = '植被覆盖度预测报告.png';
+      link.href = image;
+      link.click();
+    });
+  </script>
 </body>
 </html>
