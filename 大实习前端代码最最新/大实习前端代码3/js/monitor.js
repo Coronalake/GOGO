@@ -15,9 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 2. 确认按钮点击事件：填充报告 + 显示弹窗
   confirmBtn.addEventListener('click', () => {
-    const selectedArea = areaSelect.value;
+
     const startYear = startTimeSelect.value;
     const endYear = endTimeSelect.value;
+    const regiontext = dataType.options[dataType.selectedIndex].text;
 
     // 校验时间有效性
     if (+endYear < +startYear) {
@@ -26,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 填充报告内容
-    reportMainTitle.textContent = `云南省${selectedArea}${startYear}年和${endYear}年双年植被覆盖度变化监测报告`;
-    reportRange.textContent = selectedArea;
+    reportMainTitle.textContent = `云南省${regiontext}${startYear}年至${endYear}年双年植被覆盖度变化监测报告`;
+    reportRange.textContent = regiontext;
 
     // ✅ 关键修改：显示当前日期时间
     reportTime.textContent = new Date().toLocaleString(); // 格式：2023/10/15 14:30:00
