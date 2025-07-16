@@ -62,7 +62,7 @@
       name: d.region_name,
       value: +d.fvc_mean,
       itemStyle: county && d.region_id === county
-        ? { color: '#c78467ff' } // 高亮颜色
+        ? { color: '#b5da24ff' } // 高亮颜色
         : null
     }));
   }

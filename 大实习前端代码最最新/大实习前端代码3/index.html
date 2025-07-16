@@ -583,11 +583,26 @@
           });
 
         function updateFVCChart(regionCode) {
-          const filtered = fvcData.filter((d) => d.region_id === regionCode);
-          if (!filtered.length) {
-            myChart.setOption({ series: [{ data: [] }] });
-            return;
-          }
+  // 1. 取出当前选中的中文名
+  let selectedName = '云南省';                 // 默认
+  const countySel = document.getElementById('county-select');
+  const citySel   = document.getElementById('city-select');
+
+  if (countySel && countySel.value) {
+    selectedName = countySel.options[countySel.selectedIndex].text.trim();
+  } else if (citySel && citySel.value) {
+    selectedName = citySel.options[citySel.selectedIndex].text.trim();
+  }
+
+  // 2. 用中文名过滤
+  const filtered = fvcData.filter(d => d.region_name === selectedName);
+  if (!filtered.length) {
+    myChart.setOption({
+      title: { text: `${selectedName}（无数据）` },
+      series: [{ data: [] }]
+    });
+    return;
+  }
 
           filtered.sort((a, b) => a.year - b.year);
           const years = filtered.map((d) => d.year);
@@ -656,6 +671,6 @@
       
     </script>
     <script src="js/year-ragion.js"></script>
-
+    <script src="js/legendControl.js"></script>
 </body>
 </html>
