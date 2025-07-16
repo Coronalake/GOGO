@@ -6,6 +6,10 @@
   <title>云南省植被覆盖度监测系统</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/model-predict.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 <body class="model-predict-page">
   <div class="container">
@@ -155,5 +159,71 @@
   </div>
 
   <script src="js/main.js"></script>
+
+  <script>
+    // 获取下载按钮元素
+    const downloadBtn = document.getElementById('downloadReport');
+    
+    // 添加点击事件监听器
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        generatePDF();
+      });
+    }
+    
+    // 生成PDF的函数
+    async function generatePDF() {
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      
+      try {
+        // 获取报告标题
+        const reportTitle = document.getElementById('reportTitle').textContent;
+        
+        // 设置PDF标题
+        pdf.setFontSize(16);
+        pdf.text(reportTitle, 15, 20);
+        
+        // 获取预测图表容器
+        const predictionChart = document.getElementById('predictionChart');
+        
+        // 将预测图表转换为图片
+        const predictionCanvas = await html2canvas(predictionChart, {
+          scale: 2,  // 提高清晰度
+          logging: false,
+          useCORS: true
+        });
+        
+        const predictionImg = predictionCanvas.toDataURL('image/png');
+        
+        // 将预测图表添加到PDF
+        pdf.addImage(predictionImg, 'PNG', 15, 30, 180, 80);
+        
+        // 获取趋势图表容器
+        const trendChart = document.getElementById('trendChart');
+        
+        // 将趋势图表转换为图片
+        const trendCanvas = await html2canvas(trendChart, {
+          scale: 2,  // 提高清晰度
+          logging: false,
+          useCORS: true
+        });
+        
+        const trendImg = trendCanvas.toDataURL('image/png');
+        
+        // 将趋势图表添加到PDF
+        pdf.addImage(trendImg, 'PNG', 15, 120, 180, 80);
+        
+        // 生成并下载PDF
+        pdf.save('预测结果报告.pdf');
+      } catch (error) {
+        console.error('生成PDF时发生错误:', error);
+        alert('生成PDF失败，请查看控制台获取详细错误信息。');
+      }
+    }
+  </script>
+
 </body>
 </html>
