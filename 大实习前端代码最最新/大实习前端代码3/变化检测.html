@@ -54,104 +54,194 @@
 <script>
     /* ---------- 双年变化 GeoTIFF 地图（监听下拉框） ---------- */
     window.addEventListener('load', () => {
-    // 公用底图
-    // 申请到的 Key
+        // 公用底图
+        // 申请到的 Key
         const tk = '5390a734e4ffa4d97e1973de13ed00bf';
 
         // 1. 天地图矢量底图
         const tianditu_vec = new ol.layer.Tile({
-          source: new ol.source.XYZ({
-            url: `https://t0.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${tk}`,
-            crossOrigin: 'anonymous'
-          })
+            source: new ol.source.XYZ({
+                url: `https://t0.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${tk}`,
+                crossOrigin: 'anonymous'
+            })
         });
 
         // 2. 天地图矢量注记（可选，放文字/道路）
         const tianditu_cva = new ol.layer.Tile({
-          source: new ol.source.XYZ({
-            url: `https://t0.tianditu.gov.cn/cva_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cva&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${tk}`,
-            crossOrigin: 'anonymous'
-          })
+            source: new ol.source.XYZ({
+                url: `https://t0.tianditu.gov.cn/cva_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cva&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${tk}`,
+                crossOrigin: 'anonymous'
+            })
         });
 
         // 3. 影像底图（如需卫星影像，把 vec 换成 img）
         const tianditu_img = new ol.layer.Tile({
-          source: new ol.source.XYZ({
-            url: `https://t0.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${tk}`,
-            crossOrigin: 'anonymous'
-          })
+            source: new ol.source.XYZ({
+                url: `https://t0.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${tk}`,
+                crossOrigin: 'anonymous'
+            })
         });
 
-    let currentTifLayer = null;   // 当前植被变化图层
-    const map = new ol.Map({
-        target: 'yunnanMap',
-        layers: [tianditu_vec, tianditu_cva],
-        view: new ol.View({
-        center: ol.proj.fromLonLat([102.7, 25]),
-        zoom: 6
-        })
-    });
+        let currentTifLayer = null;   // 当前植被变化图层
+        let cityVectorLayer = null;   // 市级边界图层
+        const map = new ol.Map({
+            target: 'yunnanMap',
+            layers: [tianditu_vec, tianditu_cva],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([102.7, 25]),
+                zoom: 6
+            })
+        });
 
-    // 获取下拉框
-    const startSel = document.getElementById('startTimeSelect');
-    const endSel   = document.getElementById('endTimeSelect');
+        // 云南省全局范围
+        const yunnanExtent = ol.proj.transformExtent(
+            [97.5, 21.0, 106.2, 29.5], 
+            'EPSG:4326', 
+            'EPSG:3857'
+        );
 
-    // 监听变化
-    [startSel, endSel].forEach(sel => sel.addEventListener('change', loadDiffLayer));
+        // 获取下拉框
+        const startSel = document.getElementById('startTimeSelect');
+        const endSel   = document.getElementById('endTimeSelect');
+        const citySel = document.getElementById('dataType');  // 市级选择器
 
-    // 首次加载
-    loadDiffLayer();
+        // 监听变化
+        [startSel, endSel].forEach(sel => sel.addEventListener('change', loadDiffLayer));
+        citySel.addEventListener('change', loadCityVector);  // 添加市级选择监听
 
-    // 加载函数
-    function loadDiffLayer() {
-        const startYear = startSel.value;
-        const endYear   = endSel.value;
+        // 首次加载
+        loadDiffLayer();
 
-        // 简单校验：起始 ≤ 结束
-        if (+startYear > +endYear) return;
+        // 加载函数
+        function loadDiffLayer() {
+            const startYear = startSel.value;
+            const endYear   = endSel.value;
 
-        // 移除旧图层
-        if (currentTifLayer) map.removeLayer(currentTifLayer);
+            // 简单校验：起始 ≤ 结束
+            if (+startYear > +endYear) return;
 
-        const tifUrl = `TowYearDiff/fvc_diff_${startYear}_${endYear}.tif`;
+            // 移除旧图层
+            if (currentTifLayer) map.removeLayer(currentTifLayer);
 
-        currentTifLayer = new ol.layer.WebGLTile({
-        source: new ol.source.GeoTIFF({
-            sources: [{ url: tifUrl, crossOrigin: 'anonymous' }],
-            normalize: false
-        }),
-        style: {
-            color: [
-            'interpolate', ['linear'], ['band', 1],
-            0,   [0, 0, 0, 0],
-            0.2, [215, 25, 28, 1],
-            0.4, [253, 174, 97, 1],
-            0.6, [171, 217, 233, 1],
-            0.8, [44, 123, 182, 1],
-            1.0, [0, 68, 27, 1]
-            ]
+            const tifUrl = `TowYearDiff/fvc_diff_${startYear}_${endYear}.tif`;
+
+            currentTifLayer = new ol.layer.WebGLTile({
+                source: new ol.source.GeoTIFF({
+                    sources: [{ url: tifUrl, crossOrigin: 'anonymous' }],
+                    normalize: false
+                }),
+                style: {
+                    color: [
+                    'interpolate', ['linear'], ['band', 1],
+                    -1,[244, 227, 215, 1],// 淡橙  #f4e3d7  最低值
+                    0,   [0, 0, 0, 0], 
+                    0.05, [44, 123, 128, 1],
+                    0.1, [122, 174, 214, 1],
+                    0.15, [169, 205, 224, 1],
+                    0.3,  [254, 246, 213, 1],
+                    1.0,  [232, 110, 48, 1], // 柔橙  #f1c9a9  中低值
+                    ]
+                }
+            });
+
+            map.addLayer(currentTifLayer);
+
+            // 自适应范围
+            currentTifLayer.getSource().getView()
+            .then(ext => map.getView().fit(ext, { padding: [20, 20, 20, 20] }))
+            .catch(err => console.warn('无法自适应范围:', err));
+
+            // 错误提示
+            currentTifLayer.getSource().on('error', e => {
+                document.getElementById('yunnanMap').innerHTML = `
+                    <div class="map-error">
+                    <p>双年变化数据加载失败</p>
+                    <p>${e.message}</p>
+                    <p>请确认文件路径: ${tifUrl}</p>
+                    </div>`;
+            });
         }
-        });
 
-        map.addLayer(currentTifLayer);
+        // 加载市级边界函数
+        function loadCityVector() {
+            const cityCode = citySel.value;
+            const cityName = citySel.options[citySel.selectedIndex].text.trim();
+            
+            // 移除现有市级边界
+            if (cityVectorLayer) {
+                map.removeLayer(cityVectorLayer);
+                cityVectorLayer = null;
+            }
+            
+            // 清空选择
+            if (!cityCode) {
+                map.getView().fit(yunnanExtent, {
+                    padding: [50, 50, 50, 50],
+                    duration: 600
+                });
+                return;
+            }
+            
+            // 加载市级边界
+            const cityPath = `json/Shi/${cityName}.json`;
+            
+            try {
+                // 使用fetch加载GeoJSON数据
+                fetch(cityPath)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // 创建矢量源
+                        const vectorSource = new ol.source.Vector({
+                            features: new ol.format.GeoJSON().readFeatures(data, {
+                                dataProjection: 'EPSG:4326',
+                                featureProjection: 'EPSG:3857'
+                            })
+                        });
+                        
+                        // 创建矢量图层
+                        cityVectorLayer = new ol.layer.Vector({
+                            source: vectorSource,
+                            style: new ol.style.Style({
+                                stroke: new ol.style.Stroke({ 
+                                    color: '#ff0000', 
+                                    width: 2 
+                                }),
+                                fill: new ol.style.Fill({ 
+                                    color: 'rgba(255,0,0,0.1)' 
+                                })
+                            }),
+                            zIndex: 9999
+                        });
 
-        // 自适应范围
-        currentTifLayer.getSource().getView()
-        .then(ext => map.getView().fit(ext, { padding: [20, 20, 20, 20] }))
-        .catch(err => console.warn('无法自适应范围:', err));
-
-        // 错误提示
-        currentTifLayer.getSource().on('error', e => {
-        document.getElementById('yunnanMap').innerHTML = `
-            <div class="map-error">
-            <p>双年变化数据加载失败</p>
-            <p>${e.message}</p>
-            <p>请确认文件路径: ${tifUrl}</p>
-            </div>`;
-        });
-    }
+                        map.addLayer(cityVectorLayer);
+                        
+                        // 缩放到市级范围
+                        const extent = vectorSource.getExtent();
+                        if (extent && extent[0] !== Infinity) {
+                            map.getView().fit(extent, {
+                                padding: [50, 50, 50, 50],
+                                duration: 600
+                            });
+                        } else {
+                            console.warn(`无法获取${cityName}的有效范围`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`加载${cityName}边界失败:`, error);
+                        alert(`无法加载${cityName}的边界数据，请检查文件路径: ${cityPath}`);
+                    });
+                
+            } catch (error) {
+                console.error(`创建${cityName}边界图层失败:`, error);
+            }
+        }
     });
-    </script>
+</script>
 
 <body class="monitor-page">
     <!-- 保持原有的完整HTML结构不变 -->
