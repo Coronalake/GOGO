@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/geotiff"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@v10.6.0/dist/ol.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/ol@v10.6.0/ol.css"
+    />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>云南省植被覆盖度监测系统</title>
@@ -40,6 +47,85 @@
     </style>
     <link rel="stylesheet" href="css/style.css">
 </head>
+<script>
+    /* ---------- 双年变化 GeoTIFF 地图（监听下拉框） ---------- */
+    window.addEventListener('load', () => {
+    // 公用底图
+    const osmLayer = new ol.layer.Tile({
+        source: new ol.source.OSM()
+    });
+
+    let currentTifLayer = null;   // 当前植被变化图层
+    const map = new ol.Map({
+        target: 'yunnanMap',
+        layers: [osmLayer],
+        view: new ol.View({
+        center: ol.proj.fromLonLat([102.7, 25]),
+        zoom: 6
+        })
+    });
+
+    // 获取下拉框
+    const startSel = document.getElementById('startTimeSelect');
+    const endSel   = document.getElementById('endTimeSelect');
+
+    // 监听变化
+    [startSel, endSel].forEach(sel => sel.addEventListener('change', loadDiffLayer));
+
+    // 首次加载
+    loadDiffLayer();
+
+    // 加载函数
+    function loadDiffLayer() {
+        const startYear = startSel.value;
+        const endYear   = endSel.value;
+
+        // 简单校验：起始 ≤ 结束
+        if (+startYear > +endYear) return;
+
+        // 移除旧图层
+        if (currentTifLayer) map.removeLayer(currentTifLayer);
+
+        const tifUrl = `TowYearDiff/fvc_diff_${startYear}_${endYear}.tif`;
+
+        currentTifLayer = new ol.layer.WebGLTile({
+        source: new ol.source.GeoTIFF({
+            sources: [{ url: tifUrl, crossOrigin: 'anonymous' }],
+            normalize: false
+        }),
+        style: {
+            color: [
+            'interpolate', ['linear'], ['band', 1],
+            0,   [0, 0, 0, 0],
+            0.2, [215, 25, 28, 1],
+            0.4, [253, 174, 97, 1],
+            0.6, [171, 217, 233, 1],
+            0.8, [44, 123, 182, 1],
+            1.0, [0, 68, 27, 1]
+            ]
+        }
+        });
+
+        map.addLayer(currentTifLayer);
+
+        // 自适应范围
+        currentTifLayer.getSource().getView()
+        .then(ext => map.getView().fit(ext, { padding: [20, 20, 20, 20] }))
+        .catch(err => console.warn('无法自适应范围:', err));
+
+        // 错误提示
+        currentTifLayer.getSource().on('error', e => {
+        document.getElementById('yunnanMap').innerHTML = `
+            <div class="map-error">
+            <p>双年变化数据加载失败</p>
+            <p>${e.message}</p>
+            <p>请确认文件路径: ${tifUrl}</p>
+            </div>`;
+        });
+    }
+    });
+    </script>
+
 <body class="monitor-page">
     <!-- 保持原有的完整HTML结构不变 -->
     <div class="container">
