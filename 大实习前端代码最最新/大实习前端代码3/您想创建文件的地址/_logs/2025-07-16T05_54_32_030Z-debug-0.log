@@ -1,0 +1,751 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@10.8.2
+2 info using node@v20.18.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\闫嘉轩\Desktop\克隆2\GOGO\大实习前端代码最最新\大实习前端代码3\.npmrc
+5 silly config load:file:C:\Users\闫嘉轩\.npmrc
+6 silly config load:file:C:\Users\闫嘉轩\Desktop\克隆2\GOGO\大实习前端代码最最新\大实习前端代码3\您想创建文件的地址\etc\npmrc
+7 verbose title npm exec serve
+8 verbose argv "exec" "--" "serve"
+9 verbose logfile logs-max:10 dir:C:\Users\闫嘉轩\Desktop\克隆2\GOGO\大实习前端代码最最新\大实习前端代码3\您想创建文件的地址\_logs\2025-07-16T05_54_32_030Z-
+10 verbose logfile C:\Users\闫嘉轩\Desktop\克隆2\GOGO\大实习前端代码最最新\大实习前端代码3\您想创建文件的地址\_logs\2025-07-16T05_54_32_030Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+13 http fetch GET 200 https://registry.npmmirror.com/serve 135ms (cache miss)
+14 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+15 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+16 http fetch GET 200 https://registry.npmmirror.com/npm 210ms
+17 silly idealTree buildDeps
+18 silly fetch manifest serve@14.2.4
+19 silly packumentCache full:https://registry.npmmirror.com/serve cache-miss
+20 http fetch GET 200 https://registry.npmmirror.com/serve 50ms (cache miss)
+21 silly packumentCache full:https://registry.npmmirror.com/serve set size:74182 disposed:false
+22 silly placeDep ROOT serve@14.2.4 OK for:  want: 14.2.4
+23 silly fetch manifest @zeit/schemas@2.36.0
+24 silly packumentCache full:https://registry.npmmirror.com/@zeit%2fschemas cache-miss
+25 silly fetch manifest ajv@8.12.0
+26 silly packumentCache full:https://registry.npmmirror.com/ajv cache-miss
+27 silly fetch manifest arg@5.0.2
+28 silly packumentCache full:https://registry.npmmirror.com/arg cache-miss
+29 silly fetch manifest boxen@7.0.0
+30 silly packumentCache full:https://registry.npmmirror.com/boxen cache-miss
+31 silly fetch manifest chalk@5.0.1
+32 silly packumentCache full:https://registry.npmmirror.com/chalk cache-miss
+33 silly fetch manifest chalk-template@0.4.0
+34 silly packumentCache full:https://registry.npmmirror.com/chalk-template cache-miss
+35 silly fetch manifest clipboardy@3.0.0
+36 silly packumentCache full:https://registry.npmmirror.com/clipboardy cache-miss
+37 silly fetch manifest compression@1.7.4
+38 silly packumentCache full:https://registry.npmmirror.com/compression cache-miss
+39 silly fetch manifest is-port-reachable@4.0.0
+40 silly packumentCache full:https://registry.npmmirror.com/is-port-reachable cache-miss
+41 silly fetch manifest serve-handler@6.1.6
+42 silly packumentCache full:https://registry.npmmirror.com/serve-handler cache-miss
+43 silly fetch manifest update-check@1.5.4
+44 silly packumentCache full:https://registry.npmmirror.com/update-check cache-miss
+45 http fetch GET 200 https://registry.npmmirror.com/@zeit%2fschemas 69ms (cache miss)
+46 silly packumentCache full:https://registry.npmmirror.com/@zeit%2fschemas set size:39413 disposed:false
+47 http fetch GET 200 https://registry.npmmirror.com/ajv 76ms (cache miss)
+48 silly packumentCache full:https://registry.npmmirror.com/ajv set size:127227 disposed:false
+49 http fetch GET 200 https://registry.npmmirror.com/arg 106ms (cache miss)
+50 silly packumentCache full:https://registry.npmmirror.com/arg set size:13659 disposed:false
+51 http fetch GET 200 https://registry.npmmirror.com/is-port-reachable 106ms (cache miss)
+52 silly packumentCache full:https://registry.npmmirror.com/is-port-reachable set size:3068 disposed:false
+53 http fetch GET 200 https://registry.npmmirror.com/chalk-template 108ms (cache miss)
+54 silly packumentCache full:https://registry.npmmirror.com/chalk-template set size:8563 disposed:false
+55 http fetch GET 200 https://registry.npmmirror.com/clipboardy 109ms (cache miss)
+56 silly packumentCache full:https://registry.npmmirror.com/clipboardy set size:12482 disposed:false
+57 http fetch GET 200 https://registry.npmmirror.com/update-check 110ms (cache miss)
+58 silly packumentCache full:https://registry.npmmirror.com/update-check set size:5178 disposed:false
+59 http fetch GET 200 https://registry.npmmirror.com/chalk 112ms (cache miss)
+60 silly packumentCache full:https://registry.npmmirror.com/chalk set size:23787 disposed:false
+61 http fetch GET 200 https://registry.npmmirror.com/compression 112ms (cache miss)
+62 silly packumentCache full:https://registry.npmmirror.com/compression set size:17440 disposed:false
+63 http fetch GET 200 https://registry.npmmirror.com/serve-handler 116ms (cache miss)
+64 silly packumentCache full:https://registry.npmmirror.com/serve-handler set size:34601 disposed:false
+65 http fetch GET 200 https://registry.npmmirror.com/boxen 127ms (cache miss)
+66 silly packumentCache full:https://registry.npmmirror.com/boxen set size:17829 disposed:false
+67 silly placeDep ROOT @zeit/schemas@2.36.0 OK for: serve@14.2.4 want: 2.36.0
+68 silly placeDep ROOT ajv@8.12.0 OK for: serve@14.2.4 want: 8.12.0
+69 silly placeDep ROOT arg@5.0.2 OK for: serve@14.2.4 want: 5.0.2
+70 silly placeDep ROOT boxen@7.0.0 OK for: serve@14.2.4 want: 7.0.0
+71 silly placeDep ROOT chalk@5.0.1 OK for: serve@14.2.4 want: 5.0.1
+72 silly placeDep ROOT chalk-template@0.4.0 OK for: serve@14.2.4 want: 0.4.0
+73 silly placeDep ROOT clipboardy@3.0.0 OK for: serve@14.2.4 want: 3.0.0
+74 silly placeDep ROOT compression@1.7.4 OK for: serve@14.2.4 want: 1.7.4
+75 silly placeDep ROOT is-port-reachable@4.0.0 OK for: serve@14.2.4 want: 4.0.0
+76 silly placeDep ROOT serve-handler@6.1.6 OK for: serve@14.2.4 want: 6.1.6
+77 silly placeDep ROOT update-check@1.5.4 OK for: serve@14.2.4 want: 1.5.4
+78 silly fetch manifest fast-deep-equal@^3.1.1
+79 silly packumentCache full:https://registry.npmmirror.com/fast-deep-equal cache-miss
+80 silly fetch manifest json-schema-traverse@^1.0.0
+81 silly packumentCache full:https://registry.npmmirror.com/json-schema-traverse cache-miss
+82 silly fetch manifest require-from-string@^2.0.2
+83 silly packumentCache full:https://registry.npmmirror.com/require-from-string cache-miss
+84 silly fetch manifest uri-js@^4.2.2
+85 silly packumentCache full:https://registry.npmmirror.com/uri-js cache-miss
+86 silly fetch manifest ansi-align@^3.0.1
+87 silly packumentCache full:https://registry.npmmirror.com/ansi-align cache-miss
+88 silly fetch manifest camelcase@^7.0.0
+89 silly packumentCache full:https://registry.npmmirror.com/camelcase cache-miss
+90 silly fetch manifest chalk@^5.0.1
+91 silly packumentCache full:https://registry.npmmirror.com/chalk cache-hit
+92 silly fetch manifest cli-boxes@^3.0.0
+93 silly packumentCache full:https://registry.npmmirror.com/cli-boxes cache-miss
+94 silly fetch manifest string-width@^5.1.2
+95 silly packumentCache full:https://registry.npmmirror.com/string-width cache-miss
+96 silly fetch manifest type-fest@^2.13.0
+97 silly packumentCache full:https://registry.npmmirror.com/type-fest cache-miss
+98 silly fetch manifest widest-line@^4.0.1
+99 silly packumentCache full:https://registry.npmmirror.com/widest-line cache-miss
+100 silly fetch manifest wrap-ansi@^8.0.1
+101 silly packumentCache full:https://registry.npmmirror.com/wrap-ansi cache-miss
+102 silly fetch manifest chalk@^4.1.2
+103 silly packumentCache full:https://registry.npmmirror.com/chalk cache-hit
+104 silly fetch manifest arch@^2.2.0
+105 silly packumentCache full:https://registry.npmmirror.com/arch cache-miss
+106 silly fetch manifest execa@^5.1.1
+107 silly packumentCache full:https://registry.npmmirror.com/execa cache-miss
+108 silly fetch manifest is-wsl@^2.2.0
+109 silly packumentCache full:https://registry.npmmirror.com/is-wsl cache-miss
+110 silly fetch manifest accepts@~1.3.5
+111 silly packumentCache full:https://registry.npmmirror.com/accepts cache-miss
+112 http fetch GET 200 https://registry.npmmirror.com/fast-deep-equal 52ms (cache miss)
+113 silly packumentCache full:https://registry.npmmirror.com/fast-deep-equal set size:6487 disposed:false
+114 silly fetch manifest bytes@3.0.0
+115 silly packumentCache full:https://registry.npmmirror.com/bytes cache-miss
+116 http fetch GET 200 https://registry.npmmirror.com/require-from-string 54ms (cache miss)
+117 silly packumentCache full:https://registry.npmmirror.com/require-from-string set size:3441 disposed:false
+118 silly fetch manifest compressible@~2.0.16
+119 silly packumentCache full:https://registry.npmmirror.com/compressible cache-miss
+120 http fetch GET 200 https://registry.npmmirror.com/json-schema-traverse 56ms (cache miss)
+121 silly packumentCache full:https://registry.npmmirror.com/json-schema-traverse set size:4662 disposed:false
+122 silly fetch manifest debug@2.6.9
+123 silly packumentCache full:https://registry.npmmirror.com/debug cache-miss
+124 http fetch GET 200 https://registry.npmmirror.com/cli-boxes 74ms (cache miss)
+125 silly packumentCache full:https://registry.npmmirror.com/cli-boxes set size:3994 disposed:false
+126 silly fetch manifest on-headers@~1.0.2
+127 silly packumentCache full:https://registry.npmmirror.com/on-headers cache-miss
+128 http fetch GET 200 https://registry.npmmirror.com/uri-js 86ms (cache miss)
+129 silly packumentCache full:https://registry.npmmirror.com/uri-js set size:8117 disposed:false
+130 silly fetch manifest safe-buffer@5.1.2
+131 silly packumentCache full:https://registry.npmmirror.com/safe-buffer cache-miss
+132 http fetch GET 200 https://registry.npmmirror.com/string-width 87ms (cache miss)
+133 silly packumentCache full:https://registry.npmmirror.com/string-width set size:11513 disposed:false
+134 silly fetch manifest vary@~1.1.2
+135 silly packumentCache full:https://registry.npmmirror.com/vary cache-miss
+136 http fetch GET 200 https://registry.npmmirror.com/camelcase 97ms (cache miss)
+137 silly packumentCache full:https://registry.npmmirror.com/camelcase set size:11752 disposed:false
+138 silly fetch manifest bytes@3.0.0
+139 silly packumentCache full:https://registry.npmmirror.com/bytes cache-miss
+140 http fetch GET 200 https://registry.npmmirror.com/widest-line 100ms (cache miss)
+141 silly packumentCache full:https://registry.npmmirror.com/widest-line set size:3781 disposed:false
+142 silly fetch manifest content-disposition@0.5.2
+143 silly packumentCache full:https://registry.npmmirror.com/content-disposition cache-miss
+144 http fetch GET 200 https://registry.npmmirror.com/wrap-ansi 104ms (cache miss)
+145 silly packumentCache full:https://registry.npmmirror.com/wrap-ansi set size:9489 disposed:false
+146 silly fetch manifest mime-types@2.1.18
+147 silly packumentCache full:https://registry.npmmirror.com/mime-types cache-miss
+148 http fetch GET 200 https://registry.npmmirror.com/ansi-align 141ms (cache miss)
+149 silly packumentCache full:https://registry.npmmirror.com/ansi-align set size:3697 disposed:false
+150 silly fetch manifest minimatch@3.1.2
+151 silly packumentCache full:https://registry.npmmirror.com/minimatch cache-miss
+152 http fetch GET 200 https://registry.npmmirror.com/is-wsl 145ms (cache miss)
+153 silly packumentCache full:https://registry.npmmirror.com/is-wsl set size:3760 disposed:false
+154 silly fetch manifest path-is-inside@1.0.2
+155 silly packumentCache full:https://registry.npmmirror.com/path-is-inside cache-miss
+156 http fetch GET 200 https://registry.npmmirror.com/bytes 102ms (cache miss)
+157 silly packumentCache full:https://registry.npmmirror.com/bytes set size:9017 disposed:false
+158 silly fetch manifest path-to-regexp@3.3.0
+159 silly packumentCache full:https://registry.npmmirror.com/path-to-regexp cache-miss
+160 http fetch GET 200 https://registry.npmmirror.com/arch 154ms (cache miss)
+161 silly packumentCache full:https://registry.npmmirror.com/arch set size:5436 disposed:false
+162 silly fetch manifest range-parser@1.2.0
+163 silly packumentCache full:https://registry.npmmirror.com/range-parser cache-miss
+164 http fetch GET 200 https://registry.npmmirror.com/on-headers 86ms (cache miss)
+165 silly packumentCache full:https://registry.npmmirror.com/on-headers set size:3134 disposed:false
+166 silly fetch manifest registry-auth-token@3.3.2
+167 silly packumentCache full:https://registry.npmmirror.com/registry-auth-token cache-miss
+168 http fetch GET 200 https://registry.npmmirror.com/bytes 63ms (cache miss)
+169 silly packumentCache full:https://registry.npmmirror.com/bytes set size:9017 disposed:false
+170 silly packumentCache full:https://registry.npmmirror.com/bytes dispose
+171 silly fetch manifest registry-url@3.1.0
+172 silly packumentCache full:https://registry.npmmirror.com/registry-url cache-miss
+173 http fetch GET 200 https://registry.npmmirror.com/compressible 111ms (cache miss)
+174 silly packumentCache full:https://registry.npmmirror.com/compressible set size:9676 disposed:false
+175 http fetch GET 200 https://registry.npmmirror.com/vary 79ms (cache miss)
+176 silly packumentCache full:https://registry.npmmirror.com/vary set size:4180 disposed:false
+177 http fetch GET 200 https://registry.npmmirror.com/accepts 163ms (cache miss)
+178 silly packumentCache full:https://registry.npmmirror.com/accepts set size:14345 disposed:false
+179 http fetch GET 200 https://registry.npmmirror.com/safe-buffer 88ms (cache miss)
+180 silly packumentCache full:https://registry.npmmirror.com/safe-buffer set size:11685 disposed:false
+181 http fetch GET 200 https://registry.npmmirror.com/content-disposition 74ms (cache miss)
+182 silly packumentCache full:https://registry.npmmirror.com/content-disposition set size:7756 disposed:false
+183 http fetch GET 200 https://registry.npmmirror.com/debug 122ms (cache miss)
+184 silly packumentCache full:https://registry.npmmirror.com/debug set size:31657 disposed:false
+185 http fetch GET 200 https://registry.npmmirror.com/execa 185ms (cache miss)
+186 silly packumentCache full:https://registry.npmmirror.com/execa set size:31136 disposed:false
+187 http fetch GET 200 https://registry.npmmirror.com/type-fest 195ms (cache miss)
+188 silly packumentCache full:https://registry.npmmirror.com/type-fest set size:108309 disposed:false
+189 http fetch GET 200 https://registry.npmmirror.com/mime-types 95ms (cache miss)
+190 silly packumentCache full:https://registry.npmmirror.com/mime-types set size:20910 disposed:false
+191 http fetch GET 200 https://registry.npmmirror.com/path-is-inside 59ms (cache miss)
+192 silly packumentCache full:https://registry.npmmirror.com/path-is-inside set size:2364 disposed:false
+193 http fetch GET 200 https://registry.npmmirror.com/range-parser 53ms (cache miss)
+194 silly packumentCache full:https://registry.npmmirror.com/range-parser set size:5212 disposed:false
+195 http fetch GET 200 https://registry.npmmirror.com/registry-url 50ms (cache miss)
+196 silly packumentCache full:https://registry.npmmirror.com/registry-url set size:7403 disposed:false
+197 http fetch GET 200 https://registry.npmmirror.com/registry-auth-token 52ms (cache miss)
+198 silly packumentCache full:https://registry.npmmirror.com/registry-auth-token set size:12919 disposed:false
+199 http fetch GET 200 https://registry.npmmirror.com/path-to-regexp 61ms (cache miss)
+200 silly packumentCache full:https://registry.npmmirror.com/path-to-regexp set size:27319 disposed:false
+201 http fetch GET 200 https://registry.npmmirror.com/minimatch 76ms (cache miss)
+202 silly packumentCache full:https://registry.npmmirror.com/minimatch set size:81854 disposed:false
+203 silly placeDep ROOT fast-deep-equal@3.1.3 OK for: ajv@8.12.0 want: ^3.1.1
+204 silly placeDep ROOT json-schema-traverse@1.0.0 OK for: ajv@8.12.0 want: ^1.0.0
+205 silly placeDep ROOT require-from-string@2.0.2 OK for: ajv@8.12.0 want: ^2.0.2
+206 silly placeDep ROOT uri-js@4.4.1 OK for: ajv@8.12.0 want: ^4.2.2
+207 silly fetch manifest punycode@^2.1.0
+208 silly packumentCache full:https://registry.npmmirror.com/punycode cache-miss
+209 http fetch GET 200 https://registry.npmmirror.com/punycode 26ms (cache miss)
+210 silly packumentCache full:https://registry.npmmirror.com/punycode set size:14294 disposed:false
+211 silly placeDep ROOT ansi-align@3.0.1 OK for: boxen@7.0.0 want: ^3.0.1
+212 silly placeDep ROOT camelcase@7.0.1 OK for: boxen@7.0.0 want: ^7.0.0
+213 silly placeDep ROOT cli-boxes@3.0.0 OK for: boxen@7.0.0 want: ^3.0.0
+214 silly placeDep ROOT string-width@5.1.2 OK for: boxen@7.0.0 want: ^5.1.2
+215 silly placeDep ROOT type-fest@2.19.0 OK for: boxen@7.0.0 want: ^2.13.0
+216 silly placeDep ROOT widest-line@4.0.1 OK for: boxen@7.0.0 want: ^4.0.1
+217 silly placeDep ROOT wrap-ansi@8.1.0 OK for: boxen@7.0.0 want: ^8.0.1
+218 silly fetch manifest string-width@^4.1.0
+219 silly packumentCache full:https://registry.npmmirror.com/string-width cache-hit
+220 silly fetch manifest eastasianwidth@^0.2.0
+221 silly packumentCache full:https://registry.npmmirror.com/eastasianwidth cache-miss
+222 silly fetch manifest emoji-regex@^9.2.2
+223 silly packumentCache full:https://registry.npmmirror.com/emoji-regex cache-miss
+224 silly fetch manifest strip-ansi@^7.0.1
+225 silly packumentCache full:https://registry.npmmirror.com/strip-ansi cache-miss
+226 silly fetch manifest ansi-styles@^6.1.0
+227 silly packumentCache full:https://registry.npmmirror.com/ansi-styles cache-miss
+228 silly fetch manifest strip-ansi@^7.0.1
+229 silly packumentCache full:https://registry.npmmirror.com/strip-ansi cache-miss
+230 http fetch GET 200 https://registry.npmmirror.com/eastasianwidth 32ms (cache miss)
+231 silly packumentCache full:https://registry.npmmirror.com/eastasianwidth set size:2598 disposed:false
+232 http fetch GET 200 https://registry.npmmirror.com/emoji-regex 34ms (cache miss)
+233 silly packumentCache full:https://registry.npmmirror.com/emoji-regex set size:16591 disposed:false
+234 http fetch GET 200 https://registry.npmmirror.com/strip-ansi 35ms (cache miss)
+235 silly packumentCache full:https://registry.npmmirror.com/strip-ansi set size:7440 disposed:false
+236 http fetch GET 200 https://registry.npmmirror.com/strip-ansi 37ms (cache miss)
+237 silly packumentCache full:https://registry.npmmirror.com/strip-ansi set size:7440 disposed:false
+238 silly packumentCache full:https://registry.npmmirror.com/strip-ansi dispose
+239 http fetch GET 200 https://registry.npmmirror.com/ansi-styles 59ms (cache miss)
+240 silly packumentCache full:https://registry.npmmirror.com/ansi-styles set size:13272 disposed:false
+241 silly placeDep node_modules/ansi-align string-width@4.2.3 OK for: ansi-align@3.0.1 want: ^4.1.0
+242 silly fetch manifest emoji-regex@^8.0.0
+243 silly packumentCache full:https://registry.npmmirror.com/emoji-regex cache-hit
+244 silly fetch manifest is-fullwidth-code-point@^3.0.0
+245 silly packumentCache full:https://registry.npmmirror.com/is-fullwidth-code-point cache-miss
+246 silly fetch manifest strip-ansi@^6.0.1
+247 silly packumentCache full:https://registry.npmmirror.com/strip-ansi cache-hit
+248 http fetch GET 200 https://registry.npmmirror.com/is-fullwidth-code-point 27ms (cache miss)
+249 silly packumentCache full:https://registry.npmmirror.com/is-fullwidth-code-point set size:2919 disposed:false
+250 silly placeDep node_modules/chalk-template chalk@4.1.2 OK for: chalk-template@0.4.0 want: ^4.1.2
+251 silly fetch manifest ansi-styles@^4.1.0
+252 silly packumentCache full:https://registry.npmmirror.com/ansi-styles cache-hit
+253 silly fetch manifest supports-color@^7.1.0
+254 silly packumentCache full:https://registry.npmmirror.com/supports-color cache-miss
+255 http fetch GET 200 https://registry.npmmirror.com/supports-color 55ms (cache miss)
+256 silly packumentCache full:https://registry.npmmirror.com/supports-color set size:21839 disposed:false
+257 silly placeDep ROOT arch@2.2.0 OK for: clipboardy@3.0.0 want: ^2.2.0
+258 silly placeDep ROOT execa@5.1.1 OK for: clipboardy@3.0.0 want: ^5.1.1
+259 silly placeDep ROOT is-wsl@2.2.0 OK for: clipboardy@3.0.0 want: ^2.2.0
+260 silly fetch manifest cross-spawn@^7.0.3
+261 silly packumentCache full:https://registry.npmmirror.com/cross-spawn cache-miss
+262 silly fetch manifest get-stream@^6.0.0
+263 silly packumentCache full:https://registry.npmmirror.com/get-stream cache-miss
+264 silly fetch manifest human-signals@^2.1.0
+265 silly packumentCache full:https://registry.npmmirror.com/human-signals cache-miss
+266 silly fetch manifest is-stream@^2.0.0
+267 silly packumentCache full:https://registry.npmmirror.com/is-stream cache-miss
+268 silly fetch manifest merge-stream@^2.0.0
+269 silly packumentCache full:https://registry.npmmirror.com/merge-stream cache-miss
+270 silly fetch manifest npm-run-path@^4.0.1
+271 silly packumentCache full:https://registry.npmmirror.com/npm-run-path cache-miss
+272 silly fetch manifest onetime@^5.1.2
+273 silly packumentCache full:https://registry.npmmirror.com/onetime cache-miss
+274 silly fetch manifest signal-exit@^3.0.3
+275 silly packumentCache full:https://registry.npmmirror.com/signal-exit cache-miss
+276 silly fetch manifest strip-final-newline@^2.0.0
+277 silly packumentCache full:https://registry.npmmirror.com/strip-final-newline cache-miss
+278 silly fetch manifest is-docker@^2.0.0
+279 silly packumentCache full:https://registry.npmmirror.com/is-docker cache-miss
+280 http fetch GET 200 https://registry.npmmirror.com/is-docker 53ms (cache miss)
+281 silly packumentCache full:https://registry.npmmirror.com/is-docker set size:3534 disposed:false
+282 http fetch GET 200 https://registry.npmmirror.com/npm-run-path 57ms (cache miss)
+283 silly packumentCache full:https://registry.npmmirror.com/npm-run-path set size:7005 disposed:false
+284 http fetch GET 200 https://registry.npmmirror.com/strip-final-newline 57ms (cache miss)
+285 silly packumentCache full:https://registry.npmmirror.com/strip-final-newline set size:2568 disposed:false
+286 http fetch GET 200 https://registry.npmmirror.com/merge-stream 59ms (cache miss)
+287 silly packumentCache full:https://registry.npmmirror.com/merge-stream set size:4859 disposed:false
+288 http fetch GET 200 https://registry.npmmirror.com/is-stream 61ms (cache miss)
+289 silly packumentCache full:https://registry.npmmirror.com/is-stream set size:4048 disposed:false
+290 http fetch GET 200 https://registry.npmmirror.com/get-stream 63ms (cache miss)
+291 silly packumentCache full:https://registry.npmmirror.com/get-stream set size:11935 disposed:false
+292 http fetch GET 200 https://registry.npmmirror.com/onetime 63ms (cache miss)
+293 silly packumentCache full:https://registry.npmmirror.com/onetime set size:5554 disposed:false
+294 http fetch GET 200 https://registry.npmmirror.com/signal-exit 63ms (cache miss)
+295 silly packumentCache full:https://registry.npmmirror.com/signal-exit set size:12848 disposed:false
+296 http fetch GET 200 https://registry.npmmirror.com/human-signals 66ms (cache miss)
+297 silly packumentCache full:https://registry.npmmirror.com/human-signals set size:12531 disposed:false
+298 http fetch GET 200 https://registry.npmmirror.com/cross-spawn 69ms (cache miss)
+299 silly packumentCache full:https://registry.npmmirror.com/cross-spawn set size:19398 disposed:false
+300 silly placeDep ROOT accepts@1.3.8 OK for: compression@1.7.4 want: ~1.3.5
+301 silly placeDep ROOT bytes@3.0.0 OK for: compression@1.7.4 want: 3.0.0
+302 silly placeDep ROOT compressible@2.0.18 OK for: compression@1.7.4 want: ~2.0.16
+303 silly placeDep ROOT debug@2.6.9 OK for: compression@1.7.4 want: 2.6.9
+304 silly placeDep ROOT on-headers@1.0.2 OK for: compression@1.7.4 want: ~1.0.2
+305 silly placeDep ROOT safe-buffer@5.1.2 OK for: compression@1.7.4 want: 5.1.2
+306 silly placeDep ROOT vary@1.1.2 OK for: compression@1.7.4 want: ~1.1.2
+307 silly fetch manifest mime-types@~2.1.34
+308 silly packumentCache full:https://registry.npmmirror.com/mime-types cache-hit
+309 silly fetch manifest negotiator@0.6.3
+310 silly packumentCache full:https://registry.npmmirror.com/negotiator cache-miss
+311 silly fetch manifest mime-db@>= 1.43.0 < 2
+312 silly packumentCache full:https://registry.npmmirror.com/mime-db cache-miss
+313 silly fetch manifest ms@2.0.0
+314 silly packumentCache full:https://registry.npmmirror.com/ms cache-miss
+315 http fetch GET 200 https://registry.npmmirror.com/ms 29ms (cache miss)
+316 silly packumentCache full:https://registry.npmmirror.com/ms set size:12853 disposed:false
+317 http fetch GET 200 https://registry.npmmirror.com/negotiator 36ms (cache miss)
+318 silly packumentCache full:https://registry.npmmirror.com/negotiator set size:10810 disposed:false
+319 http fetch GET 200 https://registry.npmmirror.com/mime-db 40ms (cache miss)
+320 silly packumentCache full:https://registry.npmmirror.com/mime-db set size:24206 disposed:false
+321 silly placeDep ROOT mime-types@2.1.35 OK for: accepts@1.3.8 want: ~2.1.34
+322 silly placeDep ROOT negotiator@0.6.3 OK for: accepts@1.3.8 want: 0.6.3
+323 silly fetch manifest mime-db@1.52.0
+324 silly packumentCache full:https://registry.npmmirror.com/mime-db cache-hit
+325 silly placeDep ROOT mime-db@1.54.0 OK for: compressible@2.0.18 want: >= 1.43.0 < 2
+326 silly placeDep ROOT ms@2.0.0 OK for: debug@2.6.9 want: 2.0.0
+327 silly placeDep ROOT cross-spawn@7.0.6 OK for: execa@5.1.1 want: ^7.0.3
+328 silly placeDep ROOT get-stream@6.0.1 OK for: execa@5.1.1 want: ^6.0.0
+329 silly placeDep ROOT human-signals@2.1.0 OK for: execa@5.1.1 want: ^2.1.0
+330 silly placeDep ROOT is-stream@2.0.1 OK for: execa@5.1.1 want: ^2.0.0
+331 silly placeDep ROOT merge-stream@2.0.0 OK for: execa@5.1.1 want: ^2.0.0
+332 silly placeDep ROOT npm-run-path@4.0.1 OK for: execa@5.1.1 want: ^4.0.1
+333 silly placeDep ROOT onetime@5.1.2 OK for: execa@5.1.1 want: ^5.1.2
+334 silly placeDep ROOT signal-exit@3.0.7 OK for: execa@5.1.1 want: ^3.0.3
+335 silly placeDep ROOT strip-final-newline@2.0.0 OK for: execa@5.1.1 want: ^2.0.0
+336 silly fetch manifest path-key@^3.1.0
+337 silly packumentCache full:https://registry.npmmirror.com/path-key cache-miss
+338 silly fetch manifest shebang-command@^2.0.0
+339 silly packumentCache full:https://registry.npmmirror.com/shebang-command cache-miss
+340 silly fetch manifest which@^2.0.1
+341 silly packumentCache full:https://registry.npmmirror.com/which cache-miss
+342 silly fetch manifest path-key@^3.0.0
+343 silly packumentCache full:https://registry.npmmirror.com/path-key cache-miss
+344 silly fetch manifest mimic-fn@^2.1.0
+345 silly packumentCache full:https://registry.npmmirror.com/mimic-fn cache-miss
+346 http fetch GET 200 https://registry.npmmirror.com/path-key 32ms (cache miss)
+347 silly packumentCache full:https://registry.npmmirror.com/path-key set size:3439 disposed:false
+348 http fetch GET 200 https://registry.npmmirror.com/path-key 31ms (cache miss)
+349 silly packumentCache full:https://registry.npmmirror.com/path-key set size:3439 disposed:false
+350 silly packumentCache full:https://registry.npmmirror.com/path-key dispose
+351 http fetch GET 200 https://registry.npmmirror.com/shebang-command 35ms (cache miss)
+352 silly packumentCache full:https://registry.npmmirror.com/shebang-command set size:2106 disposed:false
+353 http fetch GET 200 https://registry.npmmirror.com/mimic-fn 32ms (cache miss)
+354 silly packumentCache full:https://registry.npmmirror.com/mimic-fn set size:4665 disposed:false
+355 http fetch GET 200 https://registry.npmmirror.com/which 47ms (cache miss)
+356 silly packumentCache full:https://registry.npmmirror.com/which set size:13386 disposed:false
+357 silly placeDep ROOT path-key@3.1.1 OK for: cross-spawn@7.0.6 want: ^3.1.0
+358 silly placeDep ROOT shebang-command@2.0.0 OK for: cross-spawn@7.0.6 want: ^2.0.0
+359 silly placeDep ROOT which@2.0.2 OK for: cross-spawn@7.0.6 want: ^2.0.1
+360 silly fetch manifest shebang-regex@^3.0.0
+361 silly packumentCache full:https://registry.npmmirror.com/shebang-regex cache-miss
+362 silly fetch manifest isexe@^2.0.0
+363 silly packumentCache full:https://registry.npmmirror.com/isexe cache-miss
+364 http fetch GET 200 https://registry.npmmirror.com/isexe 26ms (cache miss)
+365 silly packumentCache full:https://registry.npmmirror.com/isexe set size:4993 disposed:false
+366 http fetch GET 200 https://registry.npmmirror.com/shebang-regex 27ms (cache miss)
+367 silly packumentCache full:https://registry.npmmirror.com/shebang-regex set size:2417 disposed:false
+368 silly placeDep ROOT is-docker@2.2.1 OK for: is-wsl@2.2.0 want: ^2.0.0
+369 silly placeDep node_modules/mime-types mime-db@1.52.0 OK for: mime-types@2.1.35 want: 1.52.0
+370 silly placeDep ROOT mimic-fn@2.1.0 OK for: onetime@5.1.2 want: ^2.1.0
+371 silly placeDep ROOT content-disposition@0.5.2 OK for: serve-handler@6.1.6 want: 0.5.2
+372 silly placeDep node_modules/serve-handler mime-types@2.1.18 OK for: serve-handler@6.1.6 want: 2.1.18
+373 silly placeDep ROOT minimatch@3.1.2 OK for: serve-handler@6.1.6 want: 3.1.2
+374 silly placeDep ROOT path-is-inside@1.0.2 OK for: serve-handler@6.1.6 want: 1.0.2
+375 silly placeDep ROOT path-to-regexp@3.3.0 OK for: serve-handler@6.1.6 want: 3.3.0
+376 silly placeDep ROOT range-parser@1.2.0 OK for: serve-handler@6.1.6 want: 1.2.0
+377 silly fetch manifest mime-db@~1.33.0
+378 silly packumentCache full:https://registry.npmmirror.com/mime-db cache-hit
+379 silly fetch manifest brace-expansion@^1.1.7
+380 silly packumentCache full:https://registry.npmmirror.com/brace-expansion cache-miss
+381 http fetch GET 200 https://registry.npmmirror.com/brace-expansion 26ms (cache miss)
+382 silly packumentCache full:https://registry.npmmirror.com/brace-expansion set size:10160 disposed:false
+383 silly placeDep ROOT brace-expansion@1.1.12 OK for: minimatch@3.1.2 want: ^1.1.7
+384 silly fetch manifest balanced-match@^1.0.0
+385 silly packumentCache full:https://registry.npmmirror.com/balanced-match cache-miss
+386 silly fetch manifest concat-map@0.0.1
+387 silly packumentCache full:https://registry.npmmirror.com/concat-map cache-miss
+388 http fetch GET 200 https://registry.npmmirror.com/concat-map 25ms (cache miss)
+389 silly packumentCache full:https://registry.npmmirror.com/concat-map set size:3991 disposed:false
+390 http fetch GET 200 https://registry.npmmirror.com/balanced-match 27ms (cache miss)
+391 silly packumentCache full:https://registry.npmmirror.com/balanced-match set size:6837 disposed:false
+392 silly placeDep ROOT balanced-match@1.0.2 OK for: brace-expansion@1.1.12 want: ^1.0.0
+393 silly placeDep ROOT concat-map@0.0.1 OK for: brace-expansion@1.1.12 want: 0.0.1
+394 silly placeDep ROOT shebang-regex@3.0.0 OK for: shebang-command@2.0.0 want: ^3.0.0
+395 silly placeDep ROOT eastasianwidth@0.2.0 OK for: string-width@5.1.2 want: ^0.2.0
+396 silly placeDep ROOT emoji-regex@9.2.2 OK for: string-width@5.1.2 want: ^9.2.2
+397 silly placeDep ROOT strip-ansi@7.1.0 OK for: string-width@5.1.2 want: ^7.0.1
+398 silly fetch manifest ansi-regex@^6.0.1
+399 silly packumentCache full:https://registry.npmmirror.com/ansi-regex cache-miss
+400 http fetch GET 200 https://registry.npmmirror.com/ansi-regex 26ms (cache miss)
+401 silly packumentCache full:https://registry.npmmirror.com/ansi-regex set size:8708 disposed:false
+402 silly placeDep ROOT ansi-regex@6.1.0 OK for: strip-ansi@7.1.0 want: ^6.0.1
+403 silly placeDep ROOT registry-auth-token@3.3.2 OK for: update-check@1.5.4 want: 3.3.2
+404 silly placeDep ROOT registry-url@3.1.0 OK for: update-check@1.5.4 want: 3.1.0
+405 silly fetch manifest rc@^1.1.6
+406 silly packumentCache full:https://registry.npmmirror.com/rc cache-miss
+407 silly fetch manifest rc@^1.0.1
+408 silly packumentCache full:https://registry.npmmirror.com/rc cache-miss
+409 http fetch GET 200 https://registry.npmmirror.com/rc 69ms (cache miss)
+410 silly packumentCache full:https://registry.npmmirror.com/rc set size:15256 disposed:false
+411 http fetch GET 200 https://registry.npmmirror.com/rc 71ms (cache miss)
+412 silly packumentCache full:https://registry.npmmirror.com/rc set size:15256 disposed:false
+413 silly packumentCache full:https://registry.npmmirror.com/rc dispose
+414 silly placeDep ROOT rc@1.2.8 OK for: registry-auth-token@3.3.2 want: ^1.1.6
+415 silly fetch manifest deep-extend@^0.6.0
+416 silly packumentCache full:https://registry.npmmirror.com/deep-extend cache-miss
+417 silly fetch manifest ini@~1.3.0
+418 silly packumentCache full:https://registry.npmmirror.com/ini cache-miss
+419 silly fetch manifest minimist@^1.2.0
+420 silly packumentCache full:https://registry.npmmirror.com/minimist cache-miss
+421 silly fetch manifest strip-json-comments@~2.0.1
+422 silly packumentCache full:https://registry.npmmirror.com/strip-json-comments cache-miss
+423 http fetch GET 200 https://registry.npmmirror.com/strip-json-comments 28ms (cache miss)
+424 silly packumentCache full:https://registry.npmmirror.com/strip-json-comments set size:7906 disposed:false
+425 http fetch GET 200 https://registry.npmmirror.com/minimist 32ms (cache miss)
+426 silly packumentCache full:https://registry.npmmirror.com/minimist set size:15094 disposed:false
+427 http fetch GET 200 https://registry.npmmirror.com/ini 33ms (cache miss)
+428 silly packumentCache full:https://registry.npmmirror.com/ini set size:13556 disposed:false
+429 http fetch GET 200 https://registry.npmmirror.com/deep-extend 103ms (cache miss)
+430 silly packumentCache full:https://registry.npmmirror.com/deep-extend set size:6307 disposed:false
+431 silly placeDep ROOT deep-extend@0.6.0 OK for: rc@1.2.8 want: ^0.6.0
+432 silly placeDep ROOT ini@1.3.8 OK for: rc@1.2.8 want: ~1.3.0
+433 silly placeDep ROOT minimist@1.2.8 OK for: rc@1.2.8 want: ^1.2.0
+434 silly placeDep ROOT strip-json-comments@2.0.1 OK for: rc@1.2.8 want: ~2.0.1
+435 silly placeDep ROOT punycode@2.3.1 OK for: uri-js@4.4.1 want: ^2.1.0
+436 silly placeDep ROOT isexe@2.0.0 OK for: which@2.0.2 want: ^2.0.0
+437 silly placeDep ROOT ansi-styles@6.2.1 OK for: wrap-ansi@8.1.0 want: ^6.1.0
+438 silly placeDep node_modules/ansi-align emoji-regex@8.0.0 OK for: string-width@4.2.3 want: ^8.0.0
+439 silly placeDep ROOT is-fullwidth-code-point@3.0.0 OK for: string-width@4.2.3 want: ^3.0.0
+440 silly placeDep node_modules/ansi-align strip-ansi@6.0.1 OK for: string-width@4.2.3 want: ^6.0.1
+441 silly fetch manifest ansi-regex@^5.0.1
+442 silly packumentCache full:https://registry.npmmirror.com/ansi-regex cache-hit
+443 silly placeDep node_modules/ansi-align ansi-regex@5.0.1 OK for: strip-ansi@6.0.1 want: ^5.0.1
+444 silly placeDep node_modules/chalk-template ansi-styles@4.3.0 OK for: chalk@4.1.2 want: ^4.1.0
+445 silly placeDep ROOT supports-color@7.2.0 OK for: chalk@4.1.2 want: ^7.1.0
+446 silly fetch manifest color-convert@^2.0.1
+447 silly packumentCache full:https://registry.npmmirror.com/color-convert cache-miss
+448 silly fetch manifest has-flag@^4.0.0
+449 silly packumentCache full:https://registry.npmmirror.com/has-flag cache-miss
+450 http fetch GET 200 https://registry.npmmirror.com/has-flag 32ms (cache miss)
+451 silly packumentCache full:https://registry.npmmirror.com/has-flag set size:3321 disposed:false
+452 http fetch GET 200 https://registry.npmmirror.com/color-convert 34ms (cache miss)
+453 silly packumentCache full:https://registry.npmmirror.com/color-convert set size:13132 disposed:false
+454 silly placeDep ROOT has-flag@4.0.0 OK for: supports-color@7.2.0 want: ^4.0.0
+455 silly placeDep ROOT color-convert@2.0.1 OK for: ansi-styles@4.3.0 want: ^2.0.1
+456 silly fetch manifest color-name@~1.1.4
+457 silly packumentCache full:https://registry.npmmirror.com/color-name cache-miss
+458 http fetch GET 200 https://registry.npmmirror.com/color-name 31ms (cache miss)
+459 silly packumentCache full:https://registry.npmmirror.com/color-name set size:4450 disposed:false
+460 silly placeDep ROOT color-name@1.1.4 OK for: color-convert@2.0.1 want: ~1.1.4
+461 silly placeDep node_modules/serve-handler mime-db@1.33.0 OK for: mime-types@2.1.18 want: ~1.33.0
+462 silly reify moves {}
+463 silly audit bulk request {
+463 silly audit   serve: [ '14.2.4' ],
+463 silly audit   '@zeit/schemas': [ '2.36.0' ],
+463 silly audit   ajv: [ '8.12.0' ],
+463 silly audit   arg: [ '5.0.2' ],
+463 silly audit   boxen: [ '7.0.0' ],
+463 silly audit   chalk: [ '5.0.1', '4.1.2' ],
+463 silly audit   'chalk-template': [ '0.4.0' ],
+463 silly audit   clipboardy: [ '3.0.0' ],
+463 silly audit   compression: [ '1.7.4' ],
+463 silly audit   'is-port-reachable': [ '4.0.0' ],
+463 silly audit   'serve-handler': [ '6.1.6' ],
+463 silly audit   'update-check': [ '1.5.4' ],
+463 silly audit   'fast-deep-equal': [ '3.1.3' ],
+463 silly audit   'json-schema-traverse': [ '1.0.0' ],
+463 silly audit   'require-from-string': [ '2.0.2' ],
+463 silly audit   'uri-js': [ '4.4.1' ],
+463 silly audit   'ansi-align': [ '3.0.1' ],
+463 silly audit   camelcase: [ '7.0.1' ],
+463 silly audit   'cli-boxes': [ '3.0.0' ],
+463 silly audit   'string-width': [ '5.1.2', '4.2.3' ],
+463 silly audit   'type-fest': [ '2.19.0' ],
+463 silly audit   'widest-line': [ '4.0.1' ],
+463 silly audit   'wrap-ansi': [ '8.1.0' ],
+463 silly audit   arch: [ '2.2.0' ],
+463 silly audit   execa: [ '5.1.1' ],
+463 silly audit   'is-wsl': [ '2.2.0' ],
+463 silly audit   accepts: [ '1.3.8' ],
+463 silly audit   bytes: [ '3.0.0' ],
+463 silly audit   compressible: [ '2.0.18' ],
+463 silly audit   debug: [ '2.6.9' ],
+463 silly audit   'on-headers': [ '1.0.2' ],
+463 silly audit   'safe-buffer': [ '5.1.2' ],
+463 silly audit   vary: [ '1.1.2' ],
+463 silly audit   'mime-types': [ '2.1.35', '2.1.18' ],
+463 silly audit   negotiator: [ '0.6.3' ],
+463 silly audit   'mime-db': [ '1.54.0', '1.52.0', '1.33.0' ],
+463 silly audit   ms: [ '2.0.0' ],
+463 silly audit   'cross-spawn': [ '7.0.6' ],
+463 silly audit   'get-stream': [ '6.0.1' ],
+463 silly audit   'human-signals': [ '2.1.0' ],
+463 silly audit   'is-stream': [ '2.0.1' ],
+463 silly audit   'merge-stream': [ '2.0.0' ],
+463 silly audit   'npm-run-path': [ '4.0.1' ],
+463 silly audit   onetime: [ '5.1.2' ],
+463 silly audit   'signal-exit': [ '3.0.7' ],
+463 silly audit   'strip-final-newline': [ '2.0.0' ],
+463 silly audit   'path-key': [ '3.1.1' ],
+463 silly audit   'shebang-command': [ '2.0.0' ],
+463 silly audit   which: [ '2.0.2' ],
+463 silly audit   'is-docker': [ '2.2.1' ],
+463 silly audit   'mimic-fn': [ '2.1.0' ],
+463 silly audit   'content-disposition': [ '0.5.2' ],
+463 silly audit   minimatch: [ '3.1.2' ],
+463 silly audit   'path-is-inside': [ '1.0.2' ],
+463 silly audit   'path-to-regexp': [ '3.3.0' ],
+463 silly audit   'range-parser': [ '1.2.0' ],
+463 silly audit   'brace-expansion': [ '1.1.12' ],
+463 silly audit   'balanced-match': [ '1.0.2' ],
+463 silly audit   'concat-map': [ '0.0.1' ],
+463 silly audit   'shebang-regex': [ '3.0.0' ],
+463 silly audit   eastasianwidth: [ '0.2.0' ],
+463 silly audit   'emoji-regex': [ '9.2.2', '8.0.0' ],
+463 silly audit   'strip-ansi': [ '7.1.0', '6.0.1' ],
+463 silly audit   'ansi-regex': [ '6.1.0', '5.0.1' ],
+463 silly audit   'registry-auth-token': [ '3.3.2' ],
+463 silly audit   'registry-url': [ '3.1.0' ],
+463 silly audit   rc: [ '1.2.8' ],
+463 silly audit   'deep-extend': [ '0.6.0' ],
+463 silly audit   ini: [ '1.3.8' ],
+463 silly audit   minimist: [ '1.2.8' ],
+463 silly audit   'strip-json-comments': [ '2.0.1' ],
+463 silly audit   punycode: [ '2.3.1' ],
+463 silly audit   isexe: [ '2.0.0' ],
+463 silly audit   'ansi-styles': [ '6.2.1', '4.3.0' ],
+463 silly audit   'is-fullwidth-code-point': [ '3.0.0' ],
+463 silly audit   'supports-color': [ '7.2.0' ],
+463 silly audit   'has-flag': [ '4.0.0' ],
+463 silly audit   'color-convert': [ '2.0.1' ],
+463 silly audit   'color-name': [ '1.1.4' ]
+463 silly audit }
+464 silly tarball no local data for color-convert@https://registry.npmmirror.com/color-convert/-/color-convert-2.0.1.tgz. Extracting by manifest.
+465 http fetch POST 404 https://registry.npmmirror.com/-/npm/v1/security/advisories/bulk 43ms
+466 silly audit bulk request failed [object Object]
+467 silly tarball no local data for has-flag@https://registry.npmmirror.com/has-flag/-/has-flag-4.0.0.tgz. Extracting by manifest.
+468 silly tarball no local data for color-name@https://registry.npmmirror.com/color-name/-/color-name-1.1.4.tgz. Extracting by manifest.
+469 silly tarball no local data for supports-color@https://registry.npmmirror.com/supports-color/-/supports-color-7.2.0.tgz. Extracting by manifest.
+470 silly tarball no local data for ansi-styles@https://registry.npmmirror.com/ansi-styles/-/ansi-styles-6.2.1.tgz. Extracting by manifest.
+471 silly tarball no local data for is-fullwidth-code-point@https://registry.npmmirror.com/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz. Extracting by manifest.
+472 silly tarball no local data for isexe@https://registry.npmmirror.com/isexe/-/isexe-2.0.0.tgz. Extracting by manifest.
+473 silly tarball no local data for strip-json-comments@https://registry.npmmirror.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz. Extracting by manifest.
+474 silly tarball no local data for punycode@https://registry.npmmirror.com/punycode/-/punycode-2.3.1.tgz. Extracting by manifest.
+475 silly tarball no local data for minimist@https://registry.npmmirror.com/minimist/-/minimist-1.2.8.tgz. Extracting by manifest.
+476 silly tarball no local data for deep-extend@https://registry.npmmirror.com/deep-extend/-/deep-extend-0.6.0.tgz. Extracting by manifest.
+477 silly tarball no local data for ini@https://registry.npmmirror.com/ini/-/ini-1.3.8.tgz. Extracting by manifest.
+478 silly tarball no local data for registry-url@https://registry.npmmirror.com/registry-url/-/registry-url-3.1.0.tgz. Extracting by manifest.
+479 silly tarball no local data for registry-auth-token@https://registry.npmmirror.com/registry-auth-token/-/registry-auth-token-3.3.2.tgz. Extracting by manifest.
+480 silly tarball no local data for rc@https://registry.npmmirror.com/rc/-/rc-1.2.8.tgz. Extracting by manifest.
+481 silly tarball no local data for ansi-regex@https://registry.npmmirror.com/ansi-regex/-/ansi-regex-6.1.0.tgz. Extracting by manifest.
+482 silly tarball no local data for strip-ansi@https://registry.npmmirror.com/strip-ansi/-/strip-ansi-7.1.0.tgz. Extracting by manifest.
+483 silly tarball no local data for emoji-regex@https://registry.npmmirror.com/emoji-regex/-/emoji-regex-9.2.2.tgz. Extracting by manifest.
+484 silly tarball no local data for eastasianwidth@https://registry.npmmirror.com/eastasianwidth/-/eastasianwidth-0.2.0.tgz. Extracting by manifest.
+485 silly tarball no local data for shebang-regex@https://registry.npmmirror.com/shebang-regex/-/shebang-regex-3.0.0.tgz. Extracting by manifest.
+486 silly tarball no local data for concat-map@https://registry.npmmirror.com/concat-map/-/concat-map-0.0.1.tgz. Extracting by manifest.
+487 silly tarball no local data for brace-expansion@https://registry.npmmirror.com/brace-expansion/-/brace-expansion-1.1.12.tgz. Extracting by manifest.
+488 silly tarball no local data for balanced-match@https://registry.npmmirror.com/balanced-match/-/balanced-match-1.0.2.tgz. Extracting by manifest.
+489 silly tarball no local data for range-parser@https://registry.npmmirror.com/range-parser/-/range-parser-1.2.0.tgz. Extracting by manifest.
+490 silly tarball no local data for path-is-inside@https://registry.npmmirror.com/path-is-inside/-/path-is-inside-1.0.2.tgz. Extracting by manifest.
+491 silly tarball no local data for path-to-regexp@https://registry.npmmirror.com/path-to-regexp/-/path-to-regexp-3.3.0.tgz. Extracting by manifest.
+492 silly tarball no local data for content-disposition@https://registry.npmmirror.com/content-disposition/-/content-disposition-0.5.2.tgz. Extracting by manifest.
+493 silly tarball no local data for mimic-fn@https://registry.npmmirror.com/mimic-fn/-/mimic-fn-2.1.0.tgz. Extracting by manifest.
+494 silly tarball no local data for minimatch@https://registry.npmmirror.com/minimatch/-/minimatch-3.1.2.tgz. Extracting by manifest.
+495 silly tarball no local data for is-docker@https://registry.npmmirror.com/is-docker/-/is-docker-2.2.1.tgz. Extracting by manifest.
+496 silly tarball no local data for path-key@https://registry.npmmirror.com/path-key/-/path-key-3.1.1.tgz. Extracting by manifest.
+497 silly tarball no local data for which@https://registry.npmmirror.com/which/-/which-2.0.2.tgz. Extracting by manifest.
+498 silly tarball no local data for shebang-command@https://registry.npmmirror.com/shebang-command/-/shebang-command-2.0.0.tgz. Extracting by manifest.
+499 silly tarball no local data for signal-exit@https://registry.npmmirror.com/signal-exit/-/signal-exit-3.0.7.tgz. Extracting by manifest.
+500 silly tarball no local data for onetime@https://registry.npmmirror.com/onetime/-/onetime-5.1.2.tgz. Extracting by manifest.
+501 silly tarball no local data for strip-final-newline@https://registry.npmmirror.com/strip-final-newline/-/strip-final-newline-2.0.0.tgz. Extracting by manifest.
+502 silly tarball no local data for is-stream@https://registry.npmmirror.com/is-stream/-/is-stream-2.0.1.tgz. Extracting by manifest.
+503 silly tarball no local data for npm-run-path@https://registry.npmmirror.com/npm-run-path/-/npm-run-path-4.0.1.tgz. Extracting by manifest.
+504 silly tarball no local data for merge-stream@https://registry.npmmirror.com/merge-stream/-/merge-stream-2.0.0.tgz. Extracting by manifest.
+505 silly tarball no local data for get-stream@https://registry.npmmirror.com/get-stream/-/get-stream-6.0.1.tgz. Extracting by manifest.
+506 silly tarball no local data for human-signals@https://registry.npmmirror.com/human-signals/-/human-signals-2.1.0.tgz. Extracting by manifest.
+507 silly tarball no local data for ms@https://registry.npmmirror.com/ms/-/ms-2.0.0.tgz. Extracting by manifest.
+508 silly tarball no local data for cross-spawn@https://registry.npmmirror.com/cross-spawn/-/cross-spawn-7.0.6.tgz. Extracting by manifest.
+509 silly tarball no local data for mime-db@https://registry.npmmirror.com/mime-db/-/mime-db-1.54.0.tgz. Extracting by manifest.
+510 silly tarball no local data for negotiator@https://registry.npmmirror.com/negotiator/-/negotiator-0.6.3.tgz. Extracting by manifest.
+511 silly tarball no local data for mime-types@https://registry.npmmirror.com/mime-types/-/mime-types-2.1.35.tgz. Extracting by manifest.
+512 silly tarball no local data for safe-buffer@https://registry.npmmirror.com/safe-buffer/-/safe-buffer-5.1.2.tgz. Extracting by manifest.
+513 silly tarball no local data for vary@https://registry.npmmirror.com/vary/-/vary-1.1.2.tgz. Extracting by manifest.
+514 silly tarball no local data for on-headers@https://registry.npmmirror.com/on-headers/-/on-headers-1.0.2.tgz. Extracting by manifest.
+515 silly tarball no local data for debug@https://registry.npmmirror.com/debug/-/debug-2.6.9.tgz. Extracting by manifest.
+516 silly tarball no local data for compressible@https://registry.npmmirror.com/compressible/-/compressible-2.0.18.tgz. Extracting by manifest.
+517 silly tarball no local data for bytes@https://registry.npmmirror.com/bytes/-/bytes-3.0.0.tgz. Extracting by manifest.
+518 silly tarball no local data for accepts@https://registry.npmmirror.com/accepts/-/accepts-1.3.8.tgz. Extracting by manifest.
+519 silly tarball no local data for is-wsl@https://registry.npmmirror.com/is-wsl/-/is-wsl-2.2.0.tgz. Extracting by manifest.
+520 silly tarball no local data for execa@https://registry.npmmirror.com/execa/-/execa-5.1.1.tgz. Extracting by manifest.
+521 silly tarball no local data for widest-line@https://registry.npmmirror.com/widest-line/-/widest-line-4.0.1.tgz. Extracting by manifest.
+522 silly tarball no local data for type-fest@https://registry.npmmirror.com/type-fest/-/type-fest-2.19.0.tgz. Extracting by manifest.
+523 silly tarball no local data for arch@https://registry.npmmirror.com/arch/-/arch-2.2.0.tgz. Extracting by manifest.
+524 silly tarball no local data for wrap-ansi@https://registry.npmmirror.com/wrap-ansi/-/wrap-ansi-8.1.0.tgz. Extracting by manifest.
+525 silly tarball no local data for string-width@https://registry.npmmirror.com/string-width/-/string-width-5.1.2.tgz. Extracting by manifest.
+526 silly tarball no local data for cli-boxes@https://registry.npmmirror.com/cli-boxes/-/cli-boxes-3.0.0.tgz. Extracting by manifest.
+527 silly tarball no local data for camelcase@https://registry.npmmirror.com/camelcase/-/camelcase-7.0.1.tgz. Extracting by manifest.
+528 silly tarball no local data for ansi-align@https://registry.npmmirror.com/ansi-align/-/ansi-align-3.0.1.tgz. Extracting by manifest.
+529 silly tarball no local data for require-from-string@https://registry.npmmirror.com/require-from-string/-/require-from-string-2.0.2.tgz. Extracting by manifest.
+530 silly tarball no local data for uri-js@https://registry.npmmirror.com/uri-js/-/uri-js-4.4.1.tgz. Extracting by manifest.
+531 silly tarball no local data for json-schema-traverse@https://registry.npmmirror.com/json-schema-traverse/-/json-schema-traverse-1.0.0.tgz. Extracting by manifest.
+532 silly tarball no local data for serve-handler@https://registry.npmmirror.com/serve-handler/-/serve-handler-6.1.6.tgz. Extracting by manifest.
+533 silly tarball no local data for update-check@https://registry.npmmirror.com/update-check/-/update-check-1.5.4.tgz. Extracting by manifest.
+534 silly tarball no local data for fast-deep-equal@https://registry.npmmirror.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz. Extracting by manifest.
+535 silly tarball no local data for is-port-reachable@https://registry.npmmirror.com/is-port-reachable/-/is-port-reachable-4.0.0.tgz. Extracting by manifest.
+536 silly tarball no local data for compression@https://registry.npmmirror.com/compression/-/compression-1.7.4.tgz. Extracting by manifest.
+537 silly tarball no local data for chalk-template@https://registry.npmmirror.com/chalk-template/-/chalk-template-0.4.0.tgz. Extracting by manifest.
+538 silly tarball no local data for @zeit/schemas@https://registry.npmmirror.com/@zeit/schemas/-/schemas-2.36.0.tgz. Extracting by manifest.
+539 silly tarball no local data for chalk@https://registry.npmmirror.com/chalk/-/chalk-5.0.1.tgz. Extracting by manifest.
+540 silly tarball no local data for clipboardy@https://registry.npmmirror.com/clipboardy/-/clipboardy-3.0.0.tgz. Extracting by manifest.
+541 silly tarball no local data for boxen@https://registry.npmmirror.com/boxen/-/boxen-7.0.0.tgz. Extracting by manifest.
+542 silly tarball no local data for arg@https://registry.npmmirror.com/arg/-/arg-5.0.2.tgz. Extracting by manifest.
+543 silly tarball no local data for ajv@https://registry.npmmirror.com/ajv/-/ajv-8.12.0.tgz. Extracting by manifest.
+544 silly tarball no local data for strip-ansi@https://registry.npmmirror.com/strip-ansi/-/strip-ansi-6.0.1.tgz. Extracting by manifest.
+545 silly tarball no local data for serve@https://registry.npmmirror.com/serve/-/serve-14.2.4.tgz. Extracting by manifest.
+546 silly tarball no local data for mime-db@https://registry.npmmirror.com/mime-db/-/mime-db-1.52.0.tgz. Extracting by manifest.
+547 silly tarball no local data for emoji-regex@https://registry.npmmirror.com/emoji-regex/-/emoji-regex-8.0.0.tgz. Extracting by manifest.
+548 silly tarball no local data for ansi-regex@https://registry.npmmirror.com/ansi-regex/-/ansi-regex-5.0.1.tgz. Extracting by manifest.
+549 silly tarball no local data for string-width@https://registry.npmmirror.com/string-width/-/string-width-4.2.3.tgz. Extracting by manifest.
+550 silly tarball no local data for mime-db@https://registry.npmmirror.com/mime-db/-/mime-db-1.33.0.tgz. Extracting by manifest.
+551 silly tarball no local data for mime-types@https://registry.npmmirror.com/mime-types/-/mime-types-2.1.18.tgz. Extracting by manifest.
+552 silly tarball no local data for chalk@https://registry.npmmirror.com/chalk/-/chalk-4.1.2.tgz. Extracting by manifest.
+553 silly tarball no local data for ansi-styles@https://registry.npmmirror.com/ansi-styles/-/ansi-styles-4.3.0.tgz. Extracting by manifest.
+554 http fetch POST 404 https://registry.npmmirror.com/-/npm/v1/security/audits/quick 134ms
+555 verbose audit error HttpErrorGeneral: 404 Not Found - POST https://registry.npmmirror.com/-/npm/v1/security/audits/quick - [NOT_IMPLEMENTED] /-/npm/v1/security/* not implemented yet
+555 verbose audit error     at C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-fetch\lib\check-response.js:95:15
+555 verbose audit error     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+555 verbose audit error     at async [getReport] (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\audit-report.js:336:21)
+555 verbose audit error     at async AuditReport.run (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\audit-report.js:106:19) {
+555 verbose audit error   headers: [Object: null prototype] {
+555 verbose audit error     server: [ 'Tengine' ],
+555 verbose audit error     date: [ 'Wed, 16 Jul 2025 05:54:36 GMT' ],
+555 verbose audit error     'content-type': [ 'application/json' ],
+555 verbose audit error     'transfer-encoding': [ 'chunked' ],
+555 verbose audit error     connection: [ 'keep-alive' ],
+555 verbose audit error     'strict-transport-security': [ 'max-age=5184000' ],
+555 verbose audit error     via: [ 'kunlun8.cn5220[,404666]' ],
+555 verbose audit error     'timing-allow-origin': [ '*' ],
+555 verbose audit error     eagleid: [ '77bcac9c17526452768846963e' ],
+555 verbose audit error     'x-fetch-attempts': [ '1' ]
+555 verbose audit error   },
+555 verbose audit error   statusCode: 404,
+555 verbose audit error   code: 'E404',
+555 verbose audit error   method: 'POST',
+555 verbose audit error   uri: 'https://registry.npmmirror.com/-/npm/v1/security/audits/quick',
+555 verbose audit error   body: {
+555 verbose audit error     error: '[NOT_IMPLEMENTED] /-/npm/v1/security/* not implemented yet'
+555 verbose audit error   },
+555 verbose audit error   pkgid: undefined
+555 verbose audit error }
+556 silly audit error [object Object]
+557 silly audit report null
+558 http fetch GET 200 https://cdn.npmmirror.com/packages/supports-color/7.2.0/supports-color-7.2.0.tgz 714ms (cache miss)
+559 http fetch GET 200 https://cdn.npmmirror.com/packages/is-fullwidth-code-point/3.0.0/is-fullwidth-code-point-3.0.0.tgz 714ms (cache miss)
+560 http fetch GET 200 https://cdn.npmmirror.com/packages/strip-ansi/7.1.0/strip-ansi-7.1.0.tgz 708ms (cache miss)
+561 http fetch GET 200 https://cdn.npmmirror.com/packages/registry-url/3.1.0/registry-url-3.1.0.tgz 711ms (cache miss)
+562 http fetch GET 200 https://cdn.npmmirror.com/packages/shebang-command/2.0.0/shebang-command-2.0.0.tgz 701ms (cache miss)
+563 http fetch GET 200 https://cdn.npmmirror.com/packages/strip-json-comments/2.0.1/strip-json-comments-2.0.1.tgz 721ms (cache miss)
+564 http fetch GET 200 https://cdn.npmmirror.com/packages/color-name/1.1.4/color-name-1.1.4.tgz 725ms (cache miss)
+565 http fetch GET 200 https://cdn.npmmirror.com/packages/concat-map/0.0.1/concat-map-0.0.1.tgz 717ms (cache miss)
+566 http fetch GET 200 https://cdn.npmmirror.com/packages/shebang-regex/3.0.0/shebang-regex-3.0.0.tgz 719ms (cache miss)
+567 http fetch GET 200 https://cdn.npmmirror.com/packages/content-disposition/0.5.2/content-disposition-0.5.2.tgz 716ms (cache miss)
+568 http fetch GET 200 https://cdn.npmmirror.com/packages/path-is-inside/1.0.2/path-is-inside-1.0.2.tgz 717ms (cache miss)
+569 http fetch GET 200 https://cdn.npmmirror.com/packages/ansi-styles/6.2.1/ansi-styles-6.2.1.tgz 736ms (cache miss)
+570 http fetch GET 200 https://cdn.npmmirror.com/packages/has-flag/4.0.0/has-flag-4.0.0.tgz 737ms (cache miss)
+571 http fetch GET 200 https://cdn.npmmirror.com/packages/ini/1.3.8/ini-1.3.8.tgz 732ms (cache miss)
+572 http fetch GET 200 https://cdn.npmmirror.com/packages/isexe/2.0.0/isexe-2.0.0.tgz 737ms (cache miss)
+573 http fetch GET 200 https://cdn.npmmirror.com/packages/strip-final-newline/2.0.0/strip-final-newline-2.0.0.tgz 716ms (cache miss)
+574 http fetch GET 200 https://cdn.npmmirror.com/packages/minimatch/3.1.2/minimatch-3.1.2.tgz 726ms (cache miss)
+575 http fetch GET 200 https://cdn.npmmirror.com/packages/onetime/5.1.2/onetime-5.1.2.tgz 722ms (cache miss)
+576 http fetch GET 200 https://cdn.npmmirror.com/packages/is-docker/2.2.1/is-docker-2.2.1.tgz 726ms (cache miss)
+577 http fetch GET 200 https://cdn.npmmirror.com/packages/is-stream/2.0.1/is-stream-2.0.1.tgz 717ms (cache miss)
+578 http fetch GET 200 https://cdn.npmmirror.com/packages/brace-expansion/1.1.12/brace-expansion-1.1.12.tgz 737ms (cache miss)
+579 http fetch GET 200 https://cdn.npmmirror.com/packages/punycode/2.3.1/punycode-2.3.1.tgz 745ms (cache miss)
+580 http fetch GET 200 https://cdn.npmmirror.com/packages/range-parser/1.2.0/range-parser-1.2.0.tgz 737ms (cache miss)
+581 http fetch GET 200 https://cdn.npmmirror.com/packages/balanced-match/1.0.2/balanced-match-1.0.2.tgz 737ms (cache miss)
+582 http fetch GET 200 https://cdn.npmmirror.com/packages/ansi-regex/6.1.0/ansi-regex-6.1.0.tgz 742ms (cache miss)
+583 http fetch GET 200 https://cdn.npmmirror.com/packages/path-to-regexp/3.3.0/path-to-regexp-3.3.0.tgz 737ms (cache miss)
+584 http fetch GET 200 https://cdn.npmmirror.com/packages/npm-run-path/4.0.1/npm-run-path-4.0.1.tgz 725ms (cache miss)
+585 http fetch GET 200 https://cdn.npmmirror.com/packages/merge-stream/2.0.0/merge-stream-2.0.0.tgz 724ms (cache miss)
+586 http fetch GET 200 https://cdn.npmmirror.com/packages/signal-exit/3.0.7/signal-exit-3.0.7.tgz 734ms (cache miss)
+587 http fetch GET 200 https://cdn.npmmirror.com/packages/mimic-fn/2.1.0/mimic-fn-2.1.0.tgz 745ms (cache miss)
+588 http fetch GET 200 https://cdn.npmmirror.com/packages/bytes/3.0.0/bytes-3.0.0.tgz 725ms (cache miss)
+589 http fetch GET 200 https://cdn.npmmirror.com/packages/get-stream/6.0.1/get-stream-6.0.1.tgz 739ms (cache miss)
+590 http fetch GET 200 https://cdn.npmmirror.com/packages/eastasianwidth/0.2.0/eastasianwidth-0.2.0.tgz 763ms (cache miss)
+591 http fetch GET 200 https://cdn.npmmirror.com/packages/cross-spawn/7.0.6/cross-spawn-7.0.6.tgz 743ms (cache miss)
+592 http fetch GET 200 https://cdn.npmmirror.com/packages/vary/1.1.2/vary-1.1.2.tgz 739ms (cache miss)
+593 http fetch GET 200 https://cdn.npmmirror.com/packages/path-key/3.1.1/path-key-3.1.1.tgz 760ms (cache miss)
+594 http fetch GET 200 https://cdn.npmmirror.com/packages/ms/2.0.0/ms-2.0.0.tgz 749ms (cache miss)
+595 http fetch GET 200 https://cdn.npmmirror.com/packages/safe-buffer/5.1.2/safe-buffer-5.1.2.tgz 746ms (cache miss)
+596 http fetch GET 200 https://cdn.npmmirror.com/packages/string-width/5.1.2/string-width-5.1.2.tgz 737ms (cache miss)
+597 http fetch GET 200 https://cdn.npmmirror.com/packages/deep-extend/0.6.0/deep-extend-0.6.0.tgz 779ms (cache miss)
+598 http fetch GET 200 https://cdn.npmmirror.com/packages/wrap-ansi/8.1.0/wrap-ansi-8.1.0.tgz 742ms (cache miss)
+599 http fetch GET 200 https://cdn.npmmirror.com/packages/accepts/1.3.8/accepts-1.3.8.tgz 747ms (cache miss)
+600 http fetch GET 200 https://cdn.npmmirror.com/packages/on-headers/1.0.2/on-headers-1.0.2.tgz 751ms (cache miss)
+601 http fetch GET 200 https://cdn.npmmirror.com/packages/widest-line/4.0.1/widest-line-4.0.1.tgz 745ms (cache miss)
+602 http fetch GET 200 https://cdn.npmmirror.com/packages/which/2.0.2/which-2.0.2.tgz 773ms (cache miss)
+603 http fetch GET 200 https://cdn.npmmirror.com/packages/compressible/2.0.18/compressible-2.0.18.tgz 754ms (cache miss)
+604 http fetch GET 200 https://cdn.npmmirror.com/packages/is-wsl/2.2.0/is-wsl-2.2.0.tgz 751ms (cache miss)
+605 http fetch GET 200 https://cdn.npmmirror.com/packages/mime-types/2.1.35/mime-types-2.1.35.tgz 758ms (cache miss)
+606 http fetch GET 200 https://cdn.npmmirror.com/packages/camelcase/7.0.1/camelcase-7.0.1.tgz 741ms (cache miss)
+607 http fetch GET 200 https://cdn.npmmirror.com/packages/ansi-align/3.0.1/ansi-align-3.0.1.tgz 740ms (cache miss)
+608 http fetch GET 200 https://cdn.npmmirror.com/packages/update-check/1.5.4/update-check-1.5.4.tgz 736ms (cache miss)
+609 http fetch GET 200 https://cdn.npmmirror.com/packages/is-port-reachable/4.0.0/is-port-reachable-4.0.0.tgz 738ms (cache miss)
+610 http fetch GET 200 https://cdn.npmmirror.com/packages/arch/2.2.0/arch-2.2.0.tgz 758ms (cache miss)
+611 http fetch GET 200 https://cdn.npmmirror.com/packages/serve-handler/6.1.6/serve-handler-6.1.6.tgz 747ms (cache miss)
+612 http fetch GET 200 https://cdn.npmmirror.com/packages/ansi-styles/4.3.0/ansi-styles-4.3.0.tgz 730ms (cache miss)
+613 http fetch GET 200 https://cdn.npmmirror.com/packages/color-convert/2.0.1/color-convert-2.0.1.tgz 836ms (cache miss)
+614 http fetch GET 200 https://cdn.npmmirror.com/packages/arg/5.0.2/arg-5.0.2.tgz 740ms (cache miss)
+615 http fetch GET 200 https://cdn.npmmirror.com/packages/chalk-template/0.4.0/chalk-template-0.4.0.tgz 745ms (cache miss)
+616 http fetch GET 200 https://cdn.npmmirror.com/packages/mime-types/2.1.18/mime-types-2.1.18.tgz 735ms (cache miss)
+617 http fetch GET 200 https://cdn.npmmirror.com/packages/ansi-regex/5.0.1/ansi-regex-5.0.1.tgz 738ms (cache miss)
+618 http fetch GET 200 https://cdn.npmmirror.com/packages/cli-boxes/3.0.0/cli-boxes-3.0.0.tgz 759ms (cache miss)
+619 http fetch GET 200 https://cdn.npmmirror.com/packages/require-from-string/2.0.2/require-from-string-2.0.2.tgz 757ms (cache miss)
+620 http fetch GET 200 https://cdn.npmmirror.com/packages/serve/14.2.4/serve-14.2.4.tgz 743ms (cache miss)
+621 http fetch GET 200 https://cdn.npmmirror.com/packages/compression/1.7.4/compression-1.7.4.tgz 751ms (cache miss)
+622 http fetch GET 200 https://cdn.npmmirror.com/packages/chalk/4.1.2/chalk-4.1.2.tgz 738ms (cache miss)
+623 http fetch GET 200 https://cdn.npmmirror.com/packages/boxen/7.0.0/boxen-7.0.0.tgz 748ms (cache miss)
+624 http fetch GET 200 https://cdn.npmmirror.com/packages/strip-ansi/6.0.1/strip-ansi-6.0.1.tgz 746ms (cache miss)
+625 http fetch GET 200 https://cdn.npmmirror.com/packages/string-width/4.2.3/string-width-4.2.3.tgz 743ms (cache miss)
+626 http fetch GET 200 https://cdn.npmmirror.com/packages/negotiator/0.6.3/negotiator-0.6.3.tgz 796ms (cache miss)
+627 http fetch GET 200 https://cdn.npmmirror.com/packages/mime-db/1.54.0/mime-db-1.54.0.tgz 798ms (cache miss)
+628 http fetch GET 200 https://cdn.npmmirror.com/packages/registry-auth-token/3.3.2/registry-auth-token-3.3.2.tgz 824ms (cache miss)
+629 http fetch GET 200 https://cdn.npmmirror.com/packages/emoji-regex/8.0.0/emoji-regex-8.0.0.tgz 764ms (cache miss)
+630 http fetch GET 200 https://cdn.npmmirror.com/packages/mime-db/1.52.0/mime-db-1.52.0.tgz 767ms (cache miss)
+631 http fetch GET 200 https://cdn.npmmirror.com/packages/mime-db/1.33.0/mime-db-1.33.0.tgz 765ms (cache miss)
+632 http fetch GET 200 https://cdn.npmmirror.com/packages/rc/1.2.8/rc-1.2.8.tgz 829ms (cache miss)
+633 http fetch GET 200 https://cdn.npmmirror.com/packages/fast-deep-equal/3.1.3/fast-deep-equal-3.1.3.tgz 782ms (cache miss)
+634 http fetch GET 200 https://cdn.npmmirror.com/packages/execa/5.1.1/execa-5.1.1.tgz 801ms (cache miss)
+635 http fetch GET 200 https://cdn.npmmirror.com/packages/human-signals/2.1.0/human-signals-2.1.0.tgz 815ms (cache miss)
+636 http fetch GET 200 https://cdn.npmmirror.com/packages/json-schema-traverse/1.0.0/json-schema-traverse-1.0.0.tgz 793ms (cache miss)
+637 http fetch GET 200 https://cdn.npmmirror.com/packages/emoji-regex/9.2.2/emoji-regex-9.2.2.tgz 844ms (cache miss)
+638 http fetch GET 200 https://cdn.npmmirror.com/packages/chalk/5.0.1/chalk-5.0.1.tgz 790ms (cache miss)
+639 http fetch GET 200 https://cdn.npmmirror.com/packages/%40zeit/schemas/2.36.0/schemas-2.36.0.tgz 797ms (cache miss)
+640 http fetch GET 200 https://cdn.npmmirror.com/packages/debug/2.6.9/debug-2.6.9.tgz 822ms (cache miss)
+641 http fetch GET 200 https://cdn.npmmirror.com/packages/minimist/1.2.8/minimist-1.2.8.tgz 864ms (cache miss)
+642 http fetch GET 200 https://cdn.npmmirror.com/packages/clipboardy/3.0.0/clipboardy-3.0.0.tgz 816ms (cache miss)
+643 http fetch GET 200 https://cdn.npmmirror.com/packages/uri-js/4.4.1/uri-js-4.4.1.tgz 861ms (cache miss)
+644 http fetch GET 200 https://cdn.npmmirror.com/packages/type-fest/2.19.0/type-fest-2.19.0.tgz 901ms (cache miss)
+645 http fetch GET 200 https://cdn.npmmirror.com/packages/ajv/8.12.0/ajv-8.12.0.tgz 1290ms (cache miss)
