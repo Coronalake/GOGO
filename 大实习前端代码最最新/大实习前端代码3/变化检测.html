@@ -46,6 +46,10 @@
         }
     </style>
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- PDF -->
+    <script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <script>
     /* ---------- 双年变化 GeoTIFF 地图（监听下拉框） ---------- */
@@ -449,10 +453,8 @@
             <p>监测范围：<span id="reportRange"></span></p>
                 <div class="export-options">
                     <label>导出格式：</label>
-                    <input type="checkbox" id="exportWord" checked> Word
                     <input type="checkbox" id="exportPdf" checked> PDF
                 </div>
-            </div>
             <button class="btn download-btn" id="downloadReport">下载结果报告</button>
         </div>
     </div>
@@ -462,5 +464,143 @@
     <script src="js/main.js"></script>
     <script src="js/charts.js"></script>
     <script src="js/monitor.js"></script>
+
+
+    <script>
+        /* ---------- 工具 ---------- */
+        const $ = sel => document.querySelector(sel);
+
+        /* ---------- 实时取值 ---------- */
+        function collectData () {
+            // 注意：用现有下拉框的 value 即可，不需要 selectedArea 变量
+            const regionCode = $('#dataType').value;
+            const startYear  = $('#startTimeSelect').value;
+            const endYear    = $('#endTimeSelect').value;
+            return {
+                regionCode, startYear, endYear,
+                title : $('#reportMainTitle').textContent.trim(),
+                imgUrl: $('#reportChart').style.backgroundImage
+                        .replace(/url\(["']?/, '')
+                        .replace(/["']?\)$/, '')
+            };
+        }
+
+        /* ---------- 高清文本 -> 图片 ---------- */
+        /* 支持自动换行的高清文本 -> 图片 */
+        function textToImg(text, fontSize = 18, bold = false) {
+        const dpr = 4;
+        const lineHeight = fontSize * 1.4;      // 行间距
+        const maxWidth = 500;                   // 一行最大宽度（像素）
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.font = `${bold ? 'bold ' : ''}${fontSize}px "Microsoft YaHei",SimSun,sans-serif`;
+
+        // 按空格/标点自动断句
+        const words = text.split('');
+        let line = '';
+        const lines = [];
+        for (let i = 0; i < words.length; i++) {
+            const testLine = line + words[i];
+            if (ctx.measureText(testLine).width > maxWidth && line !== '') {
+            lines.push(line);
+            line = words[i];
+            } else {
+            line = testLine;
+            }
+        }
+        lines.push(line);
+
+        const w = maxWidth + 40;                // 左右留 20px 边距
+        const h = lines.length * lineHeight + 20;
+        canvas.width  = w * dpr;
+        canvas.height = h * dpr;
+        ctx.scale(dpr, dpr);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = '#000000';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'top';
+        ctx.font = `${bold ? 'bold ' : ''}${fontSize}px "Microsoft YaHei",SimSun,sans-serif`;
+        lines.forEach((l, idx) => ctx.fillText(l, 20, 10 + idx * lineHeight));
+
+        return { dataURL: canvas.toDataURL('image/png'), w, h };
+        }
+
+        /* ---------- 读取 CSV 并匹配行 ---------- */
+        async function fetchCsvRow({ regionCode, startYear, endYear }) {
+            const res  = await fetch('Vegchange.csv'); // 换成实际路径
+            const text = await res.text();
+            const rows = text.trim().split(/\r?\n/).slice(1).map(r =>
+                r.split(/,/).map(s => s.replace(/^"|"$/g, ''))
+            );
+            const row = rows.find(r =>
+                r[0] === regionCode && r[2] === startYear && r[3] === endYear
+            );
+            if (!row) { alert('未找到对应数据！'); return null; }
+            const [, regionName, , , totalValue, totalTrend, addArea, redArea] = row;
+            return `在${startYear}至${endYear}年，位于云南省${regionName}地区，植被覆盖度变化整体趋势为${totalTrend}，为${totalValue}。其中增加面积为${addArea}平方公里，减少面积为${redArea}平方公里`;
+        }
+
+        /* ---------- 生成 PDF ---------- */
+        async function exportPdf () {
+            const data = collectData();
+            const descText = await fetchCsvRow(data);
+            if (!descText) return;
+
+            const { title, imgUrl } = data;
+            const pdf = new jspdf.jsPDF({ orientation: 'p', unit: 'pt', format: 'a4' });
+            const pageW = pdf.internal.pageSize.getWidth();
+            const pageH = pdf.internal.pageSize.getHeight();
+            const margin = 40;
+
+            /* 1. 高清标题 */
+            const { dataURL: titleImg, w: tw, h: th } = textToImg(title, 20, true);
+            const titleW = pageW - 2 * margin;
+            pdf.addImage(titleImg, 'PNG', margin, margin, titleW, th * (titleW / tw));
+
+            /* 2. 高清时间（左下角）*/
+            const { dataURL: footImg, w: fw, h: fh } = textToImg(
+                `报告生成时间：${new Date().toLocaleString('zh-CN')}`, 10
+            );
+            pdf.addImage(footImg, 'PNG', margin, pageH - 50, fw, fh);
+
+            /* 3. 图表（居中）*/
+            let imgBottom = margin + 60;   // 先给初始值
+            if (imgUrl) {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = imgUrl; });
+                const cvs = document.createElement('canvas');
+                const ctx = cvs.getContext('2d');
+                const maxW = pageW - 2 * margin;
+                const maxH = pageH - 300;
+                let w = img.width, h = img.height;
+                if (w > maxW) { h *= maxW / w; w = maxW; }
+                if (h > maxH) { w *= maxH / h; h = maxH; }
+                cvs.width = w * 4; cvs.height = h * 4;
+                ctx.scale(4, 4);
+                ctx.drawImage(img, 0, 0, w, h);
+                pdf.addImage(cvs.toDataURL('image/png'), 'PNG',
+                            (pageW - w) / 2, imgBottom, w, h);
+                imgBottom += h + 15;
+            }
+
+            /* 4. 描述文字（图表下方）*/
+            const { dataURL: descImg, w: dw, h: dh } = textToImg(descText, 12);
+            const descW = pageW - 2 * margin;
+            pdf.addImage(descImg, 'PNG', margin, imgBottom, descW, dh * (descW / dw));
+
+            /* 5. 保存 */
+            pdf.save(title.replace(/\s+/g, '_') + '.pdf');
+        }
+
+        /* ---------- 按钮绑定 ---------- */
+        $('#downloadReport').addEventListener('click', () => {
+            const needPdf = $('#exportPdf').checked;
+            if (needPdf) exportPdf();
+        });
+        </script>
+
+    
 </body>
 </html>

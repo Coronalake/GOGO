@@ -18,6 +18,7 @@ body {
 .container {
     width: 100%;
     padding: 20px;
+    padding-bottom: 0%;
 }
 
 /* 头部样式 */
@@ -98,10 +99,29 @@ main {
 }
 
 /* 面板样式 */
-.panel {
+.panel-left1 {
     background-color: white;
     border-radius: 10px;
     padding: 15px;
+    height: 180px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.panel-left2{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    height: 400px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.panel-right{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    height: 595px;
     margin-bottom: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -117,9 +137,13 @@ main {
 
 .filter-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: bold;
+    font-size: 14px;
+
+    color: #555;
 }
+
 
 .select-wrapper {
     position: relative;
@@ -127,12 +151,22 @@ main {
 }
 
 .select-wrapper select {
-    width: 100%;
-    padding: 8px 10px;
-    border: 1px solid #ddd;
+    width: 180px;
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    appearance: none;
-    background-size: 12px;
+    background-color: white;
+}
+
+.select-wrapper select:hover {
+    border-color: #999;
+}
+
+.select-wrapper select:focus {
+   border-color: #61acc1ff;
+    outline: none;
+    box-shadow: 0 0 3px rgba(101, 135, 102, 0.5);
+    
 }
 
 .select-group {
@@ -142,13 +176,14 @@ main {
     flex-wrap: wrap; /* 在小屏幕上允许换行 */
 }
 
+
 /* 省级下拉框样式 */
 #province-select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 100px; /* 省级下拉框宽度 */
+    width: 80px; /* 省级下拉框宽度 */
 }
 
 /* 市级下拉框样式 */
@@ -157,7 +192,7 @@ main {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 180px; /* 市级下拉框宽度 */
+    width: 70px; /* 市级下拉框宽度 */
 }
 
 /* 县级下拉框样式 */
@@ -166,24 +201,24 @@ main {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 150px; /* 县级下拉框宽度 */
+    width: 70px; /* 县级下拉框宽度 */
 }
 
 /* 搜索按钮样式 */
 #region-search-btn {
     padding: 8px 15px;
-    background-color: #4CAF50;
+    background-color: #61acc1ff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    width: 80px; /* 搜索按钮宽度 */
+    width: 60px; /* 搜索按钮宽度 */
     height: 36px; /* 搜索按钮高度 */
 }
 
 #region-search-btn:hover {
-    background-color: #45a049;
+    background-color: rgb(59, 109, 123);
 }
 
 /* 下拉框悬停效果 */
@@ -193,24 +228,65 @@ main {
 
 /* 下拉框聚焦效果 */
 .select-group select:focus {
-    border-color: #4CAF50;
+    border-color: #61acc1ff;
     outline: none;
     box-shadow: 0 0 3px rgba(101, 135, 102, 0.5);
 }
 
 /* 图表区域样式 */
-.chart {
-    margin-bottom: 20px;
+.chartl1{
+    height: 160px;
+    margin-bottom: 15px;
 }
-
-.chart:last-child {
-    margin-bottom: 20px;
+/* 图表尺寸 */
+#coveragePieChart {
+    height: 150px;
+    
 }
-
-.chart h3 {
+.chartl1 h3{
     font-size: 14px;
-    margin-bottom: 20px;
     color: #555;
+    margin-bottom: 5px;
+}
+
+
+.chartl2{
+    margin-top: 5px;
+    height: 150px;
+}
+.chartl2 h3{
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+.chart-right{
+    margin-top: 10px;
+}
+.chart-right h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+#coverageLineChart {
+    width: 100%;
+    height: 250px;
+}
+.error-msg {
+    color: #f44336;
+    text-align: center;
+    padding: 20px;
+}
+
+#regionBarChart {
+    width: 100%;
+    height: 170px;   /* 或你想要的任何高度 */
+    margin-top: 8px; /* 与标题留一点间距 */
+}
+
+#tempRainfallChart {
+  min-height: 240px;   
+  height: 240px;     
+  margin-bottom: 5px;
 }
 
 /* 地图样式 */
@@ -229,31 +305,36 @@ main {
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    color: #ffffff;
+    border: none;
 }
 
 .timeline-control input[type="range"] {
-    width: 90%;
-    margin-bottom: 5px;
+    width: 100%;
+    height: 5px;
+    margin-bottom: 0px;
+    accent-color: rgb(248, 244, 211);
+    border: none;
+    outline: none;
+    background: transparent;
+    
 }
-
+.timeline-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* 移除默认样式 */
+    appearance: none;
+    width: 6px; /* 缩小滑块大小 */
+    height: 12px;
+    border-radius: 50%;
+    background: #3498db; /* 滑块颜色 */
+    cursor: pointer;
+}
 .time-label {
     font-size: 14px;
-    color: #666;
+    color: #404040;
+    
 }
 
-/* 图表尺寸 */
-#coveragePieChart {
-    height: 160px;
-}
-
-#regionBarChart {
-    height: 160px;
-}
-
-#coverageLineChart {
-    height: 200px;
-}
 
 /* 模态框样式 */
 .modal {
@@ -395,6 +476,24 @@ main {
     margin-right: 5px;
 }
 /* 动态监测页 - 左侧筛选区 */
+.monitor-page .panel{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    height: 180px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.monitor-page .panel .chart{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    height: 180px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
 .monitor-page .left-section {
     width: 32%; 
     display: flex;
@@ -525,7 +624,7 @@ main {
     width:14px;
     height: 14px;
     display: inline-block;
-    border: 1px solid #ada5a5;
+    border: 1px solid #b4afaf;
 }
 .monitor-page .map {
     width: 100%;
@@ -615,26 +714,94 @@ main {
   background-color: #1d4ed8;
 }
 
-#coverageLineChart {
-    width: 100%;
-    height: 300px;
-    margin-top: 15px;
-}
-.error-msg {
-    color: #f44336;
-    text-align: center;
-    padding: 20px;
+
+
+/* 地图图例样式 */
+#mapLegend {
+  position: absolute;
+  bottom: 105px;
+  left: 410px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  z-index: 1000;
+  font-size: 12px;
 }
 
-#regionBarChart {
-    width: 100%;
-    height: 220px;   /* 或你想要的任何高度 */
-    margin-top: 8px; /* 与标题留一点间距 */
+.legend-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
 }
 
-#tempRainfallChart {
-  min-height: 260px;   /* 给折线图一个最小高度 */
-  height: 260px;       /* 固定高度也行，确保不被 flex/grid 挤扁 */
+.legend-gradient {
+  display: flex;
+  align-items: center;
+}
+
+.gradient-bar {
+  width: 20px;
+  height: 120px;
+  background: linear-gradient(to top, 
+    #C0392B 0%,   /* 0 - 0.2：红色（对应底部） */
+    #C0392B 20%,  
+    #FAA353 20%,   /* 0.2 - 0.4：橙色 */
+    #FAA353 40%,  
+    #AED6F1 40%,   /* 0.4 - 0.6：浅蓝 */
+    #AED6F1 60%,  
+    #2980B9 60%,   /* 0.6 - 0.8：蓝色 */
+    #2980B9 80%,  
+    #006422 80%,   /* 0.8 - 1.0：深绿（对应顶部） */
+    #006422 100%
+  );
+  border: 1px solid #ccc;
+  margin-right: 8px;
+}
+
+.legend-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 120px;
+}
+
+.legend-labels span {
+  line-height: 1;
+}
+
+/* 新增DEM图例样式 */
+#demLegend {
+  position: absolute;
+  bottom: 105px; 
+  left: 410px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  z-index: 1000;
+  font-size: 12px;
+}
+
+/* DEM渐变条（使用您提供的颜色配置） */
+.dem-gradient-bar {
+  width: 20px;
+  height: 120px;
+  background: linear-gradient(to top, 
+    rgba(0, 0, 0, 0) 0%,     /* 6m (透明) */
+    rgba(215, 25, 28, 1) 8%,  /* 500m */
+    rgba(253, 174, 97, 1) 16%, /* 1000m */
+    rgba(171, 217, 233, 1) 49%, /* 3000m */
+    rgba(44, 123, 182, 1) 81%,  /* 5000m */
+    rgba(0, 0, 0, 1) 100%      /* 6149m */
+  );
+  border: 1px solid #ccc;
+  margin-right: 8px;
+}
+
+/* 确保地图容器为定位基准 */
+#yunnanMap {
+  position: relative;
 }
 
 /* 响应式设计 */

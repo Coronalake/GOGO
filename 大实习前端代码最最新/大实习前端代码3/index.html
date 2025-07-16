@@ -39,7 +39,7 @@
 
       <main>
         <div class="left-section">
-          <div class="panel">
+          <div class="panel-left1">
             <div class="filter-group">
               <label>数据类型：</label>
               <div class="select-wrapper">
@@ -87,12 +87,12 @@
             </div>
           </div>
 
-          <div class="panel">
-            <div class="chart">
+          <div class="panel-left2">
+            <div class="chartl1">
               <h3>云南省不同等级植被覆盖度面积</h3>
               <div id="coveragePieChart"></div>
             </div>
-            <div class="chart">
+            <div class="chartl2">
               <h3>云南省平均植被覆盖度</h3>
               <div id="regionBarChart"></div>
             </div>
@@ -112,20 +112,50 @@
             />
             <div class="time-label">2020年</div>
           </div>
+          <!-- 添加图例 -->
+          <div id="mapLegend">
+            <div class="legend-title">植被覆盖度</div>
+            <div class="legend-gradient">
+              <div class="gradient-bar"></div>
+              <div class="legend-labels">
+                <span>高</span>
+                <span>中高</span>
+                <span>中</span>
+                <span>中低</span>
+                <span>低</span>
+              </div>
+            </div>
+          </div>
+           <!-- 新增DEM图例（位置在原有图例上方100px） -->
+  <div id="demLegend">
+    <div class="legend-title">DEM（m）</div>
+    <div class="legend-gradient">
+      <div class="dem-gradient-bar"></div>
+      <div class="legend-labels">
+        <span>6149</span>
+        <span>5000</span>
+        <span>3000</span>
+        <span>1000</span>
+        <span>500</span>
+        <span>0</span>
+      </div>
+    </div>
+  </div>
         </div>
 
         <div class="right-section">
-          <div class="panel">
-            <div class="chart">
+          <div class="panel-right">
+            <div class="chart-right">
               <h3>云南省十年温度变化和降水量</h3>
               <div
                 id="tempRainfallChart"
                 style="width: 100%; height: 250px"
               ></div>
-            </div>
-            <div class="chart">
               <h3>云南省十年平均植被覆盖度</h3>
               <div id="coverageLineChart"></div>
+            </div>
+            <div class="chart">
+              
             </div>
           </div>
         </div>
@@ -587,12 +617,12 @@
                 smooth: true,
                 symbol: "circle",
                 symbolSize: 6,
-                lineStyle: { width: 3, color: "#4CAF50" },
-                itemStyle: { color: "#4CAF50" },
+                lineStyle: { width: 3, color: "#61acc1ff" },
+                itemStyle: { color: "#f3ad5dff" },
                 areaStyle: {
                   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    { offset: 0, color: "rgba(76, 175, 80, 0.3)" },
-                    { offset: 1, color: "rgba(76, 175, 80, 0.1)" },
+                    { offset: 0, color: "#61acc1ff" },
+                    { offset: 1, color: '#fff' },
                   ]),
                 },
                 markPoint: {
@@ -622,6 +652,8 @@
       document.addEventListener("DOMContentLoaded", function () {
         initCoverageLineChart();
       });
+
+      
     </script>
     <script src="js/year-ragion.js"></script>
 
