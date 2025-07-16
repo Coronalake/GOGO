@@ -107,21 +107,6 @@ function updateTempRainChart() {
       );
     }
     
-    // 如果仍然没有数据，使用示例数据
-    if (filteredClimateData.length === 0) {
-      console.warn('没有找到任何数据，使用示例数据');
-      filteredClimateData = [
-        {region_name: '云南省', year: '2013', temp_mean: 15.2, pre_mean: 1045},
-        {region_name: '云南省', year: '2014', temp_mean: 15.5, pre_mean: 980},
-        {region_name: '云南省', year: '2015', temp_mean: 15.8, pre_mean: 1100},
-        {region_name: '云南省', year: '2016', temp_mean: 15.3, pre_mean: 1050},
-        {region_name: '云南省', year: '2017', temp_mean: 15.6, pre_mean: 1080},
-        {region_name: '云南省', year: '2018', temp_mean: 15.9, pre_mean: 1020},
-        {region_name: '云南省', year: '2019', temp_mean: 16.1, pre_mean: 990},
-        {region_name: '云南省', year: '2020', temp_mean: 15.7, pre_mean: 1070}
-      ];
-    }
-    
     console.log('过滤后数据条数:', filteredClimateData.length);
     
     // 按年份排序
@@ -145,8 +130,8 @@ function updateTempRainChart() {
     
     // 设置容器样式确保可见
     chartElement.style.width = '100%';
-    chartElement.style.height = '400px';
-    chartElement.style.minHeight = '300px';
+    chartElement.style.height = '250px';
+    chartElement.style.minHeight = '200px';
     
     // 初始化或重用图表实例
     let climateChart = echarts.getInstanceByDom(chartElement);
@@ -156,10 +141,6 @@ function updateTempRainChart() {
     
     // 设置图表选项
     const chartOptions = {
-      title: {
-        text: selectedRegion + '气温降水变化趋势',
-        left: 'center'
-      },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
