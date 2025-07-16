@@ -103,11 +103,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 获取参数
         const year = yearRange ? yearRange.value : '1';
-        const region = regionSelect.value;
-        
+        const regionText = regionSelect.options[regionSelect.selectedIndex].text;
+        const climateText = climateSelect.options[climateSelect.selectedIndex].text;
+
         // 更新报告标题
-        reportTitle.textContent = `${year}年${region}植被覆盖度预测结果图`;
-        
+        reportTitle.textContent = `${year}年云南省${regionText}${climateText}植被覆盖度预测折线图`;
+
         // 显示报告模态框
         reportModal.style.display = 'block';
       });
