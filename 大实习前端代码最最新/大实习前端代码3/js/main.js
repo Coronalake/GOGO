@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const climateText = climateSelect.options[climateSelect.selectedIndex].text;
 
         // 更新报告标题
-        reportTitle.textContent = `${year}年云南省${regionText}${climateText}植被覆盖度预测结果图`;
+        reportTitle.textContent = `${year}年云南省${regionText}${climateText}植被覆盖度预测折线图`;
 
         // 显示报告模态框
         reportModal.style.display = 'block';
