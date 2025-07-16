@@ -16,9 +16,8 @@
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
     <script src="js\tempRainfall.js"></script>
     <script src="js\coveragePieChart.js"></script>
-
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
       <header>
         <h1>云南省植被覆盖度监测系统</h1>
@@ -222,7 +221,7 @@
           let map, osmLayer, currentTifLayer;
           const minYear = 2013;
           const maxYear = 2022;
-          
+
           // ====== 1. 底图：OpenStreetMap ======
           osmLayer = new ol.layer.Tile({
             source: new ol.source.OSM(),
@@ -237,15 +236,15 @@
               zoom: 6,
             }),
           });
-          
+
           // ====== 3. 加载初始年份数据 ======
           const initialYear = "2020";
           loadVegetationLayer(initialYear);
-          
+
           // ====== 4. 时间滑块事件监听 ======
           const timeSlider = document.getElementById("timeSlider");
           const timeLabel = document.querySelector(".time-label");
-          
+
           timeSlider.addEventListener("input", function () {
             const year = this.value;
             timeLabel.textContent = `${year}年`;
@@ -258,10 +257,10 @@
             if (currentTifLayer) {
               map.removeLayer(currentTifLayer);
             }
-            
+
             // 创建新图层
             const tifPath = `tif/${year}fvc.tif`;
-            
+
             try {
               currentTifLayer = new ol.layer.WebGLTile({
                 source: new ol.source.GeoTIFF({
@@ -279,20 +278,26 @@
                     "interpolate",
                     ["linear"],
                     ["band", 1],
-                    0, [0, 0, 0, 0],      // 透明
-                    0.2, [215, 25, 28, 1], // 红色
-                    0.4, [253, 174, 97, 1], // 橙色
-                    0.6, [171, 217, 233, 1], // 浅蓝色
-                    0.8, [44, 123, 182, 1], // 蓝色
-                    1.0, [0, 68, 27, 1]     // 深绿色
-                  ]
+                    0,
+                    [0, 0, 0, 0], // 透明
+                    0.2,
+                    [215, 25, 28, 1], // 红色
+                    0.4,
+                    [253, 174, 97, 1], // 橙色
+                    0.6,
+                    [171, 217, 233, 1], // 浅蓝色
+                    0.8,
+                    [44, 123, 182, 1], // 蓝色
+                    1.0,
+                    [0, 68, 27, 1], // 深绿色
+                  ],
                 },
                 opacity: 1,
               });
-              
+
               // 添加到地图
               map.addLayer(currentTifLayer);
-              
+
               // 错误处理
               currentTifLayer.getSource().on("error", (error) => {
                 console.error("TIFF加载失败:", error);
@@ -315,7 +320,6 @@
                 .catch((error) => {
                   console.warn("无法获取图层范围:", error);
                 });
-                
             } catch (error) {
               console.error("创建图层失败:", error);
               document.getElementById("yunnanMap").innerHTML = `
@@ -454,5 +458,5 @@
       });
     </script>
     <script src="js/year-ragion.js"></script>
-</body>
+  </body>
 </html>
