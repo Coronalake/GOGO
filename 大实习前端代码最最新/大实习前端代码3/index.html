@@ -112,6 +112,35 @@
             />
             <div class="time-label">2020年</div>
           </div>
+          <!-- 添加图例 -->
+          <div id="mapLegend">
+            <div class="legend-title">植被覆盖度</div>
+            <div class="legend-gradient">
+              <div class="gradient-bar"></div>
+              <div class="legend-labels">
+                <span>高</span>
+                <span>中高</span>
+                <span>中</span>
+                <span>中低</span>
+                <span>低</span>
+              </div>
+            </div>
+          </div>
+           <!-- 新增DEM图例（位置在原有图例上方100px） -->
+  <div id="demLegend">
+    <div class="legend-title">DEM（m）</div>
+    <div class="legend-gradient">
+      <div class="dem-gradient-bar"></div>
+      <div class="legend-labels">
+        <span>6149</span>
+        <span>5000</span>
+        <span>3000</span>
+        <span>1000</span>
+        <span>500</span>
+        <span>0</span>
+      </div>
+    </div>
+  </div>
         </div>
 
         <div class="right-section">
