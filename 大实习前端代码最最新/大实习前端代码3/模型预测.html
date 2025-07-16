@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/geotiff"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@v10.6.0/dist/ol.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/ol@v10.6.0/ol.css"
+    />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>云南省植被覆盖度监测系统</title>
@@ -161,6 +168,222 @@
   <script src="js/prediction-chart.js"></script>
   <script src="js/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    window.addEventListener("load", function() {
+        // 天地图服务密钥
+        const tk = '5390a734e4ffa4d97e1973de13ed00bf';
+        
+        // 初始化底图
+        const tianditu_vec = new ol.layer.Tile({
+            source: new ol.source.XYZ({
+                url: `https://t0.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${tk}`,
+                crossOrigin: 'anonymous'
+            })
+        });
+
+        const tianditu_cva = new ol.layer.Tile({
+            source: new ol.source.XYZ({
+                url: `https://t0.tianditu.gov.cn/cva_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cva&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=${tk}`,
+                crossOrigin: 'anonymous'
+            })
+        });
+
+        // 初始化地图
+        const map = new ol.Map({
+            target: 'predictMap',
+            layers: [tianditu_vec, tianditu_cva],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([102.7, 25]), // 云南中心
+                zoom: 6
+            })
+        });
+
+        // 初始化变量
+        let currentTifLayer = null;
+        let cityVectorLayer = null; // 声明市级边界图层变量
+        let currentYear = 2023;
+        let currentScenario = '245';
+        
+        // 云南省全局范围
+        const yunnanExtent = ol.proj.transformExtent(
+            [97.5, 21.0, 106.2, 29.5], 
+            'EPSG:4326', 
+            'EPSG:3857'
+        );
+        
+        // 获取DOM元素
+        const climateSelect = document.getElementById('climateSelect');
+        const yearRange = document.getElementById('yearRange');
+        const rangeValue = document.getElementById('rangeValue');
+        const citySel = document.getElementById('regionSelect');  // 市级选择器
+
+        // 更新年份显示
+        function updateYearDisplay() {
+            rangeValue.textContent = `${currentYear} 年`;
+        }
+        
+        // 加载预测图层函数
+        function loadPredictionLayer() {
+            // 移除现有图层
+            if (currentTifLayer) {
+                map.removeLayer(currentTifLayer);
+            }
+            
+            // 构建文件路径
+            const tifPath = `model/ssp${currentScenario}/lai_ssp${currentScenario}_${currentYear}_7.tif`;
+            
+            try {
+                // 创建新图层
+                currentTifLayer = new ol.layer.WebGLTile({
+                    source: new ol.source.GeoTIFF({
+                        sources: [
+                            {
+                                url: tifPath,
+                                crossOrigin: "anonymous",
+                                nodata: 0,
+                            },
+                        ],
+                        normalize: false,
+                    }),
+                    style: {
+                        color: [
+                            "interpolate", ["linear"], ["band", 1],
+                            0, [0, 0, 0, 0],      // 透明
+                            150, [215, 25, 28, 1],   // 低 - 红色
+                            200, [253, 174, 97, 1],  // 中低 - 橙色
+                            250, [171, 217, 233, 1], // 中 - 浅蓝色
+                            300, [44, 123, 182, 1],  // 中高 - 蓝色
+                            500, [0, 68, 27, 1]     // 高 - 深绿色
+                        ]
+                    },
+                    
+                });
+
+                // 添加到地图
+                map.addLayer(currentTifLayer);
+                
+                // 错误处理
+                currentTifLayer.getSource().on("error", (error) => {
+                    console.error("TIFF加载失败:", error);
+                });
+
+                // 自适应视图 - 仅在未选择市级时执行
+                if (!cityVectorLayer) {
+                    currentTifLayer.getSource().getView()
+                        .then((extent) => {
+                            map.getView().fit(extent, { padding: [50, 50, 50, 50] });
+                        })
+                        .catch((error) => {
+                            console.warn("无法获取图层范围:", error);
+                        });
+                }
+                    
+            } catch (error) {
+                console.error("创建图层失败:", error);
+            }
+        }
+        
+        // 事件监听器
+        climateSelect.addEventListener('change', function() {
+            currentScenario = this.value;
+            loadPredictionLayer();
+        });
+        
+        yearRange.addEventListener('input', function() {
+            currentYear = parseInt(this.value);
+            updateYearDisplay();
+            loadPredictionLayer();
+        });
+        
+        // 加载市级边界函数
+        function loadCityVector() {
+            const cityCode = citySel.value;
+            const cityName = citySel.options[citySel.selectedIndex].text.trim();
+            
+            // 移除现有市级边界
+            if (cityVectorLayer) {
+                map.removeLayer(cityVectorLayer);
+                cityVectorLayer = null;
+            }
+            
+            // 清空选择
+            if (!cityCode) {
+                map.getView().fit(yunnanExtent, {
+                    padding: [50, 50, 50, 50],
+                    duration: 600
+                });
+                return;
+            }
+            
+            // 加载市级边界
+            const cityPath = `json/Shi/${cityName}.json`;
+            
+            try {
+                // 使用fetch加载GeoJSON数据
+                fetch(cityPath)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP错误! 状态码: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // 创建矢量源
+                        const vectorSource = new ol.source.Vector({
+                            features: new ol.format.GeoJSON().readFeatures(data, {
+                                dataProjection: 'EPSG:4326',
+                                featureProjection: 'EPSG:3857'
+                            })
+                        });
+                        
+                        // 创建矢量图层
+                        cityVectorLayer = new ol.layer.Vector({
+                            source: vectorSource,
+                            style: new ol.style.Style({
+                                stroke: new ol.style.Stroke({ 
+                                    color: '#ff0000', 
+                                    width: 2 
+                                }),
+                                fill: new ol.style.Fill({ 
+                                    color: 'rgba(255,0,0,0.1)' 
+                                })
+                            }),
+                            zIndex: 9999
+                        });
+
+                        map.addLayer(cityVectorLayer);
+                        
+                        // 缩放到市级范围
+                        const extent = vectorSource.getExtent();
+                        if (extent && extent[0] !== Infinity) {
+                            map.getView().fit(extent, {
+                                padding: [50, 50, 50, 50],
+                                duration: 600
+                            });
+                        } else {
+                            console.warn(`无法获取${cityName}的有效范围`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`加载${cityName}边界失败:`, error);
+                        alert(`无法加载${cityName}的边界数据，请检查文件路径: ${cityPath}`);
+                    });
+                
+            } catch (error) {
+                console.error(`创建${cityName}边界图层失败:`, error);
+            }
+        }
+        
+        // 添加市级选择监听 - 放在函数定义之后
+        citySel.addEventListener('change', loadCityVector);
+        
+        // 初始加载
+        updateYearDisplay();
+        loadPredictionLayer();
+    });
+</script>
+
   <script>
       // 内联加载prediction-chart.js内容作为临时解决方案
       console.log('正在加载预测图表功能...');
