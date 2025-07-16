@@ -33,7 +33,7 @@
         .monitor-page .panel:last-child {
             margin-top: 0; /* 移除默认上边距 */
             position: relative; /* 为微调做准备 */
-            top: -20px; /* 关键调整：向上移动20像素 */
+            top: -5px; /* 关键调整：向上移动20像素 */
         }
         
         .monitor-page .center-section {
@@ -202,7 +202,37 @@
                 <div class="panel">
                     <div class="chart">
                         <h3>云南省十年平均植被覆盖度变化趋势</h3>
-                        <div id="coveragePieChart"></div>
+                        <div id="coveragePieChart">
+                            <img src="trend_10yrs.png"
+                            style="width:100%;height:70%;">
+                            <div class="legend">
+                            <!-- 图例项 1 -->
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color:#C0C0C0;"></span>
+                                <span>无显著趋势</span>
+                            </div>
+                        <!-- 图例项 2 -->
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color:#FFA500;"></span>
+                        <span>显著增加</span>
+                        </div>
+                        <!-- 图例项 3 -->
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color:#FF0000;"></span>
+                        <span>极显著增加</span>
+                        </div>
+                        <!-- 图例项 4 -->
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color:#00BFFF;"></span>
+                        <span>显著减少</span>
+                        </div>
+                        <!-- 图例项 5 -->
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color:#0000FF;"></span>
+                        <span>极显著减少</span>
+                        </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
