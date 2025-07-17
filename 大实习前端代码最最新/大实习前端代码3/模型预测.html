@@ -719,6 +719,31 @@
       }
     }
 
+// 为取消按钮添加事件监听器
+document.querySelector('.cancel-btn').addEventListener('click', function() {
+    // 重置年份滑块到默认值
+    const yearRange = document.getElementById('yearRange');
+    yearRange.value = 2023; // 假设2023是默认年份，根据实际情况调整
+    document.getElementById('rangeValue').textContent = '2023 年';
+    
+    // 重置区域选择下拉框
+    const regionSelect = document.getElementById('regionSelect');
+    regionSelect.selectedIndex = 0; // 选择第一个选项
+    
+    // 重置气候情景选择
+    const climateSelect = document.getElementById('climateSelect');
+    climateSelect.selectedIndex = 0; // 选择第一个选项
+    
+    // 如果有其他需要重置的元素，在这里添加
+    
+    // 触发change事件以更新相关联的UI元素或数据
+    const changeEvent = new Event('change');
+    yearRange.dispatchEvent(changeEvent);
+    regionSelect.dispatchEvent(changeEvent);
+    climateSelect.dispatchEvent(changeEvent);
+    
+    console.log('所有设置已重置为默认值');
+});
 
 
 
