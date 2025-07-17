@@ -43,7 +43,7 @@
         <h3>预测参数设置</h3>
         <div class="form-group">
           <label>预测时间范围：</label>
-          <input type="range" min="2023" max="2053" value="1" step="1" class="year-range" data-unit="年" id="yearRange">
+          <input type="range" min="2023" max="2052" value="1" step="1" class="year-range" data-unit="年" id="yearRange">
           <span class="range-value" id="rangeValue">2023 年</span>
         </div>
         <div class="form-group">
@@ -76,16 +76,12 @@
           </select>
         </div>
         <div class="btn-group">
-          <button class="btn confirm-btn" id="predictConfirm">确认</button>
-          <button class="btn cancel-btn">取消</button>
+          <button class="btn confirm-btn" id="predictConfirm">生成报告</button>
+          <button class="btn cancel-btn">清空设置</button>
         </div>
       </div>
       <div class="map-panel">
         <div id="predictMap" class="map"></div>
-        <div class="map-controls">
-          <button class="map-btn" id="zoomIn">+</button>
-          <button class="map-btn" id="zoomOut">-</button>
-        </div>
       </div>
     </main>
   </div>
