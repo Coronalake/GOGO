@@ -62,16 +62,19 @@
 }
 
 /* 时间范围滑块 */
-.year-range {
+.predict-card .year-range {
   width: 100%;
   cursor: pointer;
+  color: #3498db;
+}
+.predict-card .year-range #yearRange{
+  color: #d49393;
 }
 
 .range-value {
   display: block;
   margin-top: 4px;
   margin-bottom: 20px;
-  
 }
 
 .range-label {
@@ -101,14 +104,14 @@
 }
 
 .confirm-btn {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #61acc1ff;
+  border-color: #61acc1ff;
   color: white;
 }
 
 .confirm-btn:hover {
-  background-color: #0069d9;
-  border-color: #0062cc;
+  background-color: rgb(72, 141, 160);
+  border-color: rgb(72, 141, 160);
 }
 
 .cancel-btn {
@@ -221,7 +224,7 @@
   width: 220px;
   margin: 5px auto 0;
   padding: 12px 20px;
-  background-color: #3498db;
+  background-color: #61acc1ff;
   color: white;
   border: none;
   border-radius: 6px;

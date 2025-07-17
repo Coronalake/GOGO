@@ -306,7 +306,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    color: #ffffff;
+    color: #747171;
     border: none;
 }
 
@@ -314,27 +314,15 @@ main {
     width: 100%;
     height: 5px;
     margin-bottom: 0px;
-    accent-color: rgb(248, 244, 211);
-    border: none;
+    accent-color: rgb(97, 172, 193);
     outline: none;
     background: transparent;
-    
-}
-.timeline-control input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; /* 移除默认样式 */
-    appearance: none;
-    width: 6px; /* 缩小滑块大小 */
-    height: 12px;
-    border-radius: 50%;
-    background: #3498db; /* 滑块颜色 */
-    cursor: pointer;
 }
 .time-label {
+    margin-top: 2px;
     font-size: 14px;
-    color: #404040;
-    
+    color: #3d3d3d;
 }
-
 
 /* 模态框样式 */
 .modal {
