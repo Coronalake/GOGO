@@ -660,8 +660,8 @@ main {
 /* 水平渐变条 + 横排数字 */
 #jiancelegend {
   position: absolute;
-  bottom: 105px;
-  left: 410px;
+  bottom: 85px;
+  left: 360px;
   background: rgba(255,255,255,0.6);
   padding: 8px 12px;
   border-radius: 4px;
