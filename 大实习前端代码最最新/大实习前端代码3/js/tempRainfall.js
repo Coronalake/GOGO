@@ -22,7 +22,7 @@ function updateTempRainChart() {
 
   console.log('请求区域：', selectedRegion);
 
-  fetch(`http://localhost:5000/api/climate_data?region_name=${encodeURIComponent(selectedRegion)}`)
+  fetch(`http://192.168.89.206:5000/api/climate_data?region_name=${encodeURIComponent(selectedRegion)}`)
     .then(response => {
       if (!response.ok) {
         throw new Error('网络响应错误');
