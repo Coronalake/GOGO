@@ -20,6 +20,23 @@
 </head>
 
 <body class="model-predict-page">
+
+
+<div id="yucelegend">
+    <div class="legend-title">预测值图例</div>
+    <div class="gradient-bar"></div>
+    <div class="labels-row">
+      <span>0</span>
+      <span>0.2</span>
+      <span>0.4</span>
+      <span>0.6</span>
+      <span>0.8</span>
+      <span>1</span>
+    </div>
+  </div>
+
+
+
   <div class="container">
     <!-- 头部导航 -->
     <header class="prototype-header">
@@ -43,7 +60,7 @@
         <h3>预测参数设置</h3>
         <div class="form-group">
           <label>预测时间范围：</label>
-          <input type="range" min="2023" max="2053" value="1" step="1" class="year-range" data-unit="年" id="yearRange">
+          <input type="range" min="2023" max="2052" value="1" step="1" class="year-range" data-unit="年" id="yearRange">
           <span class="range-value" id="rangeValue">2023 年</span>
         </div>
         <div class="form-group">
@@ -71,21 +88,17 @@
         <div class="form-group">
           <label>气候情景：</label>
           <select id="climateSelect">
-            <option value="4.5">SSP2-4.5</option>
-            <option value="8.5">SSP5-8.5</option>
+            <option value="245">SSP2-4.5</option>
+            <option value="585">SSP5-8.5</option>
           </select>
         </div>
         <div class="btn-group">
-          <button class="btn confirm-btn" id="predictConfirm">确认</button>
-          <button class="btn cancel-btn">取消</button>
+          <button class="btn confirm-btn" id="predictConfirm">生成报告</button>
+          <button class="btn cancel-btn">清空设置</button>
         </div>
       </div>
       <div class="map-panel">
         <div id="predictMap" class="map"></div>
-        <div class="map-controls">
-          <button class="map-btn" id="zoomIn">+</button>
-          <button class="map-btn" id="zoomOut">-</button>
-        </div>
       </div>
     </main>
   </div>
@@ -250,11 +263,14 @@
                         color: [
                             "interpolate", ["linear"], ["band", 1],
                             0, [0, 0, 0, 0],      // 透明
-                            150, [215, 25, 28, 1],   // 低 - 红色
-                            200, [253, 174, 97, 1],  // 中低 - 橙色
-                            250, [171, 217, 233, 1], // 中 - 浅蓝色
-                            300, [44, 123, 182, 1],  // 中高 - 蓝色
-                            500, [0, 68, 27, 1]     // 高 - 深绿色
+                            200, [215, 25, 28, 1],   // 低 - 红色
+                            300, [253, 174, 97, 1],  // 中低 - 橙色
+                            350, [171, 217, 233, 1], // 中 - 浅蓝色
+                            400, [44, 123, 182, 1],  // 中高 - 蓝色
+                            500, [0, 68, 27, 1],     // 高 - 深绿色
+                            501,[0,0,0,0],
+                            2147483647,[0,0,0,0]
+                            
                         ]
                     },
                     
@@ -460,6 +476,8 @@
           });
       }
   }
+
+
 
   // 模拟数据
   function generateMockData(endYear, regionName, scenario) {
@@ -720,6 +738,31 @@
       }
     }
 
+// 为取消按钮添加事件监听器
+document.querySelector('.cancel-btn').addEventListener('click', function() {
+    // 重置年份滑块到默认值
+    const yearRange = document.getElementById('yearRange');
+    yearRange.value = 2023; // 假设2023是默认年份，根据实际情况调整
+    document.getElementById('rangeValue').textContent = '2023 年';
+    
+    // 重置区域选择下拉框
+    const regionSelect = document.getElementById('regionSelect');
+    regionSelect.selectedIndex = 0; // 选择第一个选项
+    
+    // 重置气候情景选择
+    const climateSelect = document.getElementById('climateSelect');
+    climateSelect.selectedIndex = 0; // 选择第一个选项
+    
+    // 如果有其他需要重置的元素，在这里添加
+    
+    // 触发change事件以更新相关联的UI元素或数据
+    const changeEvent = new Event('change');
+    yearRange.dispatchEvent(changeEvent);
+    regionSelect.dispatchEvent(changeEvent);
+    climateSelect.dispatchEvent(changeEvent);
+    
+    console.log('所有设置已重置为默认值');
+});
 
 
 

@@ -224,6 +224,7 @@ main {
 /* 下拉框悬停效果 */
 .select-group select:hover {
     border-color: #e3e2e2;
+    border-color: #e3e2e2;
 }
 
 /* 下拉框聚焦效果 */
@@ -481,7 +482,7 @@ main {
   position: absolute;
   bottom: 105px;
   left: 410px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.6);
   padding: 8px 12px;
   border-radius: 4px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
@@ -499,21 +500,16 @@ main {
   display: flex;
   align-items: center;
 }
-
 .gradient-bar {
   width: 20px;
   height: 120px;
-  background: linear-gradient(to top, 
-    #C0392B 0%,   /* 0 - 0.2：红色（对应底部） */
-    #C0392B 20%,  
-    #FAA353 20%,   /* 0.2 - 0.4：橙色 */
-    #FAA353 40%,  
-    #AED6F1 40%,   /* 0.4 - 0.6：浅蓝 */
-    #AED6F1 60%,  
-    #2980B9 60%,   /* 0.6 - 0.8：蓝色 */
-    #2980B9 80%,  
-    #006422 80%,   /* 0.8 - 1.0：深绿（对应顶部） */
-    #006422 100%
+  background: linear-gradient(
+    to top,
+    #C0392B   0%,   /* 底端红色 */
+    #FAA353  40%,   /* 橙色 */
+    #AED6F1  60%,   /* 浅蓝 */
+    #2980B9  80%,   /* 蓝色 */
+    #006422 100%    /* 顶端深绿 */
   );
   border: 1px solid #ccc;
   margin-right: 8px;
@@ -530,12 +526,62 @@ main {
   line-height: 1;
 }
 
+/* 地貌图例：仅改颜色，其余与原图例完全一致 */
+#landformLegend {
+  position: absolute;
+  bottom: 105px;
+  left: 410px;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  font-size: 12px;
+}
+
+#landformLegend .legend-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+#landformLegend .legend-gradient {
+  display: flex;
+  align-items: center;
+}
+
+/* 竖条高度 120px，5 段等高纯色 */
+#landformLegend .gradient-bar {
+  width: 20px;
+  height: 120px;
+  background: linear-gradient(
+    to bottom,
+    rgb(220 220 100) 0%   20%,
+    rgb(30  60 130) 20%  40%,
+    rgb(173 216 230) 40%  60%,
+    rgb(60  120 190) 60%  80%,
+    rgb(255 170 128) 80% 100%
+  );
+  border: 1px solid #999;
+  border-radius: 2px;
+}
+
+#landformLegend .legend-labels {
+  margin-left: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 120px;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
 /* 新增DEM图例样式 */
 #demLegend {
   position: absolute;
   bottom: 105px; 
   left: 410px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.6);
   padding: 8px 12px;
   border-radius: 4px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
@@ -562,6 +608,137 @@ main {
 /* 确保地图容器为定位基准 */
 #yunnanMap {
   position: relative;
+}
+
+/* jiancelegend 专用渐变图例 */
+#jiancelegend {
+  position: absolute;
+  bottom: 105px;
+  left: 410px;
+  background: rgba(255,255,255,0.8);
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  font-size: 12px;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  width: 220px;          /* 控制总宽 */
+}
+
+#jiancelegend .legend-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+/* 水平渐变条 */
+#jiancelegend .gradient-bar {
+  height: 20px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgb(244,227,215) 0%,
+    rgba(0,0,0,0)    14.29%,
+    rgb(44,123,128)  28.57%,
+    rgb(122,174,214) 42.86%,
+    rgb(169,205,224) 57.14%,
+    rgb(254,246,213) 71.43%,
+    rgb(232,110,48)  100%
+  );
+  border: 1px solid #999;
+  border-radius: 2px;
+}
+
+/* 水平渐变条 + 横排数字 */
+#jiancelegend {
+  position: absolute;
+  bottom: 85px;
+  left: 360px;
+  background: rgba(255,255,255,0.6);
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  font-size: 12px;
+  user-select: none;
+  width: 220px;           /* 控制总宽 */
+}
+
+#jiancelegend .legend-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+#jiancelegend .gradient-bar {
+  height: 20px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgb(244,227,215) 0%,
+    rgba(0,0,0,0)    14.29%,
+    rgb(44,123,128)  28.57%,
+    rgb(122,174,214) 42.86%,
+    rgb(169,205,224) 57.14%,
+    rgb(254,246,213) 71.43%,
+    rgb(232,110,48)  100%
+  );
+  border: 1px solid #999;
+  border-radius: 2px;
+  position: relative;         /* 让 label 以它为基准 */
+}
+
+#jiancelegend .labels-row {
+  display: flex;
+  justify-content: space-between;   /* 7 个标签均匀铺满 */
+  position: relative;
+  margin-top: 2px;
+  font-size: 11px;
+}
+
+/* yucelegend 专用水平渐变图例 */
+#yucelegend {
+  position: absolute;
+  bottom: 105px;
+  left: 410px;
+  background: rgba(255,255,255,0.6);
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  font-size: 12px;
+  width: 220px;
+}
+
+#yucelegend .legend-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+#yucelegend .gradient-bar {
+  height: 20px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgb(215 25 28)   20%,
+    rgb(253 174 97)  40%,
+    rgb(171 217 233) 60%,
+    rgb(44 123 182)  80%,
+    rgb(0 68 27)     100%
+  );
+  border: 1px solid #999;
+  border-radius: 2px;
+}
+
+#yucelegend .labels-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+  font-size: 11px;
 }
 
 /* 响应式设计 */
