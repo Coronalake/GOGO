@@ -71,7 +71,7 @@
   function updateBar() {
     const year = getCurrentYear();
     const region = getCurrentRegion();
-    const { city, county } = region;   // ✅ 解构出 county
+    const { city, county } = region;  
     const data = buildSeries(year, region);
 
     if (!data.length) {
