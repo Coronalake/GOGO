@@ -118,7 +118,7 @@ align-items: flex-start; /* 顶部对齐 */
     box-shadow: 0 2px 4px rgba(0,150,199,0.2); 
 }
 .btn-group .confirm-btn:hover {
-    background-color: #0086b3; 
+    background-color: rgb(72, 141, 160); 
     transform: translateY(-1px); 
 }
 
@@ -255,10 +255,10 @@ align-items: flex-start; /* 顶部对齐 */
 .export-options input {
   margin-right: 5px;
 }
-.download-btn {
+.report-info .download-btn {
   width: 100%;
   padding: 12px;
-  background-color: #2563eb;
+  background-color: #61acc1ff;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -267,7 +267,7 @@ align-items: flex-start; /* 顶部对齐 */
   transition: background-color 0.3s;
 }
 .download-btn:hover {
-  background-color: #1d4ed8;
+  background-color: rgb(72, 141, 160);
 }
 
 /* 地图图例样式 */
