@@ -499,21 +499,16 @@ main {
   display: flex;
   align-items: center;
 }
-
 .gradient-bar {
   width: 20px;
   height: 120px;
-  background: linear-gradient(to top, 
-    #C0392B 0%,   /* 0 - 0.2：红色（对应底部） */
-    #C0392B 20%,  
-    #FAA353 20%,   /* 0.2 - 0.4：橙色 */
-    #FAA353 40%,  
-    #AED6F1 40%,   /* 0.4 - 0.6：浅蓝 */
-    #AED6F1 60%,  
-    #2980B9 60%,   /* 0.6 - 0.8：蓝色 */
-    #2980B9 80%,  
-    #006422 80%,   /* 0.8 - 1.0：深绿（对应顶部） */
-    #006422 100%
+  background: linear-gradient(
+    to top,
+    #C0392B   0%,   /* 底端红色 */
+    #FAA353  40%,   /* 橙色 */
+    #AED6F1  60%,   /* 浅蓝 */
+    #2980B9  80%,   /* 蓝色 */
+    #006422 100%    /* 顶端深绿 */
   );
   border: 1px solid #ccc;
   margin-right: 8px;
@@ -704,7 +699,48 @@ main {
   font-size: 11px;
 }
 
+/* yucelegend 专用水平渐变图例 */
+#yucelegend {
+  position: absolute;
+  bottom: 105px;
+  left: 410px;
+  background: rgba(255,255,255,0.6);
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  font-size: 12px;
+  width: 220px;
+}
 
+#yucelegend .legend-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+#yucelegend .gradient-bar {
+  height: 20px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgb(215 25 28)   20%,
+    rgb(253 174 97)  40%,
+    rgb(171 217 233) 60%,
+    rgb(44 123 182)  80%,
+    rgb(0 68 27)     100%
+  );
+  border: 1px solid #999;
+  border-radius: 2px;
+}
+
+#yucelegend .labels-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+  font-size: 11px;
+}
 
 /* 响应式设计 */
 @media (max-width: 1200px) {
