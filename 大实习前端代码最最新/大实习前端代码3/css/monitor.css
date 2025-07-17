@@ -5,14 +5,13 @@ align-items: flex-start; /* 顶部对齐 */
 }
 .monitor-page .center-section {
     height: 600px;
-    
 }
 
 .left-section {
     width: 32%; 
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 15px;
 }
 
 /* 动态监测页 - 左侧筛选区 */
@@ -28,20 +27,23 @@ align-items: flex-start; /* 顶部对齐 */
     background-color: white;
     border-radius: 10px;
     padding: 15px;
-    height: 270px;
+    height: 290px;
     margin-bottom: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.panel .chart{
-    background-color: white;
-    border-radius: 10px;
-    padding: 15px;
-    height: 180px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.panell2 .chart1 h3{
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+.panell2 .chart1{
+     display: flex;
+     flex-direction: column;
+}
+.panell2 .chart1 .chart-content{
+    height: 80px;
 
 }
-
 /* 筛选面板容器 */
 .left-section > .panel:first-child {
     padding: 20px; 
@@ -129,17 +131,16 @@ align-items: flex-start; /* 顶部对齐 */
 .btn-group .cancel-btn:hover {
     background-color: #f1f5f9; 
 }
-
-
-
-.chart h3 {
-    font-size: 15px;
-    color: #334155;
-    margin-bottom: 12px;
-    padding-left: 4px;
+.monitor-page #coveragePieChart {
+    width: 100%;
+    height: 180px;
+    margin-bottom: 16px; 
+    border-radius: 6px;
+    background-color: #ffffff; 
+    border: 1px solid #e2e8f0;
 }
 
-#coveragePieChart,
+
 .monitor-page #regionBarChart {
     width: 100%;
     height: 333px;
@@ -267,5 +268,49 @@ align-items: flex-start; /* 顶部对齐 */
 }
 .download-btn:hover {
   background-color: #1d4ed8;
+}
+
+/* 地图图例样式 */
+.panell2 .legend-gradient {
+  height: 30px;  
+  flex-direction: column;
+}
+
+
+/* 标题（单独一行，居中） */
+.panell2 .legend-title {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 5px;
+}
+#mapLegend2 {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  width: fit-content; /* 宽度跟随内容 */
+}
+
+/* 横向渐变条（核心修改） */
+.panell2 .gradient-bar {
+  width: 120px;  /* 横向长度 */
+  height: 30px;  /* 横向高度 */
+  background: linear-gradient(to right, /* 从左到右渐变 */
+    #C0392B 0%,   /* 低（左） */
+    #FAA353 20%,  /* 中低 */
+    #AED6F1 40%,  /* 中 */
+    #2980B9 60%,  /* 中高 */
+    #006422 80%   /* 高（右） */
+  );
+  border: 1px solid #ccc;
+}
+
+/* 横向标签（核心修改） */
+.panell2 .legend-labels {
+  display: flex;
+  flex-direction: row;     
+  align-items: center;      
+  width: 120px;  
+  font-size: 12px;           
 }
 
