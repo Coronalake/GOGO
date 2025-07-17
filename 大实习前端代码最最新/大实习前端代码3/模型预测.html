@@ -20,6 +20,23 @@
 </head>
 
 <body class="model-predict-page">
+
+
+<div id="yucelegend">
+    <div class="legend-title">植被覆盖度预测值</div>
+    <div class="gradient-bar"></div>
+    <div class="labels-row">
+      <span>0</span>
+      <span>0.2</span>
+      <span>0.4</span>
+      <span>0.6</span>
+      <span>0.8</span>
+      <span>1</span>
+    </div>
+  </div>
+
+
+
   <div class="container">
     <!-- 头部导航 -->
     <header class="prototype-header">
@@ -459,6 +476,8 @@
           });
       }
   }
+
+
 
   // 模拟数据
   function generateMockData(endYear, regionName, scenario) {

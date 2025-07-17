@@ -34,6 +34,11 @@
           legendDEM.style.display = 'block';
           legendland.style.display= 'none';
           break;
+          case '3': // 植被类型
+          legendVeg.style.display = 'none';
+          legendDEM.style.display = 'none';
+          legendland.style.display= 'none';
+          break;
          case '4': // 地貌类型
           legendland.style.display= 'block';
           legendVeg.style.display = 'none';
