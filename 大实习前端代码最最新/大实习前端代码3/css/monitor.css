@@ -107,7 +107,7 @@ align-items: flex-start; /* 顶部对齐 */
     justify-content: center;
     align-items: center;
     flex: 1;
-    font-size: 15px; 
+    font-size: 17px; 
     border-radius: 6px;
     transition: all 0.2s ease; 
 }

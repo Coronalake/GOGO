@@ -286,8 +286,8 @@
                         </select>
                     </div>
                     <div class="btn-group">
-                        <button class="btn confirm-btn">确认</button>
-                        <button class="btn cancel-btn">取消</button>
+                        <button class="btn confirm-btn">生成报告</button>
+                        <button class="btn cancel-btn">清空设置</button>
                     </div>
                 </div>
 
@@ -446,6 +446,34 @@
     <script src="js/charts.js"></script>
     <script src="js/monitor.js"></script>
 
+    <script>
+        // 为取消按钮添加点击事件监听器
+        document.querySelector('.cancel-btn').addEventListener('click', function() {
+            // 重置开始时间选择框
+            document.getElementById('startTimeSelect').selectedIndex = 0;
+            
+            // 重置结束时间选择框
+            document.getElementById('endTimeSelect').selectedIndex = 0;
+            
+            // 重置数据类型选择框
+            document.getElementById('dataType').selectedIndex = 2022;
+            
+            // 清空结果区域（如果有的话）
+            const resultArea = document.getElementById('detect-result');
+            if (resultArea) {
+                resultArea.innerHTML = '';
+            }
+            
+            // 隐藏可能显示的图表或结果
+            const resultPanel = document.querySelector('.panel2');
+            if (resultPanel) {
+                resultPanel.style.display = 'none';
+            }
+            
+            console.log('所有设置已重置为默认值');
+        });
+
+    </script>
 
     <script>
         /* ---------- 工具 ---------- */

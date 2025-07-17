@@ -176,14 +176,13 @@ main {
     flex-wrap: wrap; /* 在小屏幕上允许换行 */
 }
 
-
 /* 省级下拉框样式 */
 #province-select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 80px; /* 省级下拉框宽度 */
+    width: 75px; /* 省级下拉框宽度 */
 }
 
 /* 市级下拉框样式 */
@@ -192,7 +191,7 @@ main {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 70px; /* 市级下拉框宽度 */
+    width: 75px; /* 市级下拉框宽度 */
 }
 
 /* 县级下拉框样式 */
@@ -201,7 +200,7 @@ main {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    width: 70px; /* 县级下拉框宽度 */
+    width: 85px; /* 县级下拉框宽度 */
 }
 
 /* 搜索按钮样式 */
@@ -689,8 +688,8 @@ main {
 /* yucelegend 专用水平渐变图例 */
 #yucelegend {
   position: absolute;
-  bottom: 105px;
-  left: 410px;
+  bottom: 90px;
+  left: 430px;
   background: rgba(255,255,255,0.6);
   padding: 8px 12px;
   border-radius: 4px;
