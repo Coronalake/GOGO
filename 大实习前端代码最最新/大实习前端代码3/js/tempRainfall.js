@@ -71,6 +71,7 @@ function updateTempRainChart() {
           bottom: '15%',
           top: '15%',
           containLabel: true
+          
         },
         yAxis: [
           {
