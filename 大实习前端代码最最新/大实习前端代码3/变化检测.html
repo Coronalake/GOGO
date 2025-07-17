@@ -212,6 +212,11 @@
 
 <body class="monitor-page">
     <!-- 保持原有的完整HTML结构不变 -->
+
+<div style="position: absolute; top: 682px; left: 770px; text-align: center; font-size: 12px; color: #626161; pointer-events: none;">
+  数据来源 DOI: 10.34133/remotesensing.0101
+</div>
+
     <div class="container">
         <header>
             <h1>云南省植被覆盖度监测系统</h1>
@@ -441,10 +446,10 @@
             document.getElementById('startTimeSelect').selectedIndex = 0;
             
             // 重置结束时间选择框
-            document.getElementById('endTimeSelect').selectedIndex = 0;
+            document.getElementById('endTimeSelect').selectedIndex = 9;
             
             // 重置数据类型选择框
-            document.getElementById('dataType').selectedIndex = 2022;
+            document.getElementById('dataType').selectedIndex = " ";
             
             // 清空结果区域（如果有的话）
             const resultArea = document.getElementById('detect-result');
