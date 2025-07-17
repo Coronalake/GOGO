@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
             '530400': [ // 玉溪市
                 {code: '530402', name: '红塔区'},
                 {code: '530403', name: '江川区'},
-                {code: '530422', name: '澄江县'},
+                {code: '530422', name: '澄江市'},
                 {code: '530423', name: '通海县'},
                 {code: '530424', name: '华宁县'},
                 {code: '530425', name: '易门县'},
