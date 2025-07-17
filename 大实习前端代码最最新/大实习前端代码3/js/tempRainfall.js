@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+    searchButton.addEventListener('click', updateTempRainChart);
+  }
+});
+
 function updateTempRainChart() {
   const citySelector = document.getElementById('city-select');
   const countySelector = document.getElementById('county-select');
@@ -88,10 +92,63 @@ function updateTempRainChart() {
             name: '降水量(mm)',
             position: 'right',
             axisLine: {
+          },
+          {
+            type: 'value',
+            name: '降水量(mm)',
+            position: 'right',
+            axisLine: {
             lineStyle: {
               color: '#61acc1ff'
             }
           }
+          }
+        ],
+        series: [
+          {
+            name: '平均气温',
+            type: 'line',
+            yAxisIndex: 0,
+            data: tempValues,
+            smooth: true,
+            symbol: 'circle',
+            symbolSize: 6,
+            lineStyle: {
+              width: 3,
+              color: '#f3ad5dff'
+            },
+            itemStyle: {
+              color: '#f3ad5dff'
+            }
+          },
+          {
+            name: '平均降水量',
+            type: 'line',
+            yAxisIndex: 1,
+            data: rainValues,
+            smooth: true,
+            symbol: 'circle',
+            symbolSize: 6,
+            lineStyle: {
+              width: 3,
+              color: '#61acc1ff'
+            },
+            itemStyle: {
+              color: '#61acc1ff'
+            },
+            areaStyle: {
+              opacity: 0.2,
+              color: '#61acc1ff'
+            }
+          }
+        ]
+      };
+
+      chartInstance.setOption(option);
+    })
+    .catch(err => {
+      console.error('获取并渲染气候数据失败:', err);
+    });
           }
         ],
         series: [

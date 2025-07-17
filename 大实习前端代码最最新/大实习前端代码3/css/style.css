@@ -224,6 +224,7 @@ main {
 /* 下拉框悬停效果 */
 .select-group select:hover {
     border-color: #e3e2e2;
+    border-color: #e3e2e2;
 }
 
 /* 下拉框聚焦效果 */
@@ -579,8 +580,6 @@ main {
   font-size: 11px;
   line-height: 1.2;
 }
-
-
 
 /* 新增DEM图例样式 */
 #demLegend {
