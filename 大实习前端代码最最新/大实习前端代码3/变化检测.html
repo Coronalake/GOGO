@@ -2,49 +2,16 @@
 <html lang="zh-CN">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/geotiff"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/ol@v10.6.0/dist/ol.js"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/ol@v10.6.0/ol.css"
     />
+    <link rel="stylesheet" href="css/monitor.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>云南省植被覆盖度监测系统</title>
-    <style>
-        /* 新增的精准布局调整CSS */
-        .monitor-page main {
-            display: flex;
-            height: calc(100vh - 150px); /* 保持原有高度计算 */
-            align-items: flex-start; /* 顶部对齐 */
-        }
-        
-        .monitor-page .left-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between; /* 两端对齐 */
-            height: 100%; /* 与右边同高 */
-        }
-        
-        .monitor-page .panel:first-child {
-            margin-bottom: 10px; /* 控制上下间距 */
-        }
-        
-        .monitor-page .panel:last-child {
-            margin-top: 0; /* 移除默认上边距 */
-            position: relative; /* 为微调做准备 */
-            top: -5px; /* 关键调整：向上移动20像素 */
-        }
-        
-        .monitor-page .center-section {
-            height: 100%; /* 与左边同高 */
-        }
-        
-        /* 确保饼图容器保持原有高度 */
-        .monitor-page #coveragePieChart {
-            height: 320px; /* 保持原有高度 */
-        }
-    </style>
+    
     <link rel="stylesheet" href="css/style.css">
 
     <!-- PDF -->
@@ -263,7 +230,7 @@
 
         <main>
             <div class="left-section">
-                <div class="panel">
+                <div class="panell1">
                     <div class="filter-group">
                         <label>选择监督区域：</label>
                         <div class="select-wrapper">
@@ -324,7 +291,7 @@
                     </div>
                 </div>
 
-                <div class="panel">
+                <div class="panell2">
                     <div class="chart">
                         <h3>云南省十年平均植被覆盖度变化趋势</h3>
                         <div id="coveragePieChart">
@@ -336,27 +303,27 @@
                                 <span class="legend-color" style="background-color:#C0C0C0;"></span>
                                 <span>无显著趋势</span>
                             </div>
-                        <!-- 图例项 2 -->
-                        <div class="legend-item">
-                            <span class="legend-color" style="background-color:#FFA500;"></span>
-                        <span>显著增加</span>
-                        </div>
-                        <!-- 图例项 3 -->
-                        <div class="legend-item">
-                            <span class="legend-color" style="background-color:#FF0000;"></span>
-                        <span>极显著增加</span>
-                        </div>
-                        <!-- 图例项 4 -->
-                        <div class="legend-item">
-                            <span class="legend-color" style="background-color:#00BFFF;"></span>
-                        <span>显著减少</span>
-                        </div>
-                        <!-- 图例项 5 -->
-                        <div class="legend-item">
-                            <span class="legend-color" style="background-color:#0000FF;"></span>
-                        <span>极显著减少</span>
-                        </div>
-                        </div>
+                            <!-- 图例项 2 -->
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color:#FFA500;"></span>
+                                <span>显著增加</span>
+                            </div>
+                            <!-- 图例项 3 -->
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color:#FF0000;"></span>
+                             <span>极显著增加</span>
+                            </div>
+                            <!-- 图例项 4 -->
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color:#00BFFF;"></span>
+                            <span>显著减少</span>
+                            </div>
+                            <!-- 图例项 5 -->
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color:#0000FF;"></span>
+                            <span>极显著减少</span>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -367,6 +334,20 @@
             </div>
         </main>
     </div>
+
+   <div id="jiancelegend">
+  <div class="legend-title">双年植被覆盖度差值</div>
+  <div class="gradient-bar"></div>
+  <div class="labels-row">
+    <span>-1</span>
+    <span>0</span>
+    <span>0.05</span>
+    <span>0.1</span>
+    <span>0.15</span>
+    <span>0.3</span>
+    <span>1.0</span>
+  </div>
+</div>
 
     <!-- 保持所有弹窗和脚本完全不变 -->
     <!-- 登录弹窗 -->
