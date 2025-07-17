@@ -34,7 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
     reportTime.textContent = new Date().toLocaleString(); // 格式：2023/10/15 14:30:00
 
     // 动态加载对应图片
-    const imageUrl = `pic/report-chart/${selectedArea}-${startYear}-${endYear}.jpg`;
+    const areaCode = areaSelect.value;                 // 实际下拉框 value
+    const areaText = areaSelect.options[areaSelect.selectedIndex].text; // 中文名
+    // 如果你想用中文名做文件名：
+    const imageUrl = `pic/report-chart/${areaText}-${startYear}-${endYear}.jpg`;
     reportChart.style.backgroundImage = `url('${imageUrl}')`;
 
     // 处理图片加载失败

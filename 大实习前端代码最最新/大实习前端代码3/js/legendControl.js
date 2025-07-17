@@ -12,7 +12,7 @@
     const select = document.getElementById('dataType');
     const legendVeg = document.getElementById('mapLegend');
     const legendDEM = document.getElementById('demLegend');
-
+    const legendland =document.getElementById('landformLegend');
     // 初始状态
     updateLegend(select.value);
 
@@ -27,10 +27,17 @@
         case '1': // 植被覆盖度
           legendVeg.style.display = 'block';
           legendDEM.style.display = 'none';
+          legendland.style.display= 'none';
           break;
         case '2': // 地形
           legendVeg.style.display = 'none';
           legendDEM.style.display = 'block';
+          legendland.style.display= 'none';
+          break;
+         case '4': // 地貌类型
+          legendland.style.display= 'block';
+          legendVeg.style.display = 'none';
+          legendDEM.style.display = 'none';
           break;
         default:  // 植被类型、地貌类型等
           legendVeg.style.display = 'none';
