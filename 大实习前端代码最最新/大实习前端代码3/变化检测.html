@@ -81,83 +81,83 @@
 
         // 加载函数
         function loadDiffLayer() {
-    const startYear = startSel.value;
-    const endYear = endSel.value;
-    
-    if (+startYear > +endYear) return;
-    
-    // 1. 打开遮罩
-    const loadingMask = document.getElementById('loadingMask');
-    loadingMask.style.display = 'flex';
-    
-    // 移除旧图层
-    if (currentTifLayer) map.removeLayer(currentTifLayer);
-    
-    // 2. 先调用后端生成 TIFF 文件
-    const generateUrl = `http://192.168.89.206:5000/api/fvc-diff?start=${startYear}&end=${endYear}`;
-    
-    fetch(generateUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`生成失败: ${response.statusText}`);
-            }
-            return response.blob();
-        })
-        .then(blob => {
-            // 3. 生成完成后加载图层
-            const blobUrl = URL.createObjectURL(blob);
+            const startYear = startSel.value;
+            const endYear = endSel.value;
             
-            currentTifLayer = new ol.layer.WebGLTile({
-                source: new ol.source.GeoTIFF({
-                    sources: [{ 
-                        url: blobUrl, 
-                        crossOrigin: 'anonymous' 
-                    }],
-                    normalize: false,
-                    projection: 'EPSG:32648' // 确保投影一致
-                }),
-                style: {
-                    color: [
-                        'interpolate', ['linear'], ['band', 1],
-                        -1, [244, 227, 215, 1], // 淡橙
-                        0,   [0, 0, 0, 0], 
-                        0.05, [44, 123, 128, 1],
-                        0.1, [122, 174, 214, 1],
-                        0.15, [169, 205, 224, 1],
-                        0.3,  [254, 246, 213, 1],
-                        1.0,  [232, 110, 48, 1] // 柔橙
-                    ]
-                }
-            });
+            if (+startYear > +endYear) return;
             
-            map.addLayer(currentTifLayer);
+            // 1. 打开遮罩
+            const loadingMask = document.getElementById('loadingMask');
+            loadingMask.style.display = 'flex';
             
-            // 自适应范围
-            currentTifLayer.getSource().getView()
-                .then(ext => map.getView().fit(ext, { padding: [20, 20, 20, 20] }))
-                .catch(err => console.warn('无法自适应范围:', err));
+            // 移除旧图层
+            if (currentTifLayer) map.removeLayer(currentTifLayer);
             
-            // 错误处理
-            currentTifLayer.getSource().on('error', e => {
-                document.getElementById('yunnanMap').innerHTML = `
-                    <div class="map-error">
-                    <p>双年变化数据加载失败</p>
-                    <p>${e.message}</p>
-                    <p>请确认文件路径: ${generateUrl}</p>
-                    </div>`;
-            });
+            // 2. 先调用后端生成 TIFF 文件
+            const generateUrl = `http://192.168.89.206:5000/api/fvc-diff?start=${startYear}&end=${endYear}`;
             
-            console.log('已加载图层', currentTifLayer);
-        })
-        .catch(error => {
-            console.error('生成TIFF失败:', error);
-            alert(`生成植被覆盖度变化图失败: ${error.message}`);
-        })
-        .finally(() => {
-            // 4. 无论成功失败，都关闭遮罩
-            loadingMask.style.display = 'none';
-        });
-}
+            fetch(generateUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`生成失败: ${response.statusText}`);
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    // 3. 生成完成后加载图层
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    currentTifLayer = new ol.layer.WebGLTile({
+                        source: new ol.source.GeoTIFF({
+                            sources: [{ 
+                                url: blobUrl, 
+                                crossOrigin: 'anonymous' 
+                            }],
+                            normalize: false,
+                            projection: 'EPSG:32648' // 确保投影一致
+                        }),
+                        style: {
+                            color: [
+                                'interpolate', ['linear'], ['band', 1],
+                                -1, [244, 227, 215, 1], // 淡橙
+                                0,   [0, 0, 0, 0], 
+                                0.05, [44, 123, 128, 1],
+                                0.1, [122, 174, 214, 1],
+                                0.15, [169, 205, 224, 1],
+                                0.3,  [254, 246, 213, 1],
+                                1.0,  [232, 110, 48, 1] // 柔橙
+                            ]
+                        }
+                    });
+                    
+                    map.addLayer(currentTifLayer);
+                    
+                    // 自适应范围
+                    currentTifLayer.getSource().getView()
+                        .then(ext => map.getView().fit(ext, { padding: [20, 20, 20, 20] }))
+                        .catch(err => console.warn('无法自适应范围:', err));
+                    
+                    // 错误处理
+                    currentTifLayer.getSource().on('error', e => {
+                        document.getElementById('yunnanMap').innerHTML = `
+                            <div class="map-error">
+                            <p>双年变化数据加载失败</p>
+                            <p>${e.message}</p>
+                            <p>请确认文件路径: ${generateUrl}</p>
+                            </div>`;
+                    });
+                    
+                    console.log('已加载图层', currentTifLayer);
+                })
+                .catch(error => {
+                    console.error('生成TIFF失败:', error);
+                    alert(`生成植被覆盖度变化图失败: ${error.message}`);
+                })
+                .finally(() => {
+                    // 4. 无论成功失败，都关闭遮罩
+                    loadingMask.style.display = 'none';
+                });
+        }
 
         // 加载市级边界函数
         function loadCityVector() {
@@ -237,6 +237,24 @@
                 console.error(`创建${cityName}边界图层失败:`, error);
             }
         }
+        
+        document.querySelector('.cancel-btn').addEventListener('click', () => {
+            // 1. 重置下拉框
+            document.getElementById('dataType').value = '';
+
+            // 2. 移除市级边界图层
+            if (cityVectorLayer) {
+                map.removeLayer(cityVectorLayer);
+                cityVectorLayer = null;
+            }
+
+            // 3. 缩放到云南省全局
+            map.getView().fit(yunnanExtent, {
+                padding: [50, 50, 50, 50],
+                duration: 600
+            });
+        });
+
     });
 </script>
 
