@@ -36,23 +36,9 @@ let coverageDataByYear = {};
 
 // 加载CSV数据
 function loadCoverageData() {
-  console.log('开始加载植被覆盖度CSV数据');
-  fetch('fvcclassstats.csv')
-    .then(response => {
-      console.log('CSV响应状态:', response.status);
-      return response.text();
-    })
-    .then(csvData => {
-      console.log('CSV数据已获取，长度:', csvData.length);
-      // 解析CSV数据
-      const parsedData = parseCSV(csvData);
-      coverageData = parsedData;
-      console.log('植被覆盖度数据加载成功，数据条数:', coverageData.length);
-      // 初始加载时显示图表
-      updateCoveragePieChart();
-    })
-    .catch(error => console.error('加载植被覆盖度数据失败:', error));
+  updateCoveragePieChart(); // 初始化加载图表（调用已修改的函数）
 }
+
 
 // 解析CSV数据
 function parseCSV(csvText) {
@@ -94,168 +80,133 @@ function parseCSV(csvText) {
 
 // 更新植被覆盖度饼图
 function updateCoveragePieChart() {
-  console.log('开始更新植被覆盖度饼图');
-  
-  // 如果数据未加载，则退出
-  if (coverageData.length === 0) {
-    console.error('植被覆盖度数据尚未加载');
-    return;
-  }
-  
-  // 获取当前选择的年份
   const timeSlider = document.getElementById('timeSlider');
-  const currentYear = timeSlider ? timeSlider.value : '2020';
-  console.log('当前选择的年份:', currentYear);
-  
-  // 如果没有当前年份的数据，使用最近的年份
-  if (!coverageDataByYear[currentYear]) {
-    const availableYears = Object.keys(coverageDataByYear).map(Number).sort();
-    const closestYear = availableYears.reduce((prev, curr) => 
-      Math.abs(curr - currentYear) < Math.abs(prev - currentYear) ? curr : prev
-    );
-    console.warn(`未找到${currentYear}年的数据，使用${closestYear}年的数据`);
-    currentYear = closestYear.toString();
-  }
-  
-  // 获取用户选择的地区
+  let currentYear = timeSlider ? timeSlider.value : '2020';
+
   const citySelect = document.getElementById('city-select');
   const countySelect = document.getElementById('county-select');
-  
+
   let selectedRegion = '云南省';
-  let selectedLevel = 1; // 省级默认为1
-  
-  // 如果选择了县
+  let selectedLevel = 1;
+
   if (countySelect && countySelect.value) {
-    const countyName = countySelect.options[countySelect.selectedIndex].text;
-    selectedRegion = countyName;
-    selectedLevel = 3; // 县级
+    selectedRegion = countySelect.options[countySelect.selectedIndex].text;
+    selectedLevel = 3;
+  } else if (citySelect && citySelect.value) {
+    selectedRegion = citySelect.options[citySelect.selectedIndex].text;
+    selectedLevel = 2;
   }
-  // 如果选择了市但没选县
-  else if (citySelect && citySelect.value) {
-    const cityName = citySelect.options[citySelect.selectedIndex].text;
-    selectedRegion = cityName;
-    selectedLevel = 2; // 市级
-  }
-  
-  console.log('选中区域:', selectedRegion, '级别:', selectedLevel);
-  
-  // 过滤当前年份的数据
-  let filteredData = [];
-  if (coverageDataByYear[currentYear]) {
-    filteredData = coverageDataByYear[currentYear].filter(item => 
-      item.region_name === selectedRegion && item.level === selectedLevel
-    );
-  }
-  
-  // 如果没有匹配数据，使用云南省数据
-  if (filteredData.length === 0) {
-    console.warn(`未找到${selectedRegion}的数据，使用云南省数据`);
-    filteredData = coverageDataByYear[currentYear].filter(item => 
-      item.region_name === '云南省' && item.level === 1
-    );
-  }
-  
-  console.log('过滤后数据条数:', filteredData.length);
-  
-  // 计算各等级面积和总面积
-  const coverageLevels = {};
-  let totalArea = 0;
-  
-  filteredData.forEach(item => {
-    if (!coverageLevels[item.fvc_level]) {
-      coverageLevels[item.fvc_level] = {
-        name: getLevelName(item.fvc_level),
-        value: 0
-      };
-    }
-    coverageLevels[item.fvc_level].value += item.area_km2;
-    totalArea += item.area_km2;
-  });
-  
-  // 转换为饼图数据格式
-  const pieData = Object.values(coverageLevels);
-  
-  // 如果没有数据，则不更新图表
-  if (pieData.length === 0 || totalArea === 0) {
-    console.warn('没有足够的数据来生成饼图');
-    return;
-  }
-  
-  console.log('饼图数据:', pieData);
-  
-  // 创建图表
-  const chartDom = document.getElementById('coveragePieChart');
-  if (!chartDom) {
-    console.error('未找到图表容器元素');
-    return;
-  }
-  
-  // 初始化或重用图表实例
-  let myChart = echarts.getInstanceByDom(chartDom);
-  if (!myChart) {
-    myChart = echarts.init(chartDom);
-  }
-  
-  // 定义颜色映射
-  const colorMap = {
-    '低': '#E5F5E0',
-    '中低': '#8cc3d2ff',
-    '中': '#61acc1ff',
-    '中高': '#47899bff',
-    '高': '#f3ad5dff'
-  };
-  
-  // 提取颜色数组，与pieData顺序一致
-  const colors = pieData.map(item => colorMap[item.name] || '#CCCCCC');
-  
-  // 设置图表选项
-  const option = {
-    tooltip: {
-      trigger: 'item',
-      formatter: '{a} <br/>{b}: {c} km² ({d}%)'
-    },
-    legend: {
-      orient: 'horizontal',
-      bottom: 10,
-      data: pieData.map(item => item.name)
-    },
-    series: [
-      {
-        name: '植被覆盖度',
-        type: 'pie',
-        radius: ['35%', '60%'], // 环形图
-        avoidLabelOverlap: false,
-        top:0,
-        bottom:10,
-        label: {
-          show: true,
-          formatter: '{b}: {d}%'
-        },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: '14',
-            fontWeight: 'bold'
-          }
-        },
-        labelLine: {
-          show: true
-        },
-        data: pieData,
-        color: colors
+
+  console.log('请求区域:', selectedRegion, '级别:', selectedLevel, '年份:', currentYear);
+  // 对区域名称进行URL编码
+  const encodedRegion = encodeURIComponent(selectedRegion);
+
+  // 请求后端数据
+  fetch(`http://192.168.89.206:5000/api/fvc-summary?year=${currentYear}&region_name=${encodedRegion}&level=${selectedLevel}`)
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(errData => {
+          throw new Error(`后端错误: ${errData.error || response.statusText}`);
+        });
       }
-    ]
-  };
-  
-  // 渲染图表
-  myChart.setOption(option);
-  
-  // 窗口大小变化时调整图表大小
-  window.addEventListener('resize', function() {
-    myChart.resize();
-  });
-  
-  console.log('植被覆盖度饼图已更新');
+      return response.json();
+    })
+    .then(initialData => {
+      // 确保数据是数组
+      if (!Array.isArray(initialData)) {
+        console.warn('后端返回的不是数组:', initialData);
+        
+        // 尝试回退到云南省
+        return fetch(`http://192.168.89.206:5000/api/fvc-summary?year=${currentYear}&region_name=云南省&level=1`)
+          .then(res => res.json());
+      }
+      return initialData; // ✅ 关键修复：返回原始数据
+    })
+    .then(pieData => {
+      // ✅ 添加调试日志
+      console.log('接收到的饼图数据:', pieData);
+      
+      if (!pieData || pieData.length === 0) {
+        console.warn('饼图数据为空，终止绘图');
+        return;
+      }
+      
+      if (!Array.isArray(pieData)) {
+        console.warn('后端返回的不是数组:', pieData);
+        return;
+      }
+      
+      // 定义颜色映射
+      const colorMap = {
+        '低': '#E5F5E0',
+        '中低': '#8cc3d2ff',
+        '中': '#61acc1ff',
+        '中高': '#47899bff',
+        '高': '#f3ad5dff'
+      };
+
+      const colors = pieData.map(item => colorMap[item.name] || '#CCCCCC');
+
+      const chartDom = document.getElementById('coveragePieChart');
+      if (!chartDom) return;
+      
+      let myChart = echarts.getInstanceByDom(chartDom);
+      if (!myChart) myChart = echarts.init(chartDom);
+
+      // ✅ 确保数据有值属性
+      const chartData = pieData.map(item => ({
+        name: item.name,
+        value: item.value
+      }));
+
+      const option = {
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} km² ({d}%)'
+        },
+        legend: {
+          orient: 'horizontal',
+          bottom: 10,
+          data: chartData.map(item => item.name)
+        },
+        series: [
+          {
+            name: '植被覆盖度',
+            type: 'pie',
+            radius: ['35%', '60%'],
+            avoidLabelOverlap: false,
+            top: 0,
+            bottom: 10,
+            label: {
+              show: true,
+              formatter: '{b}: {d}%'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '14',
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: { show: true },
+            data: chartData, // ✅ 使用处理后的数据
+            color: colors
+          }
+        ]
+      };
+
+      myChart.setOption(option);
+      window.addEventListener('resize', function() {
+        myChart.resize();
+      });
+      
+      // ✅ 添加成功日志
+      console.log('饼图成功渲染');
+    })
+    .catch(err => {
+      console.error('获取饼图数据失败:', err);
+      // ✅ 可以在这里显示错误提示给用户
+    });
 }
 
 // 获取覆盖度等级的名称

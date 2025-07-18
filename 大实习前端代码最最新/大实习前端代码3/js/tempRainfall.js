@@ -22,7 +22,7 @@ function updateTempRainChart() {
 
   console.log('请求区域：', selectedRegion);
 
-  fetch(`http://localhost:5000/api/climate_data?region_name=${encodeURIComponent(selectedRegion)}`)
+  fetch(`http://192.168.89.206:5000/api/climate_data?region_name=${encodeURIComponent(selectedRegion)}`)
     .then(response => {
       if (!response.ok) {
         throw new Error('网络响应错误');
@@ -71,7 +71,7 @@ function updateTempRainChart() {
           bottom: '15%',
           top: '15%',
           containLabel: true
-          
+
         },
         yAxis: [
           {
@@ -79,20 +79,20 @@ function updateTempRainChart() {
             name: '温度(°C)',
             position: 'left',
             axisLine: {
-            lineStyle: {
-              color: '#f3ad5dff'
+              lineStyle: {
+                color: '#f3ad5dff'
+              }
             }
-          }
           },
           {
             type: 'value',
             name: '降水量(mm)',
             position: 'right',
             axisLine: {
-            lineStyle: {
-              color: '#61acc1ff'
+              lineStyle: {
+                color: '#61acc1ff'
+              }
             }
-          }
           }
         ],
         series: [
