@@ -1,16 +1,21 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import psycopg2
+from psycopg2.extras import RealDictCursor
+import logging
+import json
 
 app = Flask(__name__)
-CORS(app)  # ✅ 解决跨域问题，一定要写在 app 创建之后
+app.config['JSON_AS_ASCII'] = False  # 禁用ASCII编码，允许直接显示中文
+CORS(app)
+
 
 # PostgreSQL 连接配置（根据你实际情况修改）
 conn = psycopg2.connect(
     dbname='fvcdb',
     user='postgres',
     password='123456',
-    host='localhost',
+    host='192.168.89.206',
     port='5432'
 )
 
@@ -33,4 +38,4 @@ def get_climate_data():
     return jsonify(data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

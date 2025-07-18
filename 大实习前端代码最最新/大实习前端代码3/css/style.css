@@ -218,7 +218,7 @@ main {
 }
 
 #region-search-btn:hover {
-    background-color: rgb(59, 109, 123);
+    background-color: rgb(72, 141, 160);
 }
 
 /* 下拉框悬停效果 */
@@ -307,7 +307,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    color: #ffffff;
+    color: #747171;
     border: none;
 }
 
@@ -315,27 +315,15 @@ main {
     width: 100%;
     height: 5px;
     margin-bottom: 0px;
-    accent-color: rgb(248, 244, 211);
-    border: none;
+    accent-color: rgb(97, 172, 193);
     outline: none;
     background: transparent;
-    
-}
-.timeline-control input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; /* 移除默认样式 */
-    appearance: none;
-    width: 6px; /* 缩小滑块大小 */
-    height: 12px;
-    border-radius: 50%;
-    background: #3498db; /* 滑块颜色 */
-    cursor: pointer;
 }
 .time-label {
+    margin-top: 2px;
     font-size: 14px;
-    color: #404040;
-    
+    color: #3d3d3d;
 }
-
 
 /* 模态框样式 */
 .modal {
@@ -500,21 +488,16 @@ main {
   display: flex;
   align-items: center;
 }
-
 .gradient-bar {
   width: 20px;
   height: 120px;
-  background: linear-gradient(to top, 
-    #C0392B 0%,   /* 0 - 0.2：红色（对应底部） */
-    #C0392B 20%,  
-    #FAA353 20%,   /* 0.2 - 0.4：橙色 */
-    #FAA353 40%,  
-    #AED6F1 40%,   /* 0.4 - 0.6：浅蓝 */
-    #AED6F1 60%,  
-    #2980B9 60%,   /* 0.6 - 0.8：蓝色 */
-    #2980B9 80%,  
-    #006422 80%,   /* 0.8 - 1.0：深绿（对应顶部） */
-    #006422 100%
+  background: linear-gradient(
+    to top,
+    #C0392B   0%,   /* 底端红色 */
+    #FAA353  40%,   /* 橙色 */
+    #AED6F1  60%,   /* 浅蓝 */
+    #2980B9  80%,   /* 蓝色 */
+    #006422 100%    /* 顶端深绿 */
   );
   border: 1px solid #ccc;
   margin-right: 8px;
@@ -563,9 +546,9 @@ main {
     to bottom,
     rgb(220 220 100) 0%   20%,
     rgb(30  60 130) 20%  40%,
-    rgb(173 216 230) 40%  60%,
+    rgb(10 70 240) 40%  60%,
     rgb(60  120 190) 60%  80%,
-    rgb(255 170 128) 80% 100%
+    rgb(255 215 180) 80% 100%
   );
   border: 1px solid #999;
   border-radius: 2px;
@@ -703,7 +686,48 @@ main {
   font-size: 11px;
 }
 
+/* yucelegend 专用水平渐变图例 */
+#yucelegend {
+  position: absolute;
+  bottom: 105px;
+  left: 410px;
+  background: rgba(255,255,255,0.6);
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  font-size: 12px;
+  width: 220px;
+}
 
+#yucelegend .legend-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+#yucelegend .gradient-bar {
+  height: 20px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgb(215 25 28)   20%,
+    rgb(253 174 97)  40%,
+    rgb(171 217 233) 60%,
+    rgb(44 123 182)  80%,
+    rgb(0 68 27)     100%
+  );
+  border: 1px solid #999;
+  border-radius: 2px;
+}
+
+#yucelegend .labels-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+  font-size: 11px;
+}
 
 /* 响应式设计 */
 @media (max-width: 1200px) {
