@@ -94,7 +94,7 @@
             if (currentTifLayer) map.removeLayer(currentTifLayer);
             
             // 2. 先调用后端生成 TIFF 文件
-            const generateUrl = `http://192.168.89.206:5000/api/fvc-diff?start=${startYear}&end=${endYear}`;
+            const generateUrl = `http://192.168.230.206:5000/api/fvc-diff?start=${startYear}&end=${endYear}`;
             
             fetch(generateUrl)
                 .then(response => {
