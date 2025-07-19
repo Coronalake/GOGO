@@ -102,7 +102,7 @@ function updateCoveragePieChart() {
   const encodedRegion = encodeURIComponent(selectedRegion);
 
   // 请求后端数据
-  fetch(`http://192.168.89.206:5000/api/fvc-summary?year=${currentYear}&region_name=${encodedRegion}&level=${selectedLevel}`)
+  fetch(`http://192.168.230.206:5000/api/fvc-summary?year=${currentYear}&region_name=${encodedRegion}&level=${selectedLevel}`)
     .then(response => {
       if (!response.ok) {
         return response.json().then(errData => {
@@ -117,7 +117,7 @@ function updateCoveragePieChart() {
         console.warn('后端返回的不是数组:', initialData);
         
         // 尝试回退到云南省
-        return fetch(`http://192.168.89.206:5000/api/fvc-summary?year=${currentYear}&region_name=云南省&level=1`)
+        return fetch(`http://192.168.230.206:5000/api/fvc-summary?year=${currentYear}&region_name=云南省&level=1`)
           .then(res => res.json());
       }
       return initialData; // ✅ 关键修复：返回原始数据
